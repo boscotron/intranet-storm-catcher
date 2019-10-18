@@ -1,985 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main-apps-seminuevos-seminuevos-module"],{
 
-/***/ "./node_modules/@angular/material/esm2015/slider.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@angular/material/esm2015/slider.js ***!
-  \**********************************************************/
-/*! exports provided: MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSlider */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatSliderModule", function() { return MatSliderModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_SLIDER_VALUE_ACCESSOR", function() { return MAT_SLIDER_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatSliderChange", function() { return MatSliderChange; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatSlider", function() { return MatSlider; });
-/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/cdk/a11y */ "./node_modules/@angular/cdk/esm2015/a11y.js");
-/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/bidi */ "./node_modules/@angular/cdk/esm2015/bidi.js");
-/* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/coercion */ "./node_modules/@angular/cdk/esm2015/coercion.js");
-/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm2015/keycodes.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm2015/core.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
- * the default separation we chose.
- * @type {?}
- */
-const MIN_AUTO_TICK_SEPARATION = 30;
-/**
- * The thumb gap size for a disabled slider.
- * @type {?}
- */
-const DISABLED_THUMB_GAP = 7;
-/**
- * The thumb gap size for a non-active slider at its minimum value.
- * @type {?}
- */
-const MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
-/**
- * The thumb gap size for an active slider at its minimum value.
- * @type {?}
- */
-const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
-/**
- * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)] and [formControl].
- * \@docs-private
- * @type {?}
- */
-const MAT_SLIDER_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["forwardRef"])((/**
-     * @return {?}
-     */
-    () => MatSlider)),
-    multi: true
-};
-/**
- * A simple change event emitted by the MatSlider component.
- */
-class MatSliderChange {
-}
-// Boilerplate for applying mixins to MatSlider.
-/**
- * \@docs-private
- */
-class MatSliderBase {
-    /**
-     * @param {?} _elementRef
-     */
-    constructor(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-}
-/** @type {?} */
-const _MatSliderMixinBase = Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_6__["mixinTabIndex"])(Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_6__["mixinColor"])(Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_6__["mixinDisabled"])(MatSliderBase), 'accent'));
-/**
- * Allows users to select from a range of values by moving the slider thumb. It is similar in
- * behavior to the native `<input type="range">` element.
- */
-class MatSlider extends _MatSliderMixinBase {
-    /**
-     * @param {?} elementRef
-     * @param {?} _focusMonitor
-     * @param {?} _changeDetectorRef
-     * @param {?} _dir
-     * @param {?} tabIndex
-     * @param {?=} _animationMode
-     */
-    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _animationMode) {
-        super(elementRef);
-        this._focusMonitor = _focusMonitor;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._dir = _dir;
-        this._animationMode = _animationMode;
-        this._invert = false;
-        this._max = 100;
-        this._min = 0;
-        this._step = 1;
-        this._thumbLabel = false;
-        this._tickInterval = 0;
-        this._value = null;
-        this._vertical = false;
-        /**
-         * Event emitted when the slider value has changed.
-         */
-        this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
-        /**
-         * Event emitted when the slider thumb moves.
-         */
-        this.input = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
-        /**
-         * Emits when the raw value of the slider changes. This is here primarily
-         * to facilitate the two-way binding for the `value` input.
-         * \@docs-private
-         */
-        this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
-        /**
-         * onTouch function registered via registerOnTouch (ControlValueAccessor).
-         */
-        this.onTouched = (/**
-         * @return {?}
-         */
-        () => { });
-        this._percent = 0;
-        /**
-         * Whether or not the thumb is sliding.
-         * Used to determine if there should be a transition for the thumb and fill track.
-         */
-        this._isSliding = false;
-        /**
-         * Whether or not the slider is active (clicked or sliding).
-         * Used to shrink and grow the thumb as according to the Material Design spec.
-         */
-        this._isActive = false;
-        /**
-         * The size of a tick interval as a percentage of the size of the track.
-         */
-        this._tickIntervalPercent = 0;
-        /**
-         * The dimensions of the slider.
-         */
-        this._sliderDimensions = null;
-        this._controlValueAccessorChangeFn = (/**
-         * @return {?}
-         */
-        () => { });
-        /**
-         * Subscription to the Directionality change EventEmitter.
-         */
-        this._dirChangeSubscription = rxjs__WEBPACK_IMPORTED_MODULE_8__["Subscription"].EMPTY;
-        this.tabIndex = parseInt(tabIndex) || 0;
-    }
-    /**
-     * Whether the slider is inverted.
-     * @return {?}
-     */
-    get invert() { return this._invert; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set invert(value) {
-        this._invert = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceBooleanProperty"])(value);
-    }
-    /**
-     * The maximum value that the slider can have.
-     * @return {?}
-     */
-    get max() { return this._max; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set max(v) {
-        this._max = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceNumberProperty"])(v, this._max);
-        this._percent = this._calculatePercentage(this._value);
-        // Since this also modifies the percentage, we need to let the change detection know.
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * The minimum value that the slider can have.
-     * @return {?}
-     */
-    get min() { return this._min; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set min(v) {
-        this._min = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceNumberProperty"])(v, this._min);
-        // If the value wasn't explicitly set by the user, set it to the min.
-        if (this._value === null) {
-            this.value = this._min;
-        }
-        this._percent = this._calculatePercentage(this._value);
-        // Since this also modifies the percentage, we need to let the change detection know.
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * The values at which the thumb will snap.
-     * @return {?}
-     */
-    get step() { return this._step; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set step(v) {
-        this._step = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceNumberProperty"])(v, this._step);
-        if (this._step % 1 !== 0) {
-            this._roundToDecimal = (/** @type {?} */ (this._step.toString().split('.').pop())).length;
-        }
-        // Since this could modify the label, we need to notify the change detection.
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * Whether or not to show the thumb label.
-     * @return {?}
-     */
-    get thumbLabel() { return this._thumbLabel; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set thumbLabel(value) { this._thumbLabel = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceBooleanProperty"])(value); }
-    /**
-     * How often to show ticks. Relative to the step so that a tick always appears on a step.
-     * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
-     * @return {?}
-     */
-    get tickInterval() { return this._tickInterval; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set tickInterval(value) {
-        if (value === 'auto') {
-            this._tickInterval = 'auto';
-        }
-        else if (typeof value === 'number' || typeof value === 'string') {
-            this._tickInterval = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceNumberProperty"])(value, (/** @type {?} */ (this._tickInterval)));
-        }
-        else {
-            this._tickInterval = 0;
-        }
-    }
-    /**
-     * Value of the slider.
-     * @return {?}
-     */
-    get value() {
-        // If the value needs to be read and it is still uninitialized, initialize it to the min.
-        if (this._value === null) {
-            this.value = this._min;
-        }
-        return this._value;
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set value(v) {
-        if (v !== this._value) {
-            /** @type {?} */
-            let value = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceNumberProperty"])(v);
-            // While incrementing by a decimal we can end up with values like 33.300000000000004.
-            // Truncate it to ensure that it matches the label and to make it easier to work with.
-            if (this._roundToDecimal) {
-                value = parseFloat(value.toFixed(this._roundToDecimal));
-            }
-            this._value = value;
-            this._percent = this._calculatePercentage(this._value);
-            // Since this also modifies the percentage, we need to let the change detection know.
-            this._changeDetectorRef.markForCheck();
-        }
-    }
-    /**
-     * Whether the slider is vertical.
-     * @return {?}
-     */
-    get vertical() { return this._vertical; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set vertical(value) {
-        this._vertical = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_2__["coerceBooleanProperty"])(value);
-    }
-    /**
-     * The value to be used for display purposes.
-     * @return {?}
-     */
-    get displayValue() {
-        if (this.displayWith) {
-            return this.displayWith(this.value);
-        }
-        // Note that this could be improved further by rounding something like 0.999 to 1 or
-        // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
-        // every change detection cycle.
-        if (this._roundToDecimal && this.value && this.value % 1 !== 0) {
-            return this.value.toFixed(this._roundToDecimal);
-        }
-        return this.value || 0;
-    }
-    /**
-     * set focus to the host element
-     * @return {?}
-     */
-    focus() {
-        this._focusHostElement();
-    }
-    /**
-     * blur the host element
-     * @return {?}
-     */
-    blur() {
-        this._blurHostElement();
-    }
-    /**
-     * The percentage of the slider that coincides with the value.
-     * @return {?}
-     */
-    get percent() { return this._clamp(this._percent); }
-    /**
-     * Whether the axis of the slider is inverted.
-     * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
-     * @return {?}
-     */
-    get _invertAxis() {
-        // Standard non-inverted mode for a vertical slider should be dragging the thumb from bottom to
-        // top. However from a y-axis standpoint this is inverted.
-        return this.vertical ? !this.invert : this.invert;
-    }
-    /**
-     * Whether the slider is at its minimum value.
-     * @return {?}
-     */
-    get _isMinValue() {
-        return this.percent === 0;
-    }
-    /**
-     * The amount of space to leave between the slider thumb and the track fill & track background
-     * elements.
-     * @return {?}
-     */
-    get _thumbGap() {
-        if (this.disabled) {
-            return DISABLED_THUMB_GAP;
-        }
-        if (this._isMinValue && !this.thumbLabel) {
-            return this._isActive ? MIN_VALUE_ACTIVE_THUMB_GAP : MIN_VALUE_NONACTIVE_THUMB_GAP;
-        }
-        return 0;
-    }
-    /**
-     * CSS styles for the track background element.
-     * @return {?}
-     */
-    get _trackBackgroundStyles() {
-        /** @type {?} */
-        const axis = this.vertical ? 'Y' : 'X';
-        /** @type {?} */
-        const scale = this.vertical ? `1, ${1 - this.percent}, 1` : `${1 - this.percent}, 1, 1`;
-        /** @type {?} */
-        const sign = this._shouldInvertMouseCoords() ? '-' : '';
-        return {
-            // scale3d avoids some rendering issues in Chrome. See #12071.
-            transform: `translate${axis}(${sign}${this._thumbGap}px) scale3d(${scale})`
-        };
-    }
-    /**
-     * CSS styles for the track fill element.
-     * @return {?}
-     */
-    get _trackFillStyles() {
-        /** @type {?} */
-        const axis = this.vertical ? 'Y' : 'X';
-        /** @type {?} */
-        const scale = this.vertical ? `1, ${this.percent}, 1` : `${this.percent}, 1, 1`;
-        /** @type {?} */
-        const sign = this._shouldInvertMouseCoords() ? '' : '-';
-        return {
-            // scale3d avoids some rendering issues in Chrome. See #12071.
-            transform: `translate${axis}(${sign}${this._thumbGap}px) scale3d(${scale})`
-        };
-    }
-    /**
-     * CSS styles for the ticks container element.
-     * @return {?}
-     */
-    get _ticksContainerStyles() {
-        /** @type {?} */
-        let axis = this.vertical ? 'Y' : 'X';
-        // For a horizontal slider in RTL languages we push the ticks container off the left edge
-        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-        /** @type {?} */
-        let sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
-        /** @type {?} */
-        let offset = this._tickIntervalPercent / 2 * 100;
-        return {
-            'transform': `translate${axis}(${sign}${offset}%)`
-        };
-    }
-    /**
-     * CSS styles for the ticks element.
-     * @return {?}
-     */
-    get _ticksStyles() {
-        /** @type {?} */
-        let tickSize = this._tickIntervalPercent * 100;
-        /** @type {?} */
-        let backgroundSize = this.vertical ? `2px ${tickSize}%` : `${tickSize}% 2px`;
-        /** @type {?} */
-        let axis = this.vertical ? 'Y' : 'X';
-        // Depending on the direction we pushed the ticks container, push the ticks the opposite
-        // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
-        // ticks 180 degrees so we're really cutting off the end edge abd not the start.
-        /** @type {?} */
-        let sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
-        /** @type {?} */
-        let rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
-        /** @type {?} */
-        let styles = {
-            'backgroundSize': backgroundSize,
-            // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
-            'transform': `translateZ(0) translate${axis}(${sign}${tickSize / 2}%)${rotate}`
-        };
-        if (this._isMinValue && this._thumbGap) {
-            /** @type {?} */
-            let side = this.vertical ?
-                (this._invertAxis ? 'Bottom' : 'Top') :
-                (this._invertAxis ? 'Right' : 'Left');
-            styles[`padding${side}`] = `${this._thumbGap}px`;
-        }
-        return styles;
-    }
-    /**
-     * @return {?}
-     */
-    get _thumbContainerStyles() {
-        /** @type {?} */
-        let axis = this.vertical ? 'Y' : 'X';
-        // For a horizontal slider in RTL languages we push the thumb container off the left edge
-        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-        /** @type {?} */
-        let invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
-        /** @type {?} */
-        let offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
-        return {
-            'transform': `translate${axis}(-${offset}%)`
-        };
-    }
-    /**
-     * Whether mouse events should be converted to a slider position by calculating their distance
-     * from the right or bottom edge of the slider as opposed to the top or left.
-     * @private
-     * @return {?}
-     */
-    _shouldInvertMouseCoords() {
-        return (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
-    }
-    /**
-     * The language direction for this slider element.
-     * @private
-     * @return {?}
-     */
-    _getDirection() {
-        return (this._dir && this._dir.value == 'rtl') ? 'rtl' : 'ltr';
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._focusMonitor
-            .monitor(this._elementRef, true)
-            .subscribe((/**
-         * @param {?} origin
-         * @return {?}
-         */
-        (origin) => {
-            this._isActive = !!origin && origin !== 'keyboard';
-            this._changeDetectorRef.detectChanges();
-        }));
-        if (this._dir) {
-            this._dirChangeSubscription = this._dir.change.subscribe((/**
-             * @return {?}
-             */
-            () => {
-                this._changeDetectorRef.markForCheck();
-            }));
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._focusMonitor.stopMonitoring(this._elementRef);
-        this._dirChangeSubscription.unsubscribe();
-    }
-    /**
-     * @return {?}
-     */
-    _onMouseenter() {
-        if (this.disabled) {
-            return;
-        }
-        // We save the dimensions of the slider here so we can use them to update the spacing of the
-        // ticks and determine where on the slider click and slide events happen.
-        this._sliderDimensions = this._getSliderDimensions();
-        this._updateTickIntervalPercent();
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onMousedown(event) {
-        // Don't do anything if the slider is disabled or the
-        // user is using anything other than the main mouse button.
-        if (this.disabled || event.button !== 0) {
-            return;
-        }
-        /** @type {?} */
-        const oldValue = this.value;
-        this._isSliding = false;
-        this._focusHostElement();
-        this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
-        // Emit a change and input event if the value changed.
-        if (oldValue != this.value) {
-            this._emitInputEvent();
-            this._emitChangeEvent();
-        }
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onSlide(event) {
-        if (this.disabled) {
-            return;
-        }
-        // The slide start event sometimes fails to fire on iOS, so if we're not already in the sliding
-        // state, call the slide start handler manually.
-        if (!this._isSliding) {
-            this._onSlideStart(null);
-        }
-        // Prevent the slide from selecting anything else.
-        event.preventDefault();
-        /** @type {?} */
-        let oldValue = this.value;
-        this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
-        // Native range elements always emit `input` events when the value changed while sliding.
-        if (oldValue != this.value) {
-            this._emitInputEvent();
-        }
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onSlideStart(event) {
-        if (this.disabled || this._isSliding) {
-            return;
-        }
-        // Simulate mouseenter in case this is a mobile device.
-        this._onMouseenter();
-        this._isSliding = true;
-        this._focusHostElement();
-        this._valueOnSlideStart = this.value;
-        if (event) {
-            this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
-            event.preventDefault();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    _onSlideEnd() {
-        this._isSliding = false;
-        if (this._valueOnSlideStart != this.value && !this.disabled) {
-            this._emitChangeEvent();
-        }
-        this._valueOnSlideStart = null;
-    }
-    /**
-     * @return {?}
-     */
-    _onFocus() {
-        // We save the dimensions of the slider here so we can use them to update the spacing of the
-        // ticks and determine where on the slider click and slide events happen.
-        this._sliderDimensions = this._getSliderDimensions();
-        this._updateTickIntervalPercent();
-    }
-    /**
-     * @return {?}
-     */
-    _onBlur() {
-        this.onTouched();
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onKeydown(event) {
-        if (this.disabled || Object(_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["hasModifierKey"])(event)) {
-            return;
-        }
-        /** @type {?} */
-        const oldValue = this.value;
-        switch (event.keyCode) {
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["PAGE_UP"]:
-                this._increment(10);
-                break;
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["PAGE_DOWN"]:
-                this._increment(-10);
-                break;
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["END"]:
-                this.value = this.max;
-                break;
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["HOME"]:
-                this.value = this.min;
-                break;
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["LEFT_ARROW"]:
-                // NOTE: For a sighted user it would make more sense that when they press an arrow key on an
-                // inverted slider the thumb moves in that direction. However for a blind user, nothing
-                // about the slider indicates that it is inverted. They will expect left to be decrement,
-                // regardless of how it appears on the screen. For speakers ofRTL languages, they probably
-                // expect left to mean increment. Therefore we flip the meaning of the side arrow keys for
-                // RTL. For inverted sliders we prefer a good a11y experience to having it "look right" for
-                // sighted users, therefore we do not swap the meaning.
-                this._increment(this._getDirection() == 'rtl' ? 1 : -1);
-                break;
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["UP_ARROW"]:
-                this._increment(1);
-                break;
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["RIGHT_ARROW"]:
-                // See comment on LEFT_ARROW about the conditions under which we flip the meaning.
-                this._increment(this._getDirection() == 'rtl' ? -1 : 1);
-                break;
-            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["DOWN_ARROW"]:
-                this._increment(-1);
-                break;
-            default:
-                // Return if the key is not one that we explicitly handle to avoid calling preventDefault on
-                // it.
-                return;
-        }
-        if (oldValue != this.value) {
-            this._emitInputEvent();
-            this._emitChangeEvent();
-        }
-        this._isSliding = true;
-        event.preventDefault();
-    }
-    /**
-     * @return {?}
-     */
-    _onKeyup() {
-        this._isSliding = false;
-    }
-    /**
-     * Increments the slider by the given number of steps (negative number decrements).
-     * @private
-     * @param {?} numSteps
-     * @return {?}
-     */
-    _increment(numSteps) {
-        this.value = this._clamp((this.value || 0) + this.step * numSteps, this.min, this.max);
-    }
-    /**
-     * Calculate the new value from the new physical location. The value will always be snapped.
-     * @private
-     * @param {?} pos
-     * @return {?}
-     */
-    _updateValueFromPosition(pos) {
-        if (!this._sliderDimensions) {
-            return;
-        }
-        /** @type {?} */
-        let offset = this.vertical ? this._sliderDimensions.top : this._sliderDimensions.left;
-        /** @type {?} */
-        let size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-        /** @type {?} */
-        let posComponent = this.vertical ? pos.y : pos.x;
-        // The exact value is calculated from the event and used to find the closest snap value.
-        /** @type {?} */
-        let percent = this._clamp((posComponent - offset) / size);
-        if (this._shouldInvertMouseCoords()) {
-            percent = 1 - percent;
-        }
-        // Since the steps may not divide cleanly into the max value, if the user
-        // slid to 0 or 100 percent, we jump to the min/max value. This approach
-        // is slightly more intuitive than using `Math.ceil` below, because it
-        // follows the user's pointer closer.
-        if (percent === 0) {
-            this.value = this.min;
-        }
-        else if (percent === 1) {
-            this.value = this.max;
-        }
-        else {
-            /** @type {?} */
-            const exactValue = this._calculateValue(percent);
-            // This calculation finds the closest step by finding the closest
-            // whole number divisible by the step relative to the min.
-            /** @type {?} */
-            const closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
-            // The value needs to snap to the min and max.
-            this.value = this._clamp(closestValue, this.min, this.max);
-        }
-    }
-    /**
-     * Emits a change event if the current value is different from the last emitted value.
-     * @private
-     * @return {?}
-     */
-    _emitChangeEvent() {
-        this._controlValueAccessorChangeFn(this.value);
-        this.valueChange.emit(this.value);
-        this.change.emit(this._createChangeEvent());
-    }
-    /**
-     * Emits an input event when the current value is different from the last emitted value.
-     * @private
-     * @return {?}
-     */
-    _emitInputEvent() {
-        this.input.emit(this._createChangeEvent());
-    }
-    /**
-     * Updates the amount of space between ticks as a percentage of the width of the slider.
-     * @private
-     * @return {?}
-     */
-    _updateTickIntervalPercent() {
-        if (!this.tickInterval || !this._sliderDimensions) {
-            return;
-        }
-        if (this.tickInterval == 'auto') {
-            /** @type {?} */
-            let trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-            /** @type {?} */
-            let pixelsPerStep = trackSize * this.step / (this.max - this.min);
-            /** @type {?} */
-            let stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
-            /** @type {?} */
-            let pixelsPerTick = stepsPerTick * this.step;
-            this._tickIntervalPercent = pixelsPerTick / trackSize;
-        }
-        else {
-            this._tickIntervalPercent = this.tickInterval * this.step / (this.max - this.min);
-        }
-    }
-    /**
-     * Creates a slider change object from the specified value.
-     * @private
-     * @param {?=} value
-     * @return {?}
-     */
-    _createChangeEvent(value = this.value) {
-        /** @type {?} */
-        let event = new MatSliderChange();
-        event.source = this;
-        event.value = value;
-        return event;
-    }
-    /**
-     * Calculates the percentage of the slider that a value is.
-     * @private
-     * @param {?} value
-     * @return {?}
-     */
-    _calculatePercentage(value) {
-        return ((value || 0) - this.min) / (this.max - this.min);
-    }
-    /**
-     * Calculates the value a percentage of the slider corresponds to.
-     * @private
-     * @param {?} percentage
-     * @return {?}
-     */
-    _calculateValue(percentage) {
-        return this.min + percentage * (this.max - this.min);
-    }
-    /**
-     * Return a number between two numbers.
-     * @private
-     * @param {?} value
-     * @param {?=} min
-     * @param {?=} max
-     * @return {?}
-     */
-    _clamp(value, min = 0, max = 1) {
-        return Math.max(min, Math.min(value, max));
-    }
-    /**
-     * Get the bounding client rect of the slider track element.
-     * The track is used rather than the native element to ignore the extra space that the thumb can
-     * take up.
-     * @private
-     * @return {?}
-     */
-    _getSliderDimensions() {
-        return this._sliderWrapper ? this._sliderWrapper.nativeElement.getBoundingClientRect() : null;
-    }
-    /**
-     * Focuses the native element.
-     * Currently only used to allow a blur event to fire but will be used with keyboard input later.
-     * @private
-     * @return {?}
-     */
-    _focusHostElement() {
-        this._elementRef.nativeElement.focus();
-    }
-    /**
-     * Blurs the native element.
-     * @private
-     * @return {?}
-     */
-    _blurHostElement() {
-        this._elementRef.nativeElement.blur();
-    }
-    /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value
-     * @return {?}
-     */
-    writeValue(value) {
-        this.value = value;
-    }
-    /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Callback to be registered.
-     * @return {?}
-     */
-    registerOnChange(fn) {
-        this._controlValueAccessorChangeFn = fn;
-    }
-    /**
-     * Registers a callback to be triggered when the component is touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Callback to be registered.
-     * @return {?}
-     */
-    registerOnTouched(fn) {
-        this.onTouched = fn;
-    }
-    /**
-     * Sets whether the component should be disabled.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} isDisabled
-     * @return {?}
-     */
-    setDisabledState(isDisabled) {
-        this.disabled = isDisabled;
-    }
-}
-MatSlider.decorators = [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"], args: [{selector: 'mat-slider',
-                exportAs: 'matSlider',
-                providers: [MAT_SLIDER_VALUE_ACCESSOR],
-                host: {
-                    '(focus)': '_onFocus()',
-                    '(blur)': '_onBlur()',
-                    '(mousedown)': '_onMousedown($event)',
-                    '(keydown)': '_onKeydown($event)',
-                    '(keyup)': '_onKeyup()',
-                    '(mouseenter)': '_onMouseenter()',
-                    '(slide)': '_onSlide($event)',
-                    '(slideend)': '_onSlideEnd()',
-                    '(slidestart)': '_onSlideStart($event)',
-                    'class': 'mat-slider',
-                    'role': 'slider',
-                    '[tabIndex]': 'tabIndex',
-                    '[attr.aria-disabled]': 'disabled',
-                    '[attr.aria-valuemax]': 'max',
-                    '[attr.aria-valuemin]': 'min',
-                    '[attr.aria-valuenow]': 'value',
-                    '[attr.aria-orientation]': 'vertical ? "vertical" : "horizontal"',
-                    '[class.mat-slider-disabled]': 'disabled',
-                    '[class.mat-slider-has-ticks]': 'tickInterval',
-                    '[class.mat-slider-horizontal]': '!vertical',
-                    '[class.mat-slider-axis-inverted]': '_invertAxis',
-                    '[class.mat-slider-sliding]': '_isSliding',
-                    '[class.mat-slider-thumb-label-showing]': 'thumbLabel',
-                    '[class.mat-slider-vertical]': 'vertical',
-                    '[class.mat-slider-min-value]': '_isMinValue',
-                    '[class.mat-slider-hide-last-tick]': 'disabled || _isMinValue && _thumbGap && _invertAxis',
-                    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                },
-                template: "<div class=\"mat-slider-wrapper\" #sliderWrapper><div class=\"mat-slider-track-wrapper\"><div class=\"mat-slider-track-background\" [ngStyle]=\"_trackBackgroundStyles\"></div><div class=\"mat-slider-track-fill\" [ngStyle]=\"_trackFillStyles\"></div></div><div class=\"mat-slider-ticks-container\" [ngStyle]=\"_ticksContainerStyles\"><div class=\"mat-slider-ticks\" [ngStyle]=\"_ticksStyles\"></div></div><div class=\"mat-slider-thumb-container\" [ngStyle]=\"_thumbContainerStyles\"><div class=\"mat-slider-focus-ring\"></div><div class=\"mat-slider-thumb\"></div><div class=\"mat-slider-thumb-label\"><span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span></div></div></div>",
-                styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{background-repeat:repeat;background-clip:content-box;box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider.cdk-keyboard-focused .mat-slider-focus-ring,.mat-slider.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}@media (-ms-high-contrast:active){.mat-slider-thumb-label{outline:solid 1px}}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{display:none}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}@media (-ms-high-contrast:active){.mat-slider-horizontal .mat-slider-ticks-container{height:0;outline:solid 2px;top:1px}}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}@media (-ms-high-contrast:active){.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label,.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label-text{transform:none}}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}@media (-ms-high-contrast:active){.mat-slider-vertical .mat-slider-ticks-container{width:0;outline:solid 2px;left:1px}}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}.mat-slider._mat-animation-noopable .mat-slider-focus-ring,.mat-slider._mat-animation-noopable .mat-slider-has-ticks .mat-slider-wrapper::after,.mat-slider._mat-animation-noopable .mat-slider-thumb,.mat-slider._mat-animation-noopable .mat-slider-thumb-container,.mat-slider._mat-animation-noopable .mat-slider-thumb-label,.mat-slider._mat-animation-noopable .mat-slider-thumb-label-text,.mat-slider._mat-animation-noopable .mat-slider-ticks,.mat-slider._mat-animation-noopable .mat-slider-track-background,.mat-slider._mat-animation-noopable .mat-slider-track-fill{transition:none}"],
-                inputs: ['disabled', 'color', 'tabIndex'],
-                encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewEncapsulation"].None,
-                changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ChangeDetectionStrategy"].OnPush,
-            },] },
-];
-/** @nocollapse */
-MatSlider.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"] },
-    { type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_0__["FocusMonitor"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ChangeDetectorRef"] },
-    { type: _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_1__["Directionality"], decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Optional"] }] },
-    { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Attribute"], args: ['tabindex',] }] },
-    { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Inject"], args: [_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["ANIMATION_MODULE_TYPE"],] }] }
-];
-MatSlider.propDecorators = {
-    invert: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    max: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    min: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    step: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    thumbLabel: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    tickInterval: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    displayWith: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    vertical: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Input"] }],
-    change: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Output"] }],
-    input: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Output"] }],
-    valueChange: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Output"] }],
-    _sliderWrapper: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"], args: ['sliderWrapper', { static: false },] }]
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class MatSliderModule {
-}
-MatSliderModule.decorators = [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["NgModule"], args: [{
-                imports: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["CommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_6__["MatCommonModule"]],
-                exports: [MatSlider, _angular_material_core__WEBPACK_IMPORTED_MODULE_6__["MatCommonModule"]],
-                declarations: [MatSlider],
-                providers: [{ provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_10__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material_core__WEBPACK_IMPORTED_MODULE_6__["GestureConfig"] }]
-            },] },
-];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-
-//# sourceMappingURL=slider.js.map
-
-
-/***/ }),
-
 /***/ "./node_modules/raw-loader/index.js!./src/app/main/apps/seminuevos/unidad/unidad.component.html":
 /*!*********************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/main/apps/seminuevos/unidad/unidad.component.html ***!
@@ -987,7 +7,7 @@ MatSliderModule.decorators = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"product\" class=\"page-layout carded fullwidth inner-scroll\">\r\n\r\n    <!-- TOP BACKGROUND -->\r\n    <div class=\"top-bg accent\"></div>\r\n    <!-- / TOP BACKGROUND -->\r\n\r\n    <!-- CENTER -->\r\n    <div class=\"center\">\r\n\r\n        <!-- HEADER -->\r\n        <div class=\"header accent\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n\r\n            <!-- APP TITLE -->\r\n            <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\r\n                <button mat-icon-button class=\"mr-0 mr-sm-16\" [routerLink]=\"'/seminuevos/unidades'\">\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n\r\n                <div class=\"product-image mr-8 mr-sm-16\" [@animate]=\"{value:'*',params:{delay:'50ms',scale:'0.2'}}\">\r\n                    <img *ngIf=\"product.images[0]\" [src]=\"product.images[0].url\">\r\n                    <img *ngIf=\"!product.images[0]\" [src]=\"'assets/images/ecommerce/product-image-placeholder.png'\">\r\n                </div>\r\n\r\n                <div fxLayout=\"column\" fxLayoutAlign=\"start start\"\r\n                     [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\">\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='edit'\">\r\n                        {{product.name}}\r\n                    </div>\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='new'\">\r\n                        Nueva Unidad\r\n                    </div>\r\n                    <div class=\"subtitle secondary-text\">\r\n                        <span>Datos de Unidad</span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <!-- / APP TITLE -->\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid\"\r\n                    *ngIf=\"pageType ==='new'\" (click)=\"saveProduct()\">\r\n                <span>Agregar</span>\r\n            </button>\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid || productForm.pristine\"\r\n                    *ngIf=\"pageType ==='edit'\" (click)=\"saveProduct()\">\r\n                <span>Guardar</span>\r\n            </button>\r\n        </div>\r\n        <!-- / HEADER -->\r\n\r\n        <!-- CONTENT CARD -->\r\n        <div class=\"content-card\">\r\n\r\n            <!-- CONTENT -->\r\n            <div class=\"content\">\r\n\r\n                <form name=\"productForm\" [formGroup]=\"productForm\" class=\"product w-100-p\" fxLayout=\"column\" fxFlex>\r\n\r\n                    <mat-tab-group>\r\n\r\n                        <mat-tab label=\"información Básica\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n                                \r\n \r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" >\r\n                                    <mat-label>Inventario</mat-label>\r\n                                    <input matInput placeholder=\"Inventario\"\r\n                                                name=\"inventario\"\r\n                                                formControlName=\"inventario\">\r\n                                </mat-form-field> \r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>Status</mat-label>\r\n                                    <mat-select name=\"statu\"  formControlName=\"statu\">\r\n                                            \r\n                                        <mat-option *ngFor=\"let statu of status\" [value]=\"statu.value\">\r\n                                            {{statu.viewValue}}\r\n                                        </mat-option>\r\n                                    </mat-select>\r\n                                </mat-form-field> \r\n    \r\n                                <!-- <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Tipo Garantía</mat-label>\r\n                                    <input matInput placeholder=\"Tipo Garantía\"\r\n                                                name=\"tipo_garantia\"\r\n                                                formControlName=\"tipo_garantia\">\r\n                                </mat-form-field>\r\n                                \r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Ubicación Fisica</mat-label>\r\n                                    <input matInput placeholder=\"Ubicación Física\"\r\n                                                name=\"ubicacion_fisica\"\r\n                                                formControlName=\"ubicacion_fisica\">\r\n                                </mat-form-field> -->\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\" >\r\n                                    <mat-label>Ubicación Física</mat-label>\r\n                                        <mat-select name=\"ubicacion_fisica\"  formControlName=\"ubicacion_fisica\">\r\n                                            \r\n                                            <mat-option *ngFor=\"let ubicacion_fisica of ubicacion_fisicas\" [value]=\"ubicacion_fisica.value\">\r\n                                                {{ubicacion_fisica.viewValue}}\r\n                                            </mat-option>\r\n                                        </mat-select>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-40-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>Color</mat-label>\r\n                                        <mat-select name=\"color\"  formControlName=\"color\">\r\n                                            \r\n                                            <mat-option *ngFor=\"let color of colores\" [value]=\"color.value\">\r\n                                                {{color.viewValue}}\r\n                                            </mat-option>\r\n                                        </mat-select>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>Marca</mat-label>\r\n                                        <mat-select name=\"marca\"  formControlName=\"marca\">\r\n                                            \r\n                                            <mat-option *ngFor=\"let marca of marcas\" [value]=\"marca.value\">\r\n                                                {{marca.viewValue}}\r\n                                            </mat-option>\r\n                                        </mat-select>\r\n                                </mat-form-field>                                \r\n\r\n                                <mat-form-field  appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\">\r\n                                    <mat-label>Fecha Adquisición</mat-label>\r\n                                    <input  matInput [matDatepicker]=\"fechaadquisicion\" name=\"fecha_de_adquisicion\"\r\n                                    formControlName=\"fecha_de_adquisicion\">\r\n                                    <mat-datepicker-toggle  matSuffix [for]=\"fechaadquisicion\"   ></mat-datepicker-toggle>\r\n                                    <mat-datepicker  #fechaadquisicion ></mat-datepicker>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-40-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>No VIN</mat-label>\r\n                                    <input matInput placeholder=\"No. de Serie\"\r\n                                              name=\"no_serie_vin\"\r\n                                              formControlName=\"no_serie_vin\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>No Motor</mat-label>\r\n                                    <input matInput placeholder=\"No. de Serie\"\r\n                                              name=\"no_motor\"\r\n                                              formControlName=\"no_motor\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Descripción</mat-label>\r\n                                    <textarea matInput placeholder=\"Descripcion\"\r\n                                              name=\"descripcion\"\r\n                                              formControlName=\"descripcion\"\r\n                                              rows=\"5\">\r\n                                    </textarea>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\">\r\n                                    <mat-label>Tenencia</mat-label>\r\n                                    <input matInput placeholder=\"Product Description\"\r\n                                              name=\"tenencia\"\r\n                                              formControlName=\"tenencia\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" style=\"padding-left: 20px\"> \r\n                                    <mat-label>Tipo Garantía</mat-label>\r\n                                    <input matInput placeholder=\"Tipo garantía\"\r\n                                            name=\"tipo_garantia\"\r\n                                            formControlName=\"tipo_garantia\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\">\r\n\r\n                                    <mat-label>Categories</mat-label>\r\n\r\n                                    <mat-chip-list #categoryList name=\"categories\" formControlName=\"categories\">\r\n\r\n                                        <mat-chip *ngFor=\"let category of product.categories\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeCategory(category)\">\r\n                                            {{category}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"categoryList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addCategory($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" style=\"padding-left: 20px\">\r\n\r\n                                    <mat-label>Tags</mat-label>\r\n\r\n                                    <mat-chip-list #tagList name=\"tags\" formControlName=\"tags\">\r\n\r\n                                        <mat-chip *ngFor=\"let tag of product.tags\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeTag(tag)\">\r\n                                            {{tag}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"tagList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addTag($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Imágenes\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n                                <div fxLayout=\"row wrap\" fxLayoutAlign=\"start start\">\r\n\r\n                                    <div *ngIf=\"product.images.length === 0\"\r\n                                         class=\"product-image\" fxlayout=\"row\" fxLayoutAlign=\"center center\">\r\n                                        <img class=\"media\"\r\n                                             [src]=\"'./assets/images/ecommerce/product-image-placeholder.png'\">\r\n                                    </div>\r\n\r\n                                    <div *ngFor=\"let image of product.images\">\r\n                                        <div *ngIf=\"product.images.length > 0\"\r\n                                             class=\"product-image\" fxlayout=\"row\" fxLayoutAlign=\"center center\">\r\n                                            <img class=\"media\" [src]=\"image.url\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Precios\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>                               \r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Tax Included Price</mat-label>\r\n                                    <input matInput placeholder=\"Tax Included Price\"\r\n                                           name=\"priceTaxIncl\"\r\n                                           formControlName=\"priceTaxIncl\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Tax Rate</mat-label>\r\n                                    <input matInput placeholder=\"Tax Rate\"\r\n                                           name=\"taxRate\"\r\n                                           formControlName=\"taxRate\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>&#37;&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Compared Price</mat-label>\r\n                                    <input matInput placeholder=\"Compared Price\"\r\n                                           name=\"comparedPrice\"\r\n                                           formControlName=\"comparedPrice\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                    <mat-hint align=\"start\">Add a compare price to show next to the real price\r\n                                    </mat-hint>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Inventory\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>SKU</mat-label>\r\n                                    <input matInput placeholder=\"SKU\"\r\n                                           name=\"sku\"\r\n                                           formControlName=\"sku\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Quantity</mat-label>\r\n                                    <input matInput placeholder=\"Quantity\"\r\n                                           name=\"quantity\"\r\n                                           formControlName=\"quantity\"\r\n                                           type=\"number\">\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Shipping\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar fxLayout=\"column\">\r\n\r\n                                <div fxLayout=\"row\" fxLayoutAlign=\"space-between\">\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Width</mat-label>\r\n                                        <input matInput placeholder=\"Width\"\r\n                                               name=\"Width\"\r\n                                               formControlName=\"width\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Height</mat-label>\r\n                                        <input matInput placeholder=\"Height\"\r\n                                               name=\"Height\"\r\n                                               formControlName=\"height\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Depth</mat-label>\r\n                                        <input matInput placeholder=\"Depth\"\r\n                                               name=\"Depth\"\r\n                                               formControlName=\"depth\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                </div>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Weight</mat-label>\r\n                                    <input matInput placeholder=\"Weight\"\r\n                                           name=\"Weight\"\r\n                                           formControlName=\"weight\">\r\n                                    <span matSuffix>kg</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Extra Shipping Fee</mat-label>\r\n                                    <input matInput placeholder=\"Extra Shipping Fee\"\r\n                                           name=\"extraShippingFee\"\r\n                                           formControlName=\"extraShippingFee\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                    </mat-tab-group>\r\n\r\n                </form>\r\n\r\n            </div>\r\n            <!-- / CONTENT -->\r\n\r\n        </div>\r\n        <!-- / CONTENT CARD -->\r\n\r\n    </div>\r\n    <!-- / CENTER -->\r\n\r\n</div>\r\n"
+module.exports = "<div id=\"product\" class=\"page-layout carded fullwidth inner-scroll\">\r\n\r\n    <!-- TOP BACKGROUND -->\r\n    <div class=\"top-bg accent\"></div>\r\n    <!-- / TOP BACKGROUND -->\r\n\r\n    <!-- CENTER -->\r\n    <div class=\"center\">\r\n\r\n        <!-- HEADER -->\r\n        <div class=\"header accent\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n\r\n            <!-- APP TITLE -->\r\n            <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\r\n                <button mat-icon-button class=\"mr-0 mr-sm-16\" [routerLink]=\"'/seminuevos/unidades'\">\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n\r\n                <div class=\"product-image mr-8 mr-sm-16\" [@animate]=\"{value:'*',params:{delay:'50ms',scale:'0.2'}}\">\r\n                    <img *ngIf=\"product.images[0]\" [src]=\"product.images[0].url\">\r\n                    <img *ngIf=\"!product.images[0]\" [src]=\"'assets/images/ecommerce/product-image-placeholder.png'\">\r\n                </div>\r\n\r\n                <div fxLayout=\"column\" fxLayoutAlign=\"start start\"\r\n                     [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\">\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='edit'\">\r\n                        {{product.name}}\r\n                    </div>\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='new'\">\r\n                        Nueva Unidad\r\n                    </div>\r\n                    <div class=\"subtitle secondary-text\">\r\n                        <span>Datos de Unidad</span>\r\n                    </div>\r\n                </div>\r\n                <div fxLayout=\"column\" *ngIf=\"cargandoArchivos\" fxLayoutAlign=\"start start\"\r\n                [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\"> <mat-spinner></mat-spinner> </div>\r\n            </div>\r\n            <!-- / APP TITLE -->\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid\"\r\n                    *ngIf=\"pageType ==='new'\" (click)=\"saveProduct()\">\r\n                <span>Agregar</span>\r\n            </button>\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid || productForm.pristine\"\r\n                    *ngIf=\"pageType ==='edit'\" (click)=\"saveProduct()\">\r\n                <span>Guardar</span>\r\n            </button>\r\n        </div>\r\n        <!-- / HEADER -->\r\n\r\n        <!-- CONTENT CARD -->\r\n        <div class=\"content-card\">\r\n\r\n            <!-- CONTENT -->\r\n            <div class=\"content\">\r\n\r\n                <form name=\"productForm\" [formGroup]=\"productForm\" class=\"product w-100-p\" fxLayout=\"column\" fxFlex>\r\n\r\n                    <mat-tab-group>\r\n\r\n                        <mat-tab label=\"información Básica\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n                                \r\n \r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" >\r\n                                    <mat-label>Inventario</mat-label>\r\n                                    <input matInput placeholder=\"Inventario\"\r\n                                                name=\"inventario\"\r\n                                                formControlName=\"inventario\">\r\n                                </mat-form-field> \r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>Status</mat-label>\r\n                                    <mat-select name=\"statu\"  formControlName=\"statu\">\r\n                                            \r\n                                        <mat-option *ngFor=\"let statu of status\" [value]=\"statu.value\">\r\n                                            {{statu.viewValue}}\r\n                                        </mat-option>\r\n                                    </mat-select>\r\n                                </mat-form-field> \r\n    \r\n                                <!-- <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Tipo Garantía</mat-label>\r\n                                    <input matInput placeholder=\"Tipo Garantía\"\r\n                                                name=\"tipo_garantia\"\r\n                                                formControlName=\"tipo_garantia\">\r\n                                </mat-form-field>\r\n                                \r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Ubicación Fisica</mat-label>\r\n                                    <input matInput placeholder=\"Ubicación Física\"\r\n                                                name=\"ubicacion_fisica\"\r\n                                                formControlName=\"ubicacion_fisica\">\r\n                                </mat-form-field> -->\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\" >\r\n                                    <mat-label>Ubicación Física</mat-label>\r\n                                        <mat-select name=\"ubicacion_fisica\"  formControlName=\"ubicacion_fisica\">\r\n                                            \r\n                                            <mat-option *ngFor=\"let ubicacion_fisica of ubicacion_fisicas\" [value]=\"ubicacion_fisica.value\">\r\n                                                {{ubicacion_fisica.viewValue}}\r\n                                            </mat-option>\r\n                                        </mat-select>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-40-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>Color</mat-label>\r\n                                        <mat-select name=\"color\"  formControlName=\"color\">\r\n                                            \r\n                                            <mat-option *ngFor=\"let color of colores\" [value]=\"color.value\">\r\n                                                {{color.viewValue}}\r\n                                            </mat-option>\r\n                                        </mat-select>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>Marca</mat-label>\r\n                                        <mat-select name=\"marca\"  formControlName=\"marca\">\r\n                                            \r\n                                            <mat-option *ngFor=\"let marca of marcas\" [value]=\"marca.value\">\r\n                                                {{marca.viewValue}}\r\n                                            </mat-option>\r\n                                        </mat-select>\r\n                                </mat-form-field>                                \r\n\r\n                                <mat-form-field  appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\">\r\n                                    <mat-label>Fecha Adquisición</mat-label>\r\n                                    <input  matInput [matDatepicker]=\"fechaadquisicion\" name=\"fecha_de_adquisicion\"\r\n                                    formControlName=\"fecha_de_adquisicion\">\r\n                                    <mat-datepicker-toggle  matSuffix [for]=\"fechaadquisicion\"   ></mat-datepicker-toggle>\r\n                                    <mat-datepicker  #fechaadquisicion ></mat-datepicker>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-40-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>No VIN</mat-label>\r\n                                    <input matInput placeholder=\"No. de Serie\"\r\n                                              name=\"no_serie_vin\"\r\n                                              formControlName=\"no_serie_vin\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-30-p\" style=\"padding-left: 20px\">\r\n                                    <mat-label>No Motor</mat-label>\r\n                                    <input matInput placeholder=\"No. de Serie\"\r\n                                              name=\"no_motor\"\r\n                                              formControlName=\"no_motor\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Descripción</mat-label>\r\n                                    <textarea matInput placeholder=\"Descripcion\"\r\n                                              name=\"descripcion\"\r\n                                              formControlName=\"descripcion\"\r\n                                              rows=\"5\">\r\n                                    </textarea>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\">\r\n                                    <mat-label>Tenencia</mat-label>\r\n                                    <input matInput placeholder=\"Product Description\"\r\n                                              name=\"tenencia\"\r\n                                              formControlName=\"tenencia\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" style=\"padding-left: 20px\"> \r\n                                    <mat-label>Tipo Garantía</mat-label>\r\n                                    <input matInput placeholder=\"Tipo garantía\"\r\n                                            name=\"tipo_garantia\"\r\n                                            formControlName=\"tipo_garantia\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\">\r\n\r\n                                    <mat-label>Categories</mat-label>\r\n\r\n                                    <mat-chip-list #categoryList name=\"categories\" formControlName=\"categories\">\r\n\r\n                                        <mat-chip *ngFor=\"let category of product.categories\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeCategory(category)\">\r\n                                            {{category}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"categoryList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addCategory($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-50-p\" style=\"padding-left: 20px\">\r\n\r\n                                    <mat-label>Tags</mat-label>\r\n\r\n                                    <mat-chip-list #tagList name=\"tags\" formControlName=\"tags\">\r\n\r\n                                        <mat-chip *ngFor=\"let tag of product.tags\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeTag(tag)\">\r\n                                            {{tag}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"tagList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addTag($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Imágenes\">\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar> \r\n                                <app-jmy-archivos></app-jmy-archivos>\r\n                            </div>\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n                                <div fxLayout=\"row wrap\" fxLayoutAlign=\"start start\">\r\n\r\n                                    <div *ngIf=\"product.images.length === 0\"\r\n                                         class=\"product-image\" fxlayout=\"row\" fxLayoutAlign=\"center center\">\r\n                                        <img class=\"media\"\r\n                                             [src]=\"'./assets/images/ecommerce/product-image-placeholder.png'\">\r\n                                    </div>\r\n\r\n                                    <div *ngFor=\"let image of product.images\">\r\n                                        <div *ngIf=\"product.images.length > 0\"\r\n                                             class=\"product-image\" fxlayout=\"row\" fxLayoutAlign=\"center center\">\r\n                                            <img class=\"media\" [src]=\"image.url\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Precios\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>                               \r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Tax Included Price</mat-label>\r\n                                    <input matInput placeholder=\"Tax Included Price\"\r\n                                           name=\"priceTaxIncl\"\r\n                                           formControlName=\"priceTaxIncl\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Tax Rate</mat-label>\r\n                                    <input matInput placeholder=\"Tax Rate\"\r\n                                           name=\"taxRate\"\r\n                                           formControlName=\"taxRate\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>&#37;&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Compared Price</mat-label>\r\n                                    <input matInput placeholder=\"Compared Price\"\r\n                                           name=\"comparedPrice\"\r\n                                           formControlName=\"comparedPrice\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                    <mat-hint align=\"start\">Add a compare price to show next to the real price\r\n                                    </mat-hint>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Inventory\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>SKU</mat-label>\r\n                                    <input matInput placeholder=\"SKU\"\r\n                                           name=\"sku\"\r\n                                           formControlName=\"sku\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Quantity</mat-label>\r\n                                    <input matInput placeholder=\"Quantity\"\r\n                                           name=\"quantity\"\r\n                                           formControlName=\"quantity\"\r\n                                           type=\"number\">\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Shipping\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar fxLayout=\"column\">\r\n\r\n                                <div fxLayout=\"row\" fxLayoutAlign=\"space-between\">\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Width</mat-label>\r\n                                        <input matInput placeholder=\"Width\"\r\n                                               name=\"Width\"\r\n                                               formControlName=\"width\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Height</mat-label>\r\n                                        <input matInput placeholder=\"Height\"\r\n                                               name=\"Height\"\r\n                                               formControlName=\"height\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Depth</mat-label>\r\n                                        <input matInput placeholder=\"Depth\"\r\n                                               name=\"Depth\"\r\n                                               formControlName=\"depth\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                </div>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Weight</mat-label>\r\n                                    <input matInput placeholder=\"Weight\"\r\n                                           name=\"Weight\"\r\n                                           formControlName=\"weight\">\r\n                                    <span matSuffix>kg</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Extra Shipping Fee</mat-label>\r\n                                    <input matInput placeholder=\"Extra Shipping Fee\"\r\n                                           name=\"extraShippingFee\"\r\n                                           formControlName=\"extraShippingFee\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                    </mat-tab-group>\r\n\r\n                </form>\r\n\r\n            </div>\r\n            <!-- / CONTENT -->\r\n\r\n        </div>\r\n        <!-- / CONTENT CARD -->\r\n\r\n    </div>\r\n    <!-- / CENTER -->\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1038,6 +58,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_main_apps_seminuevos_unidades_unidades_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/main/apps/seminuevos/unidades/unidades.service */ "./src/app/main/apps/seminuevos/unidades/unidades.service.ts");
 /* harmony import */ var app_main_apps_seminuevos_unidad_unidad_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/main/apps/seminuevos/unidad/unidad.component */ "./src/app/main/apps/seminuevos/unidad/unidad.component.ts");
 /* harmony import */ var app_main_apps_seminuevos_unidad_unidad_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/main/apps/seminuevos/unidad/unidad.service */ "./src/app/main/apps/seminuevos/unidad/unidad.service.ts");
+/* harmony import */ var app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/concomsis/jmy/jmy.module */ "./src/app/concomsis/jmy/jmy.module.ts");
+/* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/esm2015/progress-spinner.js");
+
+
 
 
 
@@ -1102,6 +126,8 @@ SeminuevosModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         imports: [
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes),
             _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_1__["MatDatepickerModule"],
+            app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_26__["JmyModule"],
+            _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_27__["MatProgressSpinnerModule"],
             _angular_material_button__WEBPACK_IMPORTED_MODULE_5__["MatButtonModule"],
             _angular_material_slider__WEBPACK_IMPORTED_MODULE_2__["MatSliderModule"],
             _angular_material_chips__WEBPACK_IMPORTED_MODULE_6__["MatChipsModule"],
@@ -1302,10 +328,17 @@ class SeminuevosUnidadComponent {
             { value: 'Volkswagen', viewValue: 'Volkswagen' },
             { value: 'Volvo', viewValue: 'Volvo' }
         ];
+        this.cargandoArchivos = false;
         // Set the default
         this.product = new app_main_apps_seminuevos_unidad_unidad_model__WEBPACK_IMPORTED_MODULE_9__["Product"]();
         // Set the private defaults
         this._unsubscribeAll = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this._ecommerceProductService.jmyService.jmyFn.botonEnEsperaArchivos.subscribe(res => {
+            this.cargandoArchivos = res;
+        });
+        this._ecommerceProductService.jmyService.jmyFn.configuracionArchivos.subscribe(res => {
+            this.configuracionArchivos = res || {};
+        });
     }
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -1321,6 +354,27 @@ class SeminuevosUnidadComponent {
             if (product) {
                 this.product = new app_main_apps_seminuevos_unidad_unidad_model__WEBPACK_IMPORTED_MODULE_9__["Product"](product);
                 this.pageType = 'edit';
+                const archivosQuery = Object.assign(this.configuracionArchivos || {}, {
+                    modulo: "auto_inventario",
+                    raiz: this._ecommerceProductService.jmyService.jmyPerfil.perfil.eid + "/inventario/" + this.product.id,
+                    ruta: "Fotos/",
+                    permiso: "4"
+                });
+                this._ecommerceProductService.jmyService.jmyFn.configuracionArchivos.next(archivosQuery);
+                this._ecommerceProductService.jmyService.jmyFn.treeArchivos.subscribe(res => {
+                    let archivos = res || { tree: [],
+                        url_iframe: {} };
+                    console.log(archivos);
+                    this.product.images = archivos.tree.map(archivo => {
+                        return {
+                            default: (archivo.slice(0, -4) == "portada") ? true : false,
+                            id: archivo,
+                            url: archivos.url_iframe["url_src"] + archivo,
+                            thumb: archivos.url_iframe["url_thumb"] + archivo,
+                            type: "image"
+                        };
+                    });
+                });
             }
             else {
                 this.pageType = 'new';
@@ -1370,6 +424,7 @@ class SeminuevosUnidadComponent {
             quantity: [this.product.quantity],
             sku: [this.product.sku],
             width: [this.product.width],
+            no_motor: [this.product.no_motor],
             height: [this.product.height],
             depth: [this.product.depth],
             weight: [this.product.weight],
@@ -1380,12 +435,15 @@ class SeminuevosUnidadComponent {
     /**
      * Save product
      */
-    saveProduct() {
-        const data = this.productForm.getRawValue();
+    saveProduct(product = null) {
+        let data = (product != undefined) ? product : this.productForm.getRawValue();
         data.handle = _fuse_utils__WEBPACK_IMPORTED_MODULE_8__["FuseUtils"].handleize(data.name);
-        data.fecha_de_adquisicion = data.fecha_de_adquisicion.format('YYYY-MM-DD');
+        data.images = this.product.images;
+        //data.fecha_de_adquisicion=(typeof product.fecha_de_adquisicion== "string")?product.fecha_de_adquisicion:data.fecha_de_adquisicion.format('YYYY-MM-DD');
+        data.fecha_de_adquisicion = '';
         this._ecommerceProductService.saveProduct(data)
             .then(() => {
+            console.log(data);
             // Trigger the subscription with new data
             this._ecommerceProductService.onProductChanged.next(data);
             // Show the success message
@@ -1481,6 +539,7 @@ class Product {
         this.sku = product.sku || 0;
         this.width = product.width || 0;
         this.height = product.height || 0;
+        this.no_motor = product.no_motor || 0;
         this.depth = product.depth || 0;
         this.weight = product.weight || 0;
         this.extraShippingFee = product.extraShippingFee || 0;
@@ -1562,6 +621,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var app_concomsis_jmy_jmy_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/concomsis/jmy/jmy.service */ "./src/app/concomsis/jmy/jmy.service.ts");
+/* harmony import */ var app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/concomsis/jmy/interfaces/services */ "./src/app/concomsis/jmy/interfaces/services.ts");
+
 
 
 
@@ -1578,6 +639,10 @@ let SeminuevosUnidadService = class SeminuevosUnidadService {
         this.jmyService = jmyService;
         // Set the defaults
         this.onProductChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]({});
+        this.perfil = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["infoPerfilInterface"]({});
+        this.qP = this.jmyService.jmyPerfil.perfilChange.subscribe(r => {
+            this.perfil = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["infoPerfilInterface"](r);
+        });
     }
     /**
      * Resolver
@@ -1608,17 +673,14 @@ let SeminuevosUnidadService = class SeminuevosUnidadService {
                 resolve(false);
             }
             else {
-                this.jmyService.dbRealTime.object('seminuevos/unidades/' + this.routeParams.id).valueChanges().subscribe(resultado => {
-                    this.product = resultado;
-                    this.onProductChanged.next(this.product);
-                    resolve(resultado);
-                });
-                /*this._httpClient.get('api/e-commerce-products/' + this.routeParams.id)
-                    .subscribe((response: any) => {
-                        this.product = response;
+                if (this.perfil.uid != '')
+                    this.jmyService.dbRealTime.object('seminuevos/' + this.perfil.eid + '/unidades/' + this.routeParams.id).valueChanges().subscribe(resultado => {
+                        this.product = resultado;
                         this.onProductChanged.next(this.product);
-                        resolve(response);
-                    }, reject);*/
+                        resolve(resultado);
+                    });
+                else
+                    reject;
             }
         });
     }
@@ -1630,24 +692,23 @@ let SeminuevosUnidadService = class SeminuevosUnidadService {
      */
     saveProduct(product) {
         return new Promise((resolve, reject) => {
-            this.jmyService.dbRealTime.object('seminuevos/unidades/' + product.id).set(product).then(resultado => {
-                const not = {
-                    titulo: "Notificacion1",
-                    detalle: "mensaje de notificacion",
-                    app: "Panel Automotriz",
-                    idNotificacion: "0001",
-                    grupo: "Ventas",
-                };
-                this.jmyService.jmyFn.notificar(not).then();
-                resolve(resultado);
-            }).catch(resultado => {
-                console.error(resultado);
-                reject(resultado);
-            });
-            /*this._httpClient.post('api/e-commerce-products/' + product.id, product)
-                .subscribe((response: any) => {
-                    resolve(response);
-                }, reject);*/
+            if (this.perfil.uid != '')
+                this.jmyService.dbRealTime.object('seminuevos/' + this.perfil.eid + '/unidades/' + product.id).set(product).then(resultado => {
+                    /* const not:NotificarInterface={
+                         titulo:"Notificacion1",
+                         detalle :"mensaje de notificacion",
+                         app:"Panel Automotriz",
+                         idNotificacion:"0001",
+                         grupo:"Ventas",
+                     }
+                     this.jmyService.jmyFn.notificar(not).then();*/
+                    resolve(resultado);
+                }).catch(resultado => {
+                    console.error(resultado);
+                    reject(resultado);
+                });
+            else
+                reject;
         });
     }
     /**
@@ -1658,16 +719,15 @@ let SeminuevosUnidadService = class SeminuevosUnidadService {
      */
     addProduct(product) {
         return new Promise((resolve, reject) => {
-            this.jmyService.dbRealTime.object('seminuevos/unidades/' + product.id).set(product).then(resultado => {
-                resolve(resultado);
-            }).catch(resultado => {
-                console.error(resultado);
-                reject(resultado);
-            });
-            /* this._httpClient.post('api/e-commerce-products/', product)
-                 .subscribe((response: any) => {
-                     resolve(response);
-                 }, reject);*/
+            if (this.perfil.uid != '')
+                this.jmyService.dbRealTime.object('seminuevos/' + this.perfil.eid + '/unidades/' + product.id).set(product).then(resultado => {
+                    resolve(resultado);
+                }).catch(resultado => {
+                    console.error(resultado);
+                    reject(resultado);
+                });
+            else
+                reject;
         });
     }
 };
@@ -1912,6 +972,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var app_concomsis_jmy_jmy_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/concomsis/jmy/jmy.service */ "./src/app/concomsis/jmy/jmy.service.ts");
+/* harmony import */ var app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/concomsis/jmy/interfaces/services */ "./src/app/concomsis/jmy/interfaces/services.ts");
+
 
 
 
@@ -1928,6 +990,10 @@ let SeminuevosUnidadesService = class SeminuevosUnidadesService {
         this.jmyService = jmyService;
         // Set the defaults
         this.onProductsChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]({});
+        this.perfil = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["infoPerfilInterface"]({});
+        this.qP = this.jmyService.jmyPerfil.perfilChange.subscribe(r => {
+            this.perfil = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["infoPerfilInterface"](r);
+        });
     }
     /**
      * Resolver
@@ -1952,18 +1018,14 @@ let SeminuevosUnidadesService = class SeminuevosUnidadesService {
      */
     getProducts() {
         return new Promise((resolve, reject) => {
-            this.jmyService.dbRealTime.list('seminuevos/unidades/').valueChanges().subscribe(respuesta => {
-                this.products = respuesta || [];
-                this.onProductsChanged.next(this.products);
-                resolve(respuesta);
-            });
-            /*
-                        this._httpClient.get('api/e-commerce-products')
-                            .subscribe((response: any) => {
-                                this.products = response;
-                                this.onProductsChanged.next(this.products);
-                                resolve(response);
-                            }, reject);*/
+            if (this.perfil.uid != '')
+                this.jmyService.dbRealTime.list('seminuevos/' + this.perfil.eid + '/unidades/').valueChanges().subscribe(respuesta => {
+                    this.products = respuesta || [];
+                    this.onProductsChanged.next(this.products);
+                    resolve(respuesta);
+                });
+            else
+                reject;
         });
     }
 };

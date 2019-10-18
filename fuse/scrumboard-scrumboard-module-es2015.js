@@ -1980,7 +1980,7 @@ module.exports = "<div class=\"list new-list mat-elevation-z1\">\n\n    <button 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container>\n\n    <div id=\"board\">\n\n        <!-- HEADER -->\n        <div class=\"header p-16 p-md-24\" [ngClass]=\"board.settings.color\" fxLayout=\"column\">\n\n            <div class=\"header-content\" fxLayout=\"row wrap\" fxLayoutAlign=\"space-between\" fxFlex=\"1 0 auto\">\n\n                <!-- BOARD SELECTION BUTTON -->\n                <div fxLayout=\"row\" fxLayoutAlign=\"center center\" fxFlexOrder=\"2\" fxFlexOrder.gt-xs=\"1\">\n                    <button mat-raised-button class=\"header-boards-button\"\n                            [ngClass]=\"board.settings.color+'-800'\"\n                            routerLink=\"/apps/scrumboard/boards/{{board.idEspacio}}\"\n                            aria-label=\"boards button\">\n                        <mat-icon class=\"mr-8\">assessment</mat-icon>\n                        <span>Ver tableros</span>\n                    </button>\n                </div>\n                <!-- / BOARD SELECTION BUTTON -->\n\n                <!-- BOARD NAME -->\n                <div class=\"header-board-name mb-8 mb-md-0\"\n                     fxLayout=\"row\" fxLayoutAlign=\"center center\"\n                     fxLayout.gt-xs=\"row\" fxLayoutAlign.gt-xs=\"center center\"\n                     fxFlex=\"1 0 100%\" fxFlex.gt-xs=\"1 0 auto\"\n                     fxFlexOrder=\"1\" fxFlexOrder.gt-xs=\"2\">\n                    <mat-icon *ngIf=\"board.settings.subscribed\" class=\"board-subscribe s-16\">remove_red_eye</mat-icon>\n                    <scrumboard-edit-board-name\n                        [board]=\"board\"\n                        (boardNameChanged)=\"onBoardNameChanged($event)\">\n                    </scrumboard-edit-board-name>\n                </div>\n                <!-- / BOARD NAME -->\n\n                <!-- TOOLBAR -->\n                <div class=\"toolbar\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxFlexOrder=\"3\">\n\n                    <!-- BOARD SETTINGS BUTTON -->\n                    <button mat-icon-button (click)=\"settingsSidenav.toggle()\"\n                            aria-label=\"Settings\" matTooltip=\"Settings\">\n                        <mat-icon>settings</mat-icon>\n                    </button>\n                    <!-- / BOARD SETTINGS BUTTON -->\n                </div>\n                <!-- / TOOLBAR -->\n\n            </div>\n\n        </div>\n        <!-- / HEADER -->\n\n        <div fxFlex class=\"board-content-wrapper p-16 p-md-24\">\n\n            <!-- BOARD -->\n            <div class=\"board-content ngx-dnd-container p-16 p-md-24\" fxLayout=\"row\"\n                 ngxDroppable=\"list\" [model]=\"board.lists\" (out)=\"onDrop($event)\"\n                 [@animateStagger]=\"{value:'50'}\">\n\n                <!-- LIST -->\n                <scrumboard-board-list\n                    class=\"scrumboard-board-list list-wrapper ngx-dnd-item\"\n                    ngxDraggable\n                    *ngFor=\"let list of board.lists\"\n                    [model]=\"list\"\n                    [list]=\"list\"\n                    [@animate]=\"{value:'*',params:{duration:'350ms',x:'100%'}}\">\n                </scrumboard-board-list>\n                <!-- / LIST -->\n\n                <!-- NEW LIST BUTTON-->\n                <scrumboard-board-add-list class=\"new-list-wrapper\" (listAdded)=\"onListAdd($event)\"\n                                           ngxDraggable [moves]=\"false\"\n                                           [@animate]=\"{value:'*',params:{duration:'10ms',x:'100%'}}\">\n                </scrumboard-board-add-list>\n                <!-- / NEW LIST BUTTON-->\n\n            </div>\n            <!-- / BOARD -->\n        </div>\n        <!-- primary content -->\n    </div>\n\n    <mat-sidenav #settingsSidenav position=\"end\">\n        <scrumboard-board-settings></scrumboard-board-settings>\n    </mat-sidenav>\n\n</mat-sidenav-container>\n"
+module.exports = "<mat-sidenav-container>\n\n    <div id=\"board\">\n\n        <!-- HEADER -->\n        <div class=\"header p-16 p-md-24\" [ngClass]=\"board.settings.color\" fxLayout=\"column\">\n\n            <div class=\"header-content\" fxLayout=\"row wrap\" fxLayoutAlign=\"space-between\" fxFlex=\"1 0 auto\">\n\n                <!-- BOARD SELECTION BUTTON -->\n                <div fxLayout=\"row\" fxLayoutAlign=\"center center\" fxFlexOrder=\"2\" fxFlexOrder.gt-xs=\"1\">\n                    <button mat-raised-button class=\"header-boards-button\"\n                            [ngClass]=\"board.settings.color+'-800'\"\n                            [routerLink]=\"['/apps/scrumboard/boards/'+board.idEspacio]\"\n                            aria-label=\"boards button\">\n                        <mat-icon class=\"mr-8\">assessment</mat-icon>\n                        <span>Ver tableros {{board.name}}</span>\n                    </button>\n                </div>\n                <!-- / BOARD SELECTION BUTTON -->\n\n                <!-- BOARD NAME -->\n                <div class=\"header-board-name mb-8 mb-md-0\"\n                     fxLayout=\"row\" fxLayoutAlign=\"center center\"\n                     fxLayout.gt-xs=\"row\" fxLayoutAlign.gt-xs=\"center center\"\n                     fxFlex=\"1 0 100%\" fxFlex.gt-xs=\"1 0 auto\"\n                     fxFlexOrder=\"1\" fxFlexOrder.gt-xs=\"2\">\n                    <mat-icon *ngIf=\"board.settings.subscribed\" class=\"board-subscribe s-16\">remove_red_eye</mat-icon>\n                    <scrumboard-edit-board-name\n                        [board]=\"board\"\n                        (boardNameChanged)=\"onBoardNameChanged($event)\">\n                    </scrumboard-edit-board-name>\n                </div>\n                <!-- / BOARD NAME -->\n\n                <!-- TOOLBAR -->\n                <div class=\"toolbar\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxFlexOrder=\"3\">\n\n                    <!-- BOARD SETTINGS BUTTON -->\n                    <button mat-icon-button (click)=\"settingsSidenav.toggle()\"\n                            aria-label=\"Settings\" matTooltip=\"Settings\">\n                        <mat-icon>settings</mat-icon>\n                    </button>\n                    <!-- / BOARD SETTINGS BUTTON -->\n                </div>\n                <!-- / TOOLBAR -->\n\n            </div>\n\n        </div>\n        <!-- / HEADER -->\n\n        <div fxFlex class=\"board-content-wrapper p-16 p-md-24\">\n\n            <!-- BOARD -->\n            <div class=\"board-content ngx-dnd-container p-16 p-md-24\" fxLayout=\"row\"\n                 ngxDroppable=\"list\" [model]=\"board.lists\" (out)=\"onDrop($event)\"\n                 [@animateStagger]=\"{value:'50'}\">\n\n                <!-- LIST -->\n                <scrumboard-board-list\n                    class=\"scrumboard-board-list list-wrapper ngx-dnd-item\"\n                    ngxDraggable\n                    *ngFor=\"let list of board.lists\"\n                    [model]=\"list\"\n                    [list]=\"list\"\n                    [@animate]=\"{value:'*',params:{duration:'350ms',x:'100%'}}\">\n                </scrumboard-board-list>\n                <!-- / LIST -->\n\n                <!-- NEW LIST BUTTON-->\n                <scrumboard-board-add-list class=\"new-list-wrapper\" (listAdded)=\"onListAdd($event)\"\n                                           ngxDraggable [moves]=\"false\"\n                                           [@animate]=\"{value:'*',params:{duration:'10ms',x:'100%'}}\">\n                </scrumboard-board-add-list>\n                <!-- / NEW LIST BUTTON-->\n\n            </div>\n            <!-- / BOARD -->\n        </div>\n        <!-- primary content -->\n    </div>\n\n    <mat-sidenav #settingsSidenav position=\"end\">\n        <scrumboard-board-settings></scrumboard-board-settings>\n    </mat-sidenav>\n\n</mat-sidenav-container>\n"
 
 /***/ }),
 
@@ -1991,7 +1991,7 @@ module.exports = "<mat-sidenav-container>\n\n    <div id=\"board\">\n\n        <
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"dialog-content-wrapper\">\n\n    <mat-toolbar *ngIf=\"card\" matDialogTitle class=\"accent m-0\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\n\n        <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n\n            <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                <!-- DUE DATE -->\n                <div class=\"due-date\" fxFlex=\"0 1 auto\">\n\n                    <button *ngIf=\"card.due\" mat-icon-button [matMenuTriggerFor]=\"dueDateMenu\">\n                        <mat-icon>today</mat-icon>\n                    </button>\n\n                    <mat-menu #dueDateMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <button mat-menu-item (click)=\"removeDueDate()\">Remover vencimiento</button>\n                    </mat-menu>\n\n                    <mat-form-field *ngIf=\"!card.due\">\n                        <input matInput [matDatepicker]=\"menuPicker\" [(ngModel)]=\"card.due\">\n                        <mat-datepicker-toggle matSuffix [for]=\"menuPicker\"></mat-datepicker-toggle>\n                        <mat-datepicker #menuPicker></mat-datepicker>\n                    </mat-form-field>\n\n                </div>\n                <!-- / DUE DATE -->\n\n                <!-- LABELS -->\n                <div class=\"labels\" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button [matMenuTriggerFor]=\"labelsMenu\">\n                        <mat-icon>label</mat-icon>\n                    </button>\n\n                    <mat-menu #labelsMenu=\"matMenu\" [overlapTrigger]=\"false\" class=\"scrumboard-labels-menu\">\n\n                        <scrumboard-label-selector [card]=\"card\"\n                                                   (cardLabelsChanged)=\"updateCard()\"></scrumboard-label-selector>\n\n                    </mat-menu>\n\n                </div>\n                <!-- / LABELS -->\n\n                <!-- MEMBERS -->\n                <div class=\"members\" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button class=\"\" [matMenuTriggerFor]=\"membersMenu\">\n                        <mat-icon>account_circle</mat-icon>\n                    </button>\n\n                    <mat-menu #membersMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <div fxFlex fxLayout=\"column\" class=\"scrumboard-members-menu\"\n                             (click)=\"$event.stopPropagation()\">\n                            <mat-checkbox class=\"member px-16\" [checked]=\"card.idMembers.indexOf(member.id) > -1\"\n                                          *ngFor=\"let member of board.members\"\n                                          (change)=\"toggleInArray(member.id, card.idMembers);updateCard()\">\n                                <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                                    <img [alt]=\"member.name\" [src]=\" member.avatar\" class=\"avatar\"/>\n                                    <p class=\"member-name\">{{ member.name }}</p>\n                                </div>\n                            </mat-checkbox>\n                        </div>\n                    </mat-menu>\n\n                </div>\n                <!-- / MEMBERS -->\n\n                <!-- ATTACHMENT -->\n                <button mat-icon-button aria-label=\"Attachment\">\n                    <mat-icon>attachment</mat-icon>\n                </button>\n                <!-- / ATTACHMENT -->\n\n                <!-- CHECKLIST -->\n                <div class=\"due-date \" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button class=\"\" [matMenuTriggerFor]=\"checklistMenu\"\n                            #checklistMenuTrigger=\"matMenuTrigger\" (menuOpened)=\"onChecklistMenuOpen()\">\n                        <mat-icon>check_box</mat-icon>\n                    </button>\n\n                    <mat-menu #checklistMenu=\"matMenu\" [overlapTrigger]=\"false\">\n\n                        <form class=\"px-16 py-8\" #newChecklistForm=\"ngForm\" (submit)=\"addChecklist(newChecklistForm)\"\n                              (click)=\"$event.stopPropagation()\"\n                              fxLayout=\"column\" fxLayoutAlign=\"start end\">\n\n                            <mat-form-field appearance=\"outline\" (click)=\"$event.stopPropagation()\" fxFlex>\n                                <mat-label>Titulo de lista de tareas</mat-label>\n                                <input #newCheckListTitleField matInput ngModel #checklistTitle=\"ngModel\"\n                                       name=\"checklistTitle\" required>\n                            </mat-form-field>\n\n                            <button mat-raised-button class=\"mat-accent\" aria-label=\"Agregar Lista\"\n                                    [disabled]=\"!newChecklistForm.valid\">Agregar Lista\n                            </button>\n\n                        </form>\n\n                    </mat-menu>\n\n                </div>\n                <!-- / CHECKLIST -->\n\n                <!-- SUBSCRIBE -->\n                <div class=\"subscribe \" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button [matMenuTriggerFor]=\"subscribeMenu\">\n                        <mat-icon *ngIf=\"card.subscribed\">visibility</mat-icon>\n                        <mat-icon *ngIf=\"!card.subscribed\">visibility_off</mat-icon>\n                    </button>\n\n                    <mat-menu #subscribeMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <button *ngIf=\"card.subscribed\" mat-menu-item (click)=\"toggleSubscribe()\">\n                            Unsubscribe\n                        </button>\n                        <button *ngIf=\"!card.subscribed\" mat-menu-item (click)=\"toggleSubscribe()\">\n                            Subscribe\n                        </button>\n                    </mat-menu>\n\n                </div>\n                <!-- / SUBSCRIBE -->\n\n                <!-- OPTIONS -->\n                <div class=\"options \" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button class=\"\" [matMenuTriggerFor]=\"optionsMenu\">\n                        <mat-icon>more_horiz</mat-icon>\n                    </button>\n\n                    <mat-menu #optionsMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <button mat-menu-item (click)=\"removeCard()\">\n                            Borrar tarjerta\n                        </button>\n                    </mat-menu>\n\n                </div>\n                <!-- / OPTIONS -->\n\n            </div>\n\n            <!-- CLOSE DIALOG BUTTON -->\n            <button mat-icon-button (click)=\"matDialogRef.close()\" aria-label=\"Close Dialog\">\n                <mat-icon>close</mat-icon>\n            </button>\n            <!-- / CLOSE DIALOG BUTTON -->\n\n        </div>\n\n    </mat-toolbar>\n\n    <div *ngIf=\"card\" mat-dialog-content class=\"py-24 px-0 m-0\" fusePerfectScrollbar>\n\n        <!-- BREADCRUMB -->\n        <div class=\"card-breadcrumb mt-8 mb-32 px-24\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n            <span>{{board.name}}</span>\n            <mat-icon class=\"s-20\">chevron_right</mat-icon>\n            <span>{{list.name}}</span>\n        </div>\n        <!-- / BREADCRUMB -->\n\n        <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n            <!-- NAME -->\n            <div class=\"card-name px-24\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                <mat-form-field appearance=\"outline\" class=\"w-100-p\">\n                    <mat-label>Title</mat-label>\n                    <input matInput [(ngModel)]=\"card.name\" required (change)=\"updateCard()\">\n                </mat-form-field>\n            </div>\n            <!-- / NAME -->\n\n            <!-- DUE DATE -->\n            <div *ngIf=\"card.due\" class=\"due-date px-24 pl-0\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                <mat-form-field appearance=\"outline\" class=\"w-100-p\">\n                    <mat-label>Vencimiento</mat-label>\n                    <input matInput [matDatepicker]=\"picker\" [(ngModel)]=\"card.due\">\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                    <mat-datepicker #picker></mat-datepicker>\n                </mat-form-field>\n            </div>\n            <!-- / DUE DATE -->\n\n        </div>\n\n        <!-- DESCRIPTION -->\n        <div class=\"description px-24 mb-16\">\n            <mat-form-field appearance=\"outline\" class=\"w-100-p\">\n                <mat-label>Descripción</mat-label>\n                <textarea matInput [(ngModel)]=\"card.description\" columns=\"1\"\n                          mat-maxlength=\"150\" max-rows=\"4\" (change)=\"updateCard()\"></textarea>\n            </mat-form-field>\n        </div>\n        <!-- / DESCRIPTION -->\n\n        <!-- SECTIONS -->\n        <div class=\"sections\">\n\n            <!-- LABELS & MEMBERS SECTION -->\n            <div *ngIf=\"card.idLabels[0] || card.idMembers[0]\" class=\"section\"\n                 fxLayout=\"column\" fxLayout.gt-xs=\"row\">\n\n                <div *ngIf=\"card.idLabels[0]\" fxFlex class=\"labels\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">label</mat-icon>\n                        <span class=\"section-title\">Etiquetas</span>\n                    </div>\n\n                    <div class=\"section-content\">\n                        <mat-chip-list class=\"label-chips\">\n                            <mat-chip class=\"label-chip mb-4\"\n                                      *ngFor=\"let labelId of card.idLabels\"\n                                      [ngClass]=\"board.labels | getById:labelId:'color'\"\n                                      fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                                <span>{{board.labels|getById:labelId:'name'}}</span>\n                            </mat-chip>\n                        </mat-chip-list>\n                    </div>\n\n                </div>\n\n                <div *ngIf=\"card.idMembers[0]\" fxFlex class=\"members\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">supervisor_account</mat-icon>\n                        <span class=\"section-title\">Usuarios</span>\n                    </div>\n\n                    <div class=\"section-content\">\n                        <div class=\"member-chips\" fxLayout=\"row\" fxLayoutWrap>\n                            <div class=\"member-chip mb-4\" *ngFor=\"let memberId of card.idMembers\"\n                                 fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                                <img class=\"member-chip-avatar\" [src]=\"board.members | getById:memberId:'avatar'\"\n                                     [matTooltip]=\"board.members | getById:memberId:'name'\">\n                            </div>\n                        </div>\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / LABELS & MEMBERS SECTION -->\n\n            <!-- ATTACHMENTS SECTION -->\n            <div *ngIf=\"card.attachments[0]\" class=\"section\">\n\n                <div class=\"attachments\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start\">\n                        <mat-icon class=\"mr-8\">attachment</mat-icon>\n                        <span class=\"section-title\">Archivos</span>\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <div fxLayout=\"column\" fxLayoutAlign=\"start\" fxLayoutWrap fxLayout.gt-sm=\"row\">\n\n                            <div class=\"attachment\" fxFlex=\"33\" *ngFor=\"let item of card.attachments\"\n                                 [ngSwitch]=\"item.type\">\n\n                                <div fxLayout=\"column\" fxLayoutAlign=\"start\" *ngSwitchCase=\"'image'\">\n\n                                    <div class=\"attachment-preview mat-elevation-z1\">\n                                        <img [src]=\"item.src\">\n                                    </div>\n\n                                    <div class=\"attachment-content mt-8\" fxLayout=\"row\"\n                                         fxLayoutAlign=\"start center\">\n\n                                        <div fxFlex>\n\n                                            <div fxLayout=\"row\" fxLayoutAlign=\"start start\">\n                                                <span class=\"attachment-name\">{{item.name}}</span>\n                                                <mat-icon *ngIf=\"card.idAttachmentCover === item.id\"\n                                                          class=\"yellow-700-fg attachment-is-cover\">\n                                                    star\n                                                </mat-icon>\n                                            </div>\n\n                                            <span class=\"attachment-time\">{{item.time}}</span>\n\n                                        </div>\n\n                                        <button mat-icon-button class=\"attachment-actions-button\"\n                                                [matMenuTriggerFor]=\"attachmentActionsMenu\">\n                                            <mat-icon>more_vert</mat-icon>\n                                        </button>\n\n                                        <mat-menu #attachmentActionsMenu=\"matMenu\">\n                                            <button mat-menu-item (click)=\"toggleCoverImage(item.id)\">\n                                                <span *ngIf=\"card.idAttachmentCover !== item.id\">Crear covertura</span>\n                                                <span *ngIf=\"card.idAttachmentCover === item.id\">Quitar covertura</span>\n                                            </button>\n                                            <button mat-menu-item (click)=\"removeAttachment(item)\">\n                                                Quitar adjunto\n                                            </button>\n                                        </mat-menu>\n\n                                    </div>\n\n                                </div>\n\n                                <div *ngSwitchCase=\"'link'\" fxLayout=\"row\">\n                                    <div class=\"attachment-preview mat-elevation-z2\" fxLayout=\"column\"\n                                         fxLayoutAlign=\"center center\">\n                                        <span>LINK</span>\n                                    </div>\n                                    <div class=\"attachment-content\" fxLayout=\"column\">\n                                        <span class=\"attachment-url\">{{item.url}}</span>\n                                        <span class=\"attachment-time\">{{item.time}}</span>\n                                    </div>\n                                </div>\n\n                            </div>\n\n                        </div>\n\n                        <button mat-stroked-button class=\"add-attachment-button\" aria-label=\"add attachment\">\n                            Agregar adjunto\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / ATTACHMENTS SECTION -->\n\n            <!-- CHECKLISTS SECTION -->\n            <div class=\"section\" *ngFor=\"let checklist of card.checklists\">\n\n                <div class=\"checklist\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                        <mat-icon class=\"mr-8\">check_box</mat-icon>\n                        <span fxFlex class=\"section-title\">{{checklist.name}}</span>\n\n                        <div>\n\n                            <button mat-icon-button class=\"checklist-actions-button\"\n                                    [matMenuTriggerFor]=\"checklistActionsMenu\">\n                                <mat-icon class=\"s-20\">more_vert</mat-icon>\n                            </button>\n\n                            <mat-menu #checklistActionsMenu=\"matMenu\">\n                                <button mat-menu-item (click)=\"removeChecklist(checklist)\">\n                                    <mat-icon>delete</mat-icon>\n                                    <span>Borrar lista de tareas</span>\n                                </button>\n                            </mat-menu>\n\n                        </div>\n\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <div class=\"checklist-progress\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                            <span class=\"checklist-progress-value\">\n                                {{checklist.checkItemsChecked}} / {{checklist.checkItems.length}}\n                            </span>\n\n                            <mat-progress-bar color=\"accent\" class=\"checklist-progressbar\" mode=\"determinate\"\n                                              value=\"{{100 * checklist.checkItemsChecked / checklist.checkItems.length}}\">\n                            </mat-progress-bar>\n\n                        </div>\n\n                        <div class=\"check-items\">\n\n                            <div class=\"check-item\" *ngFor=\"let checkItem of checklist.checkItems\" fxLayout=\"row\"\n                                 fxLayoutAlign=\"space-between center\">\n\n                                <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                                    <mat-form-field appearance=\"outline\" fxFlex>\n                                        <input matInput [(ngModel)]=\"checkItem.name\">\n                                        <mat-checkbox matPrefix [(ngModel)]=\"checkItem.checked\"\n                                                      (change)=\"updateCheckedCount(checklist)\"\n                                                      aria-label=\"{{checkItem.name}}\">\n                                        </mat-checkbox>\n                                        <button mat-icon-button matSuffix class=\"checklist-actions-button\"\n                                                (click)=\"removeChecklistItem(checkItem, checklist)\">\n                                            <mat-icon class=\"secondary-text\">delete</mat-icon>\n                                        </button>\n                                    </mat-form-field>\n\n                                </div>\n\n                            </div>\n\n                        </div>\n\n                        <form #newCheckItemForm=\"ngForm\" (submit)=\"addCheckItem(newCheckItemForm,checklist)\"\n                              name=\"newCheckItemForm\" class=\"new-check-item-form\"\n                              fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                            <div fxLayout=\"row\" fxLayoutAlign=\"start center\" fxFlex>\n\n                                <mat-form-field appearance=\"outline\" class=\"no-errors-spacer mr-16\" fxFlex>\n                                    <input matInput ngModel #checkItem=\"ngModel\" name=\"checkItem\" autocomplete=\"off\"\n                                           placeholder=\"Nuevo elemento\">\n                                </mat-form-field>\n\n                            </div>\n\n                            <button mat-mini-fab color=\"accent\"\n                                    [disabled]=\"!newCheckItemForm.valid || newCheckItemForm.pristine\"\n                                    aria-label=\"Add\">\n                                <mat-icon>add</mat-icon>\n                            </button>\n                        </form>\n\n                    </div>\n                </div>\n            </div>\n            <!-- / CHECKLISTS SECTION -->\n\n            <!-- COMMENTS SECTION -->\n            <div class=\"section\">\n\n                <div class=\"comments\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">comment</mat-icon>\n                        <span class=\"section-title\">Comentarios</span>\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <form name=\"cardCommentForm\"\n                              #newCommentForm=\"ngForm\" (submit)=\"addNewComment(newCommentForm)\"\n                              class=\"comment new-comment\" fxLayout=\"column\" fxLayoutAlign=\"start\" no-validate>\n\n                            <div fxLayout=\"row\" fxLayoutAlign=\"center center\">\n\n                                <img class=\"comment-member-avatar\" src=\"assets/images/avatars/profile.jpg\">\n\n                                <mat-form-field class=\"mr-12\" appearance=\"outline\" fxFlex>\n                                    <mat-label>Comentario</mat-label>\n                                    <input matInput name=\"newComment\" ngModel #newComment=\"ngModel\" required>\n                                </mat-form-field>\n\n                                <button mat-mini-fab class=\"mat-accent\"\n                                        [disabled]=\"!newCommentForm.valid || newCommentForm.pristine\"\n                                        aria-label=\"Add\">\n                                    <mat-icon>add</mat-icon>\n                                </button>\n\n                            </div>\n\n                        </form>\n\n                        <div class=\"comment\" fxLayout=\"row\" fxLayoutAlign=\"start center\"\n                             *ngFor=\"let comment of card.comments\">\n\n                            <img class=\"comment-member-avatar\"\n                                 [src]=\"board.members | getById: comment.idMember:'avatar'\">\n\n                            <div fxLayout=\"column\">\n                                <div class=\"comment-member-name\">\n                                    {{board.members | getById: comment.idMember:'name'}}\n                                </div>\n                                <div class=\"comment-bubble\">{{comment.message}}</div>\n                                <div class=\"comment-time secondary-text\">{{comment.time}}</div>\n                            </div>\n                        </div>\n\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / COMMENTS SECTION -->\n\n            <!-- ACTIVITIES SECTION -->\n            <div *ngIf=\"card.activities[0]\" class=\"section\">\n\n                <div class=\"activities\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">list</mat-icon>\n                        <span class=\"section-title\">Actividades</span>\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <div class=\"activity\" *ngFor=\"let activity of card.activities\" fxLayout=\"row\"\n                             fxLayoutAlign=\"start center\">\n\n                            <img class=\"activity-member-avatar\"\n                                 [src]=\"board.members | getById:activity.idMember:'avatar'\">\n\n                            <div>\n\n                                <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                                    <div class=\"activity-member-name\">\n                                        {{board.members | getById:activity.idMember:'name'}}\n                                    </div>\n                                    <div class=\"activity-message\">{{activity.message}}</div>\n\n                                </div>\n\n                                <div class=\"activity-time mt-4 secondary-text\">{{activity.time}}</div>\n\n                            </div>\n\n                        </div>\n\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / ACTIVITIES SECTION -->\n\n        </div>\n        <!-- / SECTIONS -->\n\n    </div>\n\n</div>\n"
+module.exports = "<div class=\"dialog-content-wrapper\">\n\n    <mat-toolbar *ngIf=\"card\" matDialogTitle class=\"accent m-0\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\n\n        <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n\n            <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                <!-- DUE DATE -->\n                <div class=\"due-date\" fxFlex=\"0 1 auto\">\n\n                    <button *ngIf=\"card.due\" mat-icon-button [matMenuTriggerFor]=\"dueDateMenu\">\n                        <mat-icon>today</mat-icon>\n                    </button>\n\n                    <mat-menu #dueDateMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <button mat-menu-item (click)=\"removeDueDate()\">Remover vencimiento</button>\n                    </mat-menu>\n\n                    <mat-form-field *ngIf=\"!card.due\">\n                        <input matInput [matDatepicker]=\"menuPicker\" [(ngModel)]=\"card.due\">\n                        <mat-datepicker-toggle matSuffix [for]=\"menuPicker\"></mat-datepicker-toggle>\n                        <mat-datepicker #menuPicker></mat-datepicker>\n                    </mat-form-field>\n\n                </div>\n                <!-- / DUE DATE -->\n\n                <!-- LABELS -->\n                <div class=\"labels\" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button [matMenuTriggerFor]=\"labelsMenu\">\n                        <mat-icon>label</mat-icon>\n                    </button>\n\n                    <mat-menu #labelsMenu=\"matMenu\" [overlapTrigger]=\"false\" class=\"scrumboard-labels-menu\">\n\n                        <scrumboard-label-selector [card]=\"card\"\n                                                   (cardLabelsChanged)=\"updateCard()\"></scrumboard-label-selector>\n\n                    </mat-menu>\n\n                </div>\n                <!-- / LABELS -->\n\n                <!-- MEMBERS -->\n                <div class=\"members\" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button class=\"\" [matMenuTriggerFor]=\"membersMenu\">\n                        <mat-icon>account_circle</mat-icon>\n                    </button>\n\n                    <mat-menu #membersMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <div fxFlex fxLayout=\"column\" class=\"scrumboard-members-menu\"\n                             (click)=\"$event.stopPropagation()\">\n                            <mat-checkbox class=\"member px-16\" [checked]=\"card.idMembers.indexOf(member.id) > -1\"\n                                          *ngFor=\"let member of board.members\"\n                                          (change)=\"toggleInArray(member.id, card.idMembers);updateCard()\">\n                                <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                                    <img [alt]=\"member.name\" [src]=\" member.avatar\" class=\"avatar\"/>\n                                    <p class=\"member-name\">{{ member.name }}</p>\n                                </div>\n                            </mat-checkbox>\n                        </div>\n                    </mat-menu>\n\n                </div>\n                <!-- / MEMBERS -->\n\n                <!-- ATTACHMENT -->\n                <button mat-icon-button aria-label=\"Attachment\">\n                    <mat-icon>attachment</mat-icon>\n                </button>\n                <!-- / ATTACHMENT -->\n\n                <!-- CHECKLIST -->\n                <div class=\"due-date \" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button class=\"\" [matMenuTriggerFor]=\"checklistMenu\"\n                            #checklistMenuTrigger=\"matMenuTrigger\" (menuOpened)=\"onChecklistMenuOpen()\">\n                        <mat-icon>check_box</mat-icon>\n                    </button>\n\n                    <mat-menu #checklistMenu=\"matMenu\" [overlapTrigger]=\"false\">\n\n                        <form class=\"px-16 py-8\" #newChecklistForm=\"ngForm\" (submit)=\"addChecklist(newChecklistForm)\"\n                              (click)=\"$event.stopPropagation()\"\n                              fxLayout=\"column\" fxLayoutAlign=\"start end\">\n\n                            <mat-form-field appearance=\"outline\" (click)=\"$event.stopPropagation()\" fxFlex>\n                                <mat-label>Titulo de lista de tareas</mat-label>\n                                <input #newCheckListTitleField matInput ngModel #checklistTitle=\"ngModel\"\n                                       name=\"checklistTitle\" required>\n                            </mat-form-field>\n\n                            <button mat-raised-button class=\"mat-accent\" aria-label=\"Agregar Lista\"\n                                    [disabled]=\"!newChecklistForm.valid\">Agregar Lista\n                            </button>\n\n                        </form>\n\n                    </mat-menu>\n\n                </div>\n                <!-- / CHECKLIST -->\n\n                <!-- SUBSCRIBE -->\n                <div class=\"subscribe \" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button [matMenuTriggerFor]=\"subscribeMenu\">\n                        <mat-icon *ngIf=\"card.subscribed\">visibility</mat-icon>\n                        <mat-icon *ngIf=\"!card.subscribed\">visibility_off</mat-icon>\n                    </button>\n\n                    <mat-menu #subscribeMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <button *ngIf=\"card.subscribed\" mat-menu-item (click)=\"toggleSubscribe()\">\n                            Unsubscribe\n                        </button>\n                        <button *ngIf=\"!card.subscribed\" mat-menu-item (click)=\"toggleSubscribe()\">\n                            Subscribe\n                        </button>\n                    </mat-menu>\n\n                </div>\n                <!-- / SUBSCRIBE -->\n\n                <!-- OPTIONS -->\n                <div class=\"options \" fxFlex=\"0 1 auto\">\n\n                    <button mat-icon-button class=\"\" [matMenuTriggerFor]=\"optionsMenu\">\n                        <mat-icon>more_horiz</mat-icon>\n                    </button>\n\n                    <mat-menu #optionsMenu=\"matMenu\" [overlapTrigger]=\"false\">\n                        <button mat-menu-item (click)=\"removeCard()\">\n                            Borrar tarjerta\n                        </button>\n                    </mat-menu>\n\n                </div>\n                <!-- / OPTIONS -->\n\n            </div>\n\n            <!-- CLOSE DIALOG BUTTON -->\n            <button mat-icon-button (click)=\"matDialogRef.close()\" aria-label=\"Close Dialog\">\n                <mat-icon>close</mat-icon>\n            </button>\n            <!-- / CLOSE DIALOG BUTTON -->\n\n        </div>\n\n    </mat-toolbar>\n\n    <div *ngIf=\"card\" mat-dialog-content class=\"py-24 px-0 m-0\" fusePerfectScrollbar>\n\n        <!-- BREADCRUMB -->\n        <div class=\"card-breadcrumb mt-8 mb-32 px-24\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n            <span>{{board.name}}</span>\n            <mat-icon class=\"s-20\">chevron_right</mat-icon>\n            <span>{{list.name}}</span>\n            <mat-icon class=\"s-20\">chevron_right</mat-icon>\n            <span class=\"badge due-date\"\n                *ngIf=\"card.due\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                <mat-icon class=\"s-16\">access_time</mat-icon>\n                <span>{{card.due | date:'mediumDate'}}</span>\n\n            </span>\n               <!-- DUE DATE -->\n               <div *ngIf=\"card.due\" class=\"due-date px-24 pl-0\" fxLayout=\"row\" fxLayoutAlign=\"start center\" style=\"\n               width: 40px;\n               padding: 0px 0px 0 0px;\n           \">\n                   <mat-form-field appearance=\"outline\" class=\"w-100-p\">\n                       <mat-label>Vencimiento </mat-label>\n                       <input matInput [matDatepicker]=\"picker\" [(ngModel)]=\"card.due\" [formControl]=\"date\" (change)=\"updateCard()\" (dateChange)=\"someMethodName($event)\" >\n                       <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                       <mat-datepicker #picker></mat-datepicker>\n                   </mat-form-field>\n               </div>\n               <!-- / DUE DATE -->\n        </div>\n        <!-- / BREADCRUMB -->\n\n        <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n            <!-- NAME -->\n            <div class=\"card-name px-24\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                <mat-form-field appearance=\"outline\" class=\"w-100-p\">\n                    <mat-label>Título de la tarjeta</mat-label>\n                    <input matInput [(ngModel)]=\"card.name\" required (change)=\"updateCard()\">\n                </mat-form-field>\n            </div>\n            <!-- / NAME -->\n\n         \n\n        </div>\n\n        <!-- DESCRIPTION -->\n        <div class=\"description px-24 mb-16\">\n            <mat-form-field appearance=\"outline\" class=\"w-100-p\">\n                <mat-label>Descripción</mat-label>\n                <textarea matInput [(ngModel)]=\"card.description\" columns=\"1\"\n                          mat-maxlength=\"150\" max-rows=\"4\" (change)=\"updateCard()\"></textarea>\n            </mat-form-field>\n        </div>\n        <!-- / DESCRIPTION -->\n\n        <!-- SECTIONS -->\n        <div class=\"sections\">\n\n            <!-- LABELS & MEMBERS SECTION -->\n            <div *ngIf=\"card.idLabels[0] || card.idMembers[0]\" class=\"section\"\n                 fxLayout=\"column\" fxLayout.gt-xs=\"row\">\n\n                <div *ngIf=\"card.idLabels[0]\" fxFlex class=\"labels\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">label</mat-icon>\n                        <span class=\"section-title\">Etiquetas</span>\n                    </div>\n\n                    <div class=\"section-content\">\n                        <mat-chip-list class=\"label-chips\">\n                            <mat-chip class=\"label-chip mb-4\"\n                                      *ngFor=\"let labelId of card.idLabels\"\n                                      [ngClass]=\"board.labels | getById:labelId:'color'\"\n                                      fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                                <span>{{board.labels|getById:labelId:'name'}}</span>\n                            </mat-chip>\n                        </mat-chip-list>\n                    </div>\n\n                </div>\n\n                <div *ngIf=\"card.idMembers[0]\" fxFlex class=\"members\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">supervisor_account</mat-icon>\n                        <span class=\"section-title\">Usuarios</span>\n                    </div>\n\n                    <div class=\"section-content\">\n                        <div class=\"member-chips\" fxLayout=\"row\" fxLayoutWrap>\n                            <div class=\"member-chip mb-4\" *ngFor=\"let memberId of card.idMembers\"\n                                 fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                                <img class=\"member-chip-avatar\" [src]=\"board.members | getById:memberId:'avatar'\"\n                                     [matTooltip]=\"board.members | getById:memberId:'name'\">\n                            </div>\n                        </div>\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / LABELS & MEMBERS SECTION -->\n\n            <!-- ATTACHMENTS SECTION -->\n            <div *ngIf=\"card.attachments[0]\" class=\"section\">\n\n                <div class=\"attachments\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start\">\n                        <mat-icon class=\"mr-8\">attachment</mat-icon>\n                        <span class=\"section-title\">Archivos</span>\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <app-jmy-archivos *ngIf=\"editarArchivos\"></app-jmy-archivos>\n                        <div fxLayout=\"column\" fxLayoutAlign=\"start\" fxLayoutWrap fxLayout.gt-sm=\"row\"  *ngIf=\"!editarArchivos\">\n\n                            <div class=\"attachment\" fxFlex=\"33\" *ngFor=\"let item of card.attachments\"\n                                 [ngSwitch]=\"item.type\">\n\n                                <div fxLayout=\"column\" fxLayoutAlign=\"start\" *ngSwitchCase=\"'image'\">\n\n                                    <div class=\"attachment-preview mat-elevation-z1\">\n                                        <img [src]=\"item.src\">\n                                    </div>\n\n                                    <div class=\"attachment-content mt-8\" fxLayout=\"row\"\n                                         fxLayoutAlign=\"start center\">\n\n                                        <div fxFlex>\n\n                                            <div fxLayout=\"row\" fxLayoutAlign=\"start start\">\n                                                <span class=\"attachment-name\">{{item.name}}</span>\n                                                <mat-icon *ngIf=\"card.idAttachmentCover === item.id\"\n                                                          class=\"yellow-700-fg attachment-is-cover\">\n                                                    star\n                                                </mat-icon>\n                                            </div>\n\n                                            <span class=\"attachment-time\">{{item.time}}</span>\n\n                                        </div>\n\n                                        <button mat-icon-button class=\"attachment-actions-button\"\n                                                [matMenuTriggerFor]=\"attachmentActionsMenu\">\n                                            <mat-icon>more_vert</mat-icon>\n                                        </button>\n\n                                        <mat-menu #attachmentActionsMenu=\"matMenu\">\n                                            <button mat-menu-item (click)=\"toggleCoverImage(item.id)\">\n                                                <span *ngIf=\"card.idAttachmentCover !== item.id\">Crear covertura</span>\n                                                <span *ngIf=\"card.idAttachmentCover === item.id\">Quitar covertura</span>\n                                            </button>\n                                            <button mat-menu-item (click)=\"removeAttachment(item)\">\n                                                Quitar adjunto\n                                            </button>\n                                        </mat-menu>\n\n                                    </div>\n\n                                </div>\n\n                                <div *ngSwitchCase=\"'link'\" fxLayout=\"row\">\n                                    <div class=\"attachment-preview mat-elevation-z2\" fxLayout=\"column\"\n                                         fxLayoutAlign=\"center center\">\n                                        <span>LINK</span>\n                                    </div>\n                                    <div class=\"attachment-content\" fxLayout=\"column\">\n                                        <span class=\"attachment-url\">{{item.url}}</span>\n                                        <span class=\"attachment-time\">{{item.time}}</span>\n                                    </div>\n                                </div>\n\n                            </div>\n\n                        </div>\n\n                        <button mat-stroked-button class=\"add-attachment-button\" aria-label=\"add attachment\" (click)=\"subrirArchivos()\">\n                            Agregar adjunto\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / ATTACHMENTS SECTION -->\n\n            <!-- CHECKLISTS SECTION -->\n            <div class=\"section\" *ngFor=\"let checklist of card.checklists\">\n\n                <div class=\"checklist\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                        <mat-icon class=\"mr-8\">check_box</mat-icon>\n                        <span fxFlex class=\"section-title\">{{checklist.name}}</span>\n\n                        <div>\n\n                            <button mat-icon-button class=\"checklist-actions-button\"\n                                    [matMenuTriggerFor]=\"checklistActionsMenu\">\n                                <mat-icon class=\"s-20\">more_vert</mat-icon>\n                            </button>\n\n                            <mat-menu #checklistActionsMenu=\"matMenu\">\n                                <button mat-menu-item (click)=\"removeChecklist(checklist)\">\n                                    <mat-icon>delete</mat-icon>\n                                    <span>Borrar lista de tareas</span>\n                                </button>\n                            </mat-menu>\n\n                        </div>\n\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <div class=\"checklist-progress\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                            <span class=\"checklist-progress-value\">\n                                {{checklist.checkItemsChecked}} / {{checklist.checkItems.length}}\n                            </span>\n\n                            <mat-progress-bar color=\"accent\" class=\"checklist-progressbar\" mode=\"determinate\"\n                                              value=\"{{100 * checklist.checkItemsChecked / checklist.checkItems.length}}\">\n                            </mat-progress-bar>\n\n                        </div>\n\n                        <div class=\"check-items\">\n\n                            <div class=\"check-item\" *ngFor=\"let checkItem of checklist.checkItems\" fxLayout=\"row\"\n                                 fxLayoutAlign=\"space-between center\">\n\n                                <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                                    <mat-form-field appearance=\"outline\" fxFlex>\n                                        <input matInput [(ngModel)]=\"checkItem.name\">\n                                        <mat-checkbox matPrefix [(ngModel)]=\"checkItem.checked\"\n                                                      (change)=\"updateCheckedCount(checklist)\"\n                                                      aria-label=\"{{checkItem.name}}\">\n                                        </mat-checkbox>\n                                        <button mat-icon-button matSuffix class=\"checklist-actions-button\"\n                                                (click)=\"removeChecklistItem(checkItem, checklist)\">\n                                            <mat-icon class=\"secondary-text\">delete</mat-icon>\n                                        </button>\n                                    </mat-form-field>\n\n                                </div>\n\n                            </div>\n\n                        </div>\n\n                        <form #newCheckItemForm=\"ngForm\" (submit)=\"addCheckItem(newCheckItemForm,checklist)\"\n                              name=\"newCheckItemForm\" class=\"new-check-item-form\"\n                              fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                            <div fxLayout=\"row\" fxLayoutAlign=\"start center\" fxFlex>\n\n                                <mat-form-field appearance=\"outline\" class=\"no-errors-spacer mr-16\" fxFlex>\n                                    <input matInput ngModel #checkItem=\"ngModel\" name=\"checkItem\" autocomplete=\"off\"\n                                           placeholder=\"Nuevo elemento\">\n                                </mat-form-field>\n\n                            </div>\n\n                            <button mat-mini-fab color=\"accent\"\n                                    [disabled]=\"!newCheckItemForm.valid || newCheckItemForm.pristine\"\n                                    aria-label=\"Add\">\n                                <mat-icon>add</mat-icon>\n                            </button>\n                        </form>\n\n                    </div>\n                </div>\n            </div>\n            <!-- / CHECKLISTS SECTION -->\n\n            <!-- COMMENTS SECTION -->\n            <div class=\"section\">\n\n                <div class=\"comments\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">comment</mat-icon>\n                        <span class=\"section-title\">Comentarios</span>\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <form name=\"cardCommentForm\"\n                              #newCommentForm=\"ngForm\" (submit)=\"addNewComment(newCommentForm)\"\n                              class=\"comment new-comment\" fxLayout=\"column\" fxLayoutAlign=\"start\" no-validate>\n\n                            <div fxLayout=\"row\" fxLayoutAlign=\"center center\">\n\n                                <img class=\"comment-member-avatar\" src=\"assets/images/avatars/profile.jpg\">\n\n                                <mat-form-field class=\"mr-12\" appearance=\"outline\" fxFlex>\n                                    <mat-label>Comentario</mat-label>\n                                    <input matInput name=\"newComment\" ngModel #newComment=\"ngModel\" required>\n                                </mat-form-field>\n\n                                <button mat-mini-fab class=\"mat-accent\"\n                                        [disabled]=\"!newCommentForm.valid || newCommentForm.pristine\"\n                                        aria-label=\"Add\">\n                                    <mat-icon>add</mat-icon>\n                                </button>\n\n                            </div>\n\n                        </form>\n\n                        <div class=\"comment\" fxLayout=\"row\" fxLayoutAlign=\"start center\"\n                             *ngFor=\"let comment of card.comments\">\n\n                            <img class=\"comment-member-avatar\"\n                                 [src]=\"board.members | getById: comment.idMember:'avatar'\">\n\n                            <div fxLayout=\"column\">\n                                <div class=\"comment-member-name\">\n                                    {{board.members | getById: comment.idMember:'name'}}\n                                </div>\n                                <div class=\"comment-bubble\">{{comment.message}}</div>\n                                <div class=\"comment-time secondary-text\">{{comment.time}}</div>\n                            </div>\n                        </div>\n\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / COMMENTS SECTION -->\n\n            <!-- ACTIVITIES SECTION -->\n            <div *ngIf=\"card.activities[0]\" class=\"section\">\n\n                <div class=\"activities\">\n\n                    <div class=\"section-header\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n                        <mat-icon class=\"mr-8\">list</mat-icon>\n                        <span class=\"section-title\">Actividades</span>\n                    </div>\n\n                    <div class=\"section-content\">\n\n                        <div class=\"activity\" *ngFor=\"let activity of card.activities\" fxLayout=\"row\"\n                             fxLayoutAlign=\"start center\">\n\n                            <img class=\"activity-member-avatar\"\n                                 [src]=\"board.members | getById:activity.idMember:'avatar'\">\n\n                            <div>\n\n                                <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\n                                    <div class=\"activity-member-name\">\n                                        {{board.members | getById:activity.idMember:'name'}}\n                                    </div>\n                                    <div class=\"activity-message\">{{activity.message}}</div>\n\n                                </div>\n\n                                <div class=\"activity-time mt-4 secondary-text\">{{activity.time}}</div>\n\n                            </div>\n\n                        </div>\n\n                    </div>\n\n                </div>\n\n            </div>\n            <!-- / ACTIVITIES SECTION -->\n\n        </div>\n        <!-- / SECTIONS -->\n\n    </div>\n\n</div>\n"
 
 /***/ }),
 
@@ -2057,7 +2057,7 @@ module.exports = "<div fxFlex=\"1 0 auto\" *ngIf=\"!formActive\" class=\"list-he
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"list mat-elevation-z1\" fxLayout=\"column\">\n\n    <!-- LIST HEADER -->\n    <div class=\"list-header\" fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n\n        <scrumboard-board-edit-list-name\n            fxFlex=\"1 0 auto\"\n            [list]=\"list\"\n            (listNameChanged)=\"onListNameChanged($event)\">\n        </scrumboard-board-edit-list-name>\n\n        <div fxFlex=\"0 1 auto\">\n            <button mat-icon-button class=\"list-header-option-button\" [matMenuTriggerFor]=\"listMenu\">\n                <mat-icon>more_vert</mat-icon>\n            </button>\n            <mat-menu #listMenu=\"matMenu\">\n                <button mat-menu-item (click)=\"removeList(list.id)\">Quitar lista</button>\n            </mat-menu>\n        </div>\n\n    </div>\n    <!-- / LIST HEADER -->\n\n    <!-- LIST CONTENT -->\n    <div class=\"list-content\" fxLayout=\"column\">\n\n        <div class=\"list-cards ngx-dnd-container\"\n             [model]=\"list.idCards\" ngxDroppable=\"card\" (out)=\"onDrop($event)\"\n             fusePerfectScrollbar #listScroll>\n            <scrumboard-board-card ngxDraggable\n                                   (click)=\"openCardDialog(cardId)\"\n                                   class=\"scrumboard-board-card ngx-dnd-item\"\n                                   *ngFor=\"let cardId of list.idCards\"\n                                   [model]=\"cardId\"\n                                   [cardId]=\"cardId\">\n            </scrumboard-board-card>\n        </div>\n    </div>\n    <!-- / LIST CONTENT -->\n\n    <!-- NEW CARD BUTTON-->\n    <div class=\"list-footer\">\n        <scrumboard-board-add-card (cardAdded)=\"onCardAdd($event)\"></scrumboard-board-add-card>\n    </div>\n    <!-- / NEW CARD BUTTON-->\n\n</div>\n"
+module.exports = "<div class=\"list mat-elevation-z1\" fxLayout=\"column\">\n\n    <!-- LIST HEADER -->\n    <div class=\"list-header\" fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n\n        <scrumboard-board-edit-list-name\n            fxFlex=\"1 0 auto\"\n            [list]=\"list\"\n            (listNameChanged)=\"onListNameChanged($event)\">\n        </scrumboard-board-edit-list-name>\n\n        <div fxFlex=\"0 1 auto\">\n            <button mat-icon-button class=\"list-header-option-button\" [matMenuTriggerFor]=\"listMenu\">\n                <mat-icon>more_vert</mat-icon>\n            </button>\n            <mat-menu #listMenu=\"matMenu\">\n                <button mat-menu-item (click)=\"removeList(list.id)\">Quitar lista</button>\n            </mat-menu>\n        </div>\n\n    </div>\n    <!-- / LIST HEADER -->\n\n    <!-- LIST CONTENT -->\n    <div class=\"list-content\" fxLayout=\"column\">\n\n        <div class=\"list-cards ngx-dnd-container\"\n             [model]=\"list.idCards\" ngxDroppable=\"card\" (out)=\"onDrop($event,list.id)\"\n             fusePerfectScrollbar #listScroll>\n            <scrumboard-board-card ngxDraggable\n                                   (click)=\"openCardDialog(cardId)\"\n                                   class=\"scrumboard-board-card ngx-dnd-item\"\n                                   *ngFor=\"let cardId of list.idCards\"\n                                   [model]=\"cardId\"\n                                   [cardId]=\"cardId\">\n            </scrumboard-board-card>\n        </div>\n    </div>\n    <!-- / LIST CONTENT -->\n\n    <!-- NEW CARD BUTTON-->\n    <div class=\"list-footer\">\n        <scrumboard-board-add-card (cardAdded)=\"onCardAdd($event)\"></scrumboard-board-add-card>\n    </div>\n    <!-- / NEW CARD BUTTON-->\n\n</div>\n"
 
 /***/ }),
 
@@ -2120,6 +2120,85 @@ if (si) {
 }
 
 module.exports = tick;
+
+/***/ }),
+
+/***/ "./src/app/main/apps/scrumboard/board.model.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/main/apps/scrumboard/board.model.ts ***!
+  \*****************************************************/
+/*! exports provided: Board */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Board", function() { return Board; });
+/* harmony import */ var _fuse_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fuse/utils */ "./src/@fuse/utils/index.ts");
+
+const sampleLabels = [
+    {
+        id: '56027e4119ad3a5dc28b36cd',
+        name: 'Design',
+        color: 'red-500'
+    },
+    {
+        id: '5640635e19ad3a5dc21416b2',
+        name: 'App',
+        color: 'blue-500'
+    },
+    {
+        id: '6540635g19ad3s5dc31412b2',
+        name: 'Feature',
+        color: 'green-400'
+    }
+];
+const sampleMembers = [
+    {
+        id: '56027c1930450d8bf7b10758',
+        name: 'Alice Freeman',
+        avatar: 'assets/images/avatars/alice.jpg'
+    },
+    {
+        id: '26027s1930450d8bf7b10828',
+        name: 'Danielle Obrien',
+        avatar: 'assets/images/avatars/danielle.jpg'
+    },
+    {
+        id: '76027g1930450d8bf7b10958',
+        name: 'James Lewis',
+        avatar: 'assets/images/avatars/james.jpg'
+    },
+    {
+        id: '36027j1930450d8bf7b10158',
+        name: 'Vincent Munoz',
+        avatar: 'assets/images/avatars/vincent.jpg'
+    }
+];
+class Board {
+    /**
+     * Constructor
+     *
+     * @param board
+     */
+    constructor(board) {
+        if (board == undefined)
+            board = {};
+        this.name = board.name || 'Nuevo tablero';
+        this.id = board.id || _fuse_utils__WEBPACK_IMPORTED_MODULE_0__["FuseUtils"].generateGUID();
+        this.uri = board.uri || 'nuevo-tablero-' + this.id;
+        this.idEspacio = board.idEspacio || null;
+        this.settings = board.settings || {
+            color: '',
+            subscribed: true,
+            cardCoverImages: true
+        };
+        this.lists = board.lists || [];
+        this.cards = board.cards || [];
+        this.members = board.members || [];
+        this.labels = board.labels || [];
+    }
+}
+
 
 /***/ }),
 
@@ -2275,21 +2354,35 @@ let ScrumboardBoardComponent = class ScrumboardBoardComponent {
      * On init
      */
     ngOnInit() {
-        this._scrumboardService.onBoardChanged
+        this.boardS = this._scrumboardService.onBoardChanged
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this._unsubscribeAll))
             .subscribe(board => {
-            this.board = board;
-            console.log('cambio', board, this.board, this._scrumboardService.espacio, this._scrumboardService.infoEspacio, this._scrumboardService.routeParams);
-            this._scrumboardService.getInfoEspacio(this.board.idEspacio).then(r => {
-                this.board.members = r.compartido.map(m => {
+            console.log(this._activatedRoute.params['_value']['boardId'], board.id);
+            if (this._activatedRoute.params['_value']['boardId'] === board.id)
+                this.board = board;
+            /*console.log('cambio',board,
+            this.board,
+            this.board.idEspacio,
+            this.board.id,
+            this._scrumboardService.routeParams,
+            this._activatedRoute.params['_value']['boardId']
+            );*/
+            //               console.log('cambio',this.board.lists.map(m=>{return m.idCards }));
+            // console.log(this._scrumboardService.espacio);
+            //   console.log(this._scrumboardService.infoEspacio); 
+            // console.log(this._scrumboardService.routeParams);
+            /*
+             this._scrumboardService.getInfoEspacio(this.board.idEspacio).then(r=>{
+                 this.board.members = r.compartido.map(m=>{
                     return {
-                        id: m.uid,
-                        name: m.displayName,
-                        avatar: m.photoURL,
-                    };
-                });
-                console.log(r);
-            });
+                     id    : m.uid ,
+                     name  : m.displayName ,
+                     avatar: m.photoURL ,
+                    }
+                 });
+             //    console.log(r);
+                 
+             })   */
         });
     }
     /**
@@ -2297,6 +2390,7 @@ let ScrumboardBoardComponent = class ScrumboardBoardComponent {
      */
     ngOnDestroy() {
         // Unsubscribe from all subscriptions
+        this.boardS.unsubscribe();
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
@@ -2329,7 +2423,8 @@ let ScrumboardBoardComponent = class ScrumboardBoardComponent {
      * @param ev
      */
     onDrop(ev) {
-        this._scrumboardService.updateBoard();
+        console.log(this.board);
+        //this._scrumboardService.updateBoard();
     }
 };
 ScrumboardBoardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2377,9 +2472,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var _fuse_components_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fuse/components/confirm-dialog/confirm-dialog.component */ "./src/@fuse/components/confirm-dialog/confirm-dialog.component.ts");
 /* harmony import */ var _fuse_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fuse/utils */ "./src/@fuse/utils/index.ts");
-/* harmony import */ var app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/main/apps/scrumboard/scrumboard.service */ "./src/app/main/apps/scrumboard/scrumboard.service.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/concomsis/jmy/interfaces/services */ "./src/app/concomsis/jmy/interfaces/services.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/main/apps/scrumboard/scrumboard.service */ "./src/app/main/apps/scrumboard/scrumboard.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! app/concomsis/jmy/interfaces/services */ "./src/app/concomsis/jmy/interfaces/services.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var app_concomsis_jmy_jmy_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! app/concomsis/jmy/jmy.service */ "./src/app/concomsis/jmy/jmy.service.ts");
+
+
+
 
 
 
@@ -2399,14 +2500,35 @@ let ScrumboardCardDialogComponent = class ScrumboardCardDialogComponent {
      * @param {MatDialog} _matDialog
      * @param {ScrumboardService} _scrumboardService
      */
-    constructor(matDialogRef, _data, _matDialog, _scrumboardService) {
+    constructor(matDialogRef, _data, _matDialog, _scrumboardService, _activatedRoute, jmyService) {
         this.matDialogRef = matDialogRef;
         this._data = _data;
         this._matDialog = _matDialog;
         this._scrumboardService = _scrumboardService;
+        this._activatedRoute = _activatedRoute;
+        this.jmyService = jmyService;
+        this.cargandoArchivos = false;
         this.toggleInArray = _fuse_utils__WEBPACK_IMPORTED_MODULE_6__["FuseUtils"].toggleInArray;
+        this.editarArchivos = false;
+        this.date = new _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormControl"](new Date());
         // Set the private defaults
         this._unsubscribeAll = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.jmyService.jmyFn.botonEnEsperaArchivos.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(respuesta => {
+            console.log('botonEnEsperaArchivos o loading', respuesta);
+            this.cargandoArchivos = respuesta;
+        });
+        this.jmyService.jmyFn.configuracionArchivos.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(respuesta => {
+            this.configuracionArchivos = respuesta || {};
+            console.log(respuesta);
+        });
+    }
+    someMethodName(date) {
+        console.log(date.value._i);
+        console.log(this.board, this.card);
+        this._scrumboardService.updateBoard();
+    }
+    subrirArchivos() {
+        this.editarArchivos = (this.editarArchivos) ? false : true;
     }
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -2416,17 +2538,31 @@ let ScrumboardCardDialogComponent = class ScrumboardCardDialogComponent {
      */
     ngOnInit() {
         this._scrumboardService.onBoardChanged
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["takeUntil"])(this._unsubscribeAll))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll))
             .subscribe(board => {
-            this.board = board;
-            const t = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_9__["ScrumboardBoardsCardInterface"]({});
-            console.log(this.board, t);
-            this.card = this.board.cards.find((_card) => {
-                return this._data.cardId === _card.id;
-            });
-            this.list = this.board.lists.find((_list) => {
-                return this._data.listId === _list.id;
-            });
+            console.log(this._data, this._data.idBoard, board.id);
+            if (this._data.idBoard === board.id) {
+                this.editarArchivos = false;
+                this.board = board;
+                const t = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_10__["ScrumboardBoardsCardInterface"]({});
+                this.card = this.board.cards.find((_card) => {
+                    return this._data.cardId === _card.id;
+                });
+                console.log(this.board, this.card);
+                this.list = this.board.lists.find((_list) => {
+                    return this._data.listId === _list.id;
+                });
+                const archivosQuery = Object.assign(this.configuracionArchivos || {}, {
+                    modulo: 'scrumboard',
+                    raiz: this.jmyService.jmyPerfil.perfil.eid + '/scrumboard/' + this.board.id + '/' + this.card.id,
+                    ruta: '/',
+                    permiso: '4',
+                });
+                this.jmyService.jmyFn.configuracionArchivos.next(archivosQuery);
+            }
+            if (this.board == undefined)
+                location.assign(location.origin + '/apps/scrumboard/boards/' + this._data.idEspacio + '/' + this._data.idBoard + '/board');
+            console.log(this.board);
         });
     }
     /**
@@ -2495,7 +2631,7 @@ let ScrumboardCardDialogComponent = class ScrumboardCardDialogComponent {
      * @param list
      */
     updateCheckedCount(list) {
-        console.log(list);
+        //   console.log(list);
         const checkItems = list.checkItems;
         let checkedItems = 0;
         let allCheckedItems = 0;
@@ -2551,7 +2687,7 @@ let ScrumboardCardDialogComponent = class ScrumboardCardDialogComponent {
      * @param {NgForm} form
      */
     addChecklist(form) {
-        console.log(this.card);
+        //  console.log(this.card);
         this.card.checklists.push({
             id: _fuse_utils__WEBPACK_IMPORTED_MODULE_6__["FuseUtils"].generateGUID(),
             name: form.value.checklistTitle,
@@ -2563,7 +2699,7 @@ let ScrumboardCardDialogComponent = class ScrumboardCardDialogComponent {
         });
         form.setValue({ checklistTitle: '' });
         form.resetForm();
-        console.log(this.card);
+        //console.log(this.card);
         this.checklistMenu.closeMenu();
         this.updateCard();
     }
@@ -2621,6 +2757,10 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('newCheckListTitleField', { static: false }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], ScrumboardCardDialogComponent.prototype, "newCheckListTitleField", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+], ScrumboardCardDialogComponent.prototype, "dateChange", void 0);
 ScrumboardCardDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'scrumboard-board-card-dialog',
@@ -2630,7 +2770,9 @@ ScrumboardCardDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
-        app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_7__["ScrumboardService"]])
+        app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_8__["ScrumboardService"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"],
+        app_concomsis_jmy_jmy_service__WEBPACK_IMPORTED_MODULE_12__["JmyService"]])
 ], ScrumboardCardDialogComponent);
 
 
@@ -2988,8 +3130,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/concomsis/jmy/interfaces/services */ "./src/app/concomsis/jmy/interfaces/services.ts");
+/* harmony import */ var moment_locale_es__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment/locale/es */ "./node_modules/moment/locale/es.js");
+/* harmony import */ var moment_locale_es__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment_locale_es__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/concomsis/jmy/interfaces/services */ "./src/app/concomsis/jmy/interfaces/services.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/main/apps/scrumboard/scrumboard.service */ "./src/app/main/apps/scrumboard/scrumboard.service.ts");
 
+
+
+
+
+moment__WEBPACK_IMPORTED_MODULE_3__["locale"]('es', moment_locale_es__WEBPACK_IMPORTED_MODULE_4___default.a);
 
 
 
@@ -3000,8 +3152,10 @@ let ScrumboardBoardCardComponent = class ScrumboardBoardCardComponent {
      *
      * @param {ActivatedRoute} _activatedRoute
      */
-    constructor(_activatedRoute) {
+    constructor(_activatedRoute, scrumboardService) {
         this._activatedRoute = _activatedRoute;
+        this.scrumboardService = scrumboardService;
+        this._unsubscribeAll = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
     }
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -3010,11 +3164,18 @@ let ScrumboardBoardCardComponent = class ScrumboardBoardCardComponent {
      * On init
      */
     ngOnInit() {
-        this.board = this._activatedRoute.snapshot.data.board;
-        this.card = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_4__["ScrumboardBoardsCardInterface"](this.board.cards.filter((card) => {
-            return this.cardId === card.id;
-        })[0] || {});
-        console.log(this.card);
+        this.scrumboardService.onBoardChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this._unsubscribeAll)).subscribe(board => {
+            if (this._activatedRoute.params['_value']['boardId'] === board.id) {
+                this.board = board;
+                this.card = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardBoardsCardInterface"](this.board.cards.filter((card) => {
+                    return this.cardId === card.id;
+                })[0] || {});
+            }
+        });
+    }
+    ngOnDestroy() {
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
     }
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -3040,7 +3201,8 @@ ScrumboardBoardCardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"](
         encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
         styles: [__webpack_require__(/*! ./card.component.scss */ "./src/app/main/apps/scrumboard/board/list/card/card.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+        app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_8__["ScrumboardService"]])
 ], ScrumboardBoardCardComponent);
 
 
@@ -3218,7 +3380,8 @@ let ScrumboardBoardListComponent = class ScrumboardBoardListComponent {
         this._scrumboardService.onBoardChanged
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this._unsubscribeAll))
             .subscribe(board => {
-            this.board = board;
+            if (this._activatedRoute.params['_value']['boardId'] === board.id)
+                this.board = board;
         });
     }
     /**
@@ -3280,7 +3443,9 @@ let ScrumboardBoardListComponent = class ScrumboardBoardListComponent {
             panelClass: 'scrumboard-card-dialog',
             data: {
                 cardId: cardId,
-                listId: this.list.id
+                listId: this.list.id,
+                idBoard: this.board.id,
+                idEspacio: this.board.idEspacio
             }
         });
         this.dialogRef.afterClosed()
@@ -3292,9 +3457,26 @@ let ScrumboardBoardListComponent = class ScrumboardBoardListComponent {
      *
      * @param ev
      */
-    onDrop(ev) {
+    onDrop(ev, t) {
+        let tL = [];
+        let uP = true;
+        tL = this.board.lists.map(m => {
+            let cT = [];
+            if (m.idCards == undefined)
+                m.idCards = [];
+            m.idCards.map(mC => {
+                if (mC != ev.value)
+                    cT.push(mC);
+                else if (m.id == t && uP)
+                    uP = false;
+            });
+            if (t == m.id)
+                cT.push(ev.value);
+            return Object.assign({}, m, { idCards: cT });
+        });
+        if (uP)
+            this.board.lists = tL;
         this._scrumboardService.updateBoard();
-        console.log('drop', ev);
     }
 };
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -3621,6 +3803,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/concomsis/jmy/interfaces/services */ "./src/app/concomsis/jmy/interfaces/services.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var moment_locale_es__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! moment/locale/es */ "./node_modules/moment/locale/es.js");
+/* harmony import */ var moment_locale_es__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(moment_locale_es__WEBPACK_IMPORTED_MODULE_12__);
 
 
 
@@ -3632,6 +3818,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+moment__WEBPACK_IMPORTED_MODULE_11__["locale"]('es', moment_locale_es__WEBPACK_IMPORTED_MODULE_12___default.a);
 /**
  * @title Dialog Overview
  */
@@ -3698,11 +3887,6 @@ let ScrumboardComponent = class ScrumboardComponent {
         this.divAgregar = false;
         this.botonAgregar = false;
         this.selected = "";
-        this._scrumboardService.infoEspacioChanged.subscribe(r => {
-            this.infoEspacio = r;
-            //console.log('Espacio',this.infoEspacio,this._scrumboardService.espacio);
-            this.selected = this._scrumboardService.espacio;
-        });
         this._unsubscribeAll = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.filteredContactos = this.contactoCtrl.valueChanges
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(state => state ? this._filterContacto(state) : this.contactos.slice()));
@@ -3710,6 +3894,36 @@ let ScrumboardComponent = class ScrumboardComponent {
             const t = r || [];
             this.contactos = t.map(m => { return new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_8__["UserInterface"](m); });
             this.botonAgregar = (this.selected != undefined && this.selected != '') ? true : false;
+        });
+        this._scrumboardService.onEspacioChanged
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._unsubscribeAll))
+            .subscribe(espacios => {
+            console.log(espacios);
+            this.espacios = [];
+            this.espacios = [{
+                    value: '_NUEVO',
+                    name: '+ Agregar nuevo espacio'
+                }, {
+                    value: this._scrumboardService.jmyService.jmyPerfil.perfil.uid,
+                    name: '> Mi espacio '
+                }];
+            if (espacios != undefined)
+                espacios.forEach(e => {
+                    this.espacios.push({
+                        value: e.id,
+                        name: e.nombre
+                    });
+                });
+        });
+        this._scrumboardService.onBoardsChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
+            this.boards = r;
+            this.selected = this._scrumboardService.idEspacio;
+            this.divAgregarCompartir(true);
+        });
+        this._scrumboardService.infoEspacioChanged.subscribe(r => {
+            // console.log(r,this._scrumboardService.idEspacio);
+            this.botonAgregar = (this._scrumboardService.idEspacio != this._scrumboardService.jmyService.jmyPerfil.perfil.uid) ? true : false;
+            this.selected = r.id;
         });
     }
     agregarSelectCompartir(e) {
@@ -3771,37 +3985,20 @@ let ScrumboardComponent = class ScrumboardComponent {
     ngOnInit() {
         this.cambiarEspacio({ value: this._scrumboardService.routeParams.espacioId || this._scrumboardService.jmyService.jmyPerfil.perfil.uid });
         this._scrumboardService.getEspacio().then(r => {
-            //            console.log(r);
+            console.log(r);
         });
-        this._scrumboardService.onEspacioChanged
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._unsubscribeAll))
-            .subscribe(espacios => {
-            this.espacios = [];
-            //console.log(espacios);
-            this.espacios = [{
-                    value: '_NUEVO',
-                    name: '+ Agregar nuevo espacio'
-                }, {
-                    value: this._scrumboardService.jmyService.jmyPerfil.perfil.uid,
-                    name: '> Mi espacio '
-                }];
-            espacios.forEach(e => {
-                this.espacios.push({
-                    value: e.id,
-                    name: e.nombre
-                });
-            });
+        this._scrumboardService.infoEspacioChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
+            this.infoEspacio = r;
+            console.log('Espacio', this.infoEspacio, this._scrumboardService.espacio);
+            this.selected = this._scrumboardService.espacio;
         });
-        this._scrumboardService.infoEspacioChanged.subscribe(r => {
-            // console.log(r,this._scrumboardService.idEspacio);
-            this.botonAgregar = (this._scrumboardService.idEspacio != this._scrumboardService.jmyService.jmyPerfil.perfil.uid) ? true : false;
-            this.selected = r.id;
-        });
-        this._scrumboardService.onBoardsChanged
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._unsubscribeAll))
-            .subscribe(boards => {
-            this.boards = boards;
-        });
+        /*  this._scrumboardService.onBoardsChanged
+              .pipe(takeUntil(this._unsubscribeAll))
+              .subscribe(boards => {
+                  console.log(boards);
+                  
+                  this.boards = boards;
+              });*/
     }
     /**
      * On destroy
@@ -3846,14 +4043,13 @@ let ScrumboardComponent = class ScrumboardComponent {
         });
     }
     cambiarEspacio(e) {
+        console.log(this.espacios, e.value, 'ssssss');
         if (e.value == '_NUEVO')
             this.nuevoEspacio();
+        else if (e.value != '')
+            this._router.navigate(['/apps/scrumboard/boards/' + e.value + '/']);
         this._scrumboardService.idEspacio = e.value;
-        this._scrumboardService.getBoards(e.value).then(r => {
-            this.boards = r;
-            this.selected = this._scrumboardService.idEspacio;
-            this.divAgregarCompartir(true);
-        });
+        this._scrumboardService.idEspacioChanged.next(e.value);
     }
     nuevoEspacio() {
         const dialogConfig = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialogConfig"]();
@@ -3947,7 +4143,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_main_apps_scrumboard_board_edit_board_name_edit_board_name_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! app/main/apps/scrumboard/board/edit-board-name/edit-board-name.component */ "./src/app/main/apps/scrumboard/board/edit-board-name/edit-board-name.component.ts");
 /* harmony import */ var app_main_apps_scrumboard_board_sidenavs_settings_settings_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! app/main/apps/scrumboard/board/sidenavs/settings/settings.component */ "./src/app/main/apps/scrumboard/board/sidenavs/settings/settings.component.ts");
 /* harmony import */ var app_main_apps_scrumboard_board_sidenavs_settings_board_color_selector_board_color_selector_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! app/main/apps/scrumboard/board/sidenavs/settings/board-color-selector/board-color-selector.component */ "./src/app/main/apps/scrumboard/board/sidenavs/settings/board-color-selector/board-color-selector.component.ts");
-/* harmony import */ var app_main_apps_contacts_contacts_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! app/main/apps/contacts/contacts.service */ "./src/app/main/apps/contacts/contacts.service.ts");
+/* harmony import */ var app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! app/concomsis/jmy/jmy.module */ "./src/app/concomsis/jmy/jmy.module.ts");
+/* harmony import */ var app_main_apps_contacts_contacts_service__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! app/main/apps/contacts/contacts.service */ "./src/app/main/apps/contacts/contacts.service.ts");
 
 
 
@@ -3958,6 +4155,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 ;
+
 
 
 
@@ -4039,6 +4237,7 @@ ScrumboardModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_4__["MatCheckboxModule"],
             _angular_material_chips__WEBPACK_IMPORTED_MODULE_5__["MatChipsModule"],
             _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_7__["MatDatepickerModule"],
+            app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_37__["JmyModule"],
             _angular_material_form_field__WEBPACK_IMPORTED_MODULE_9__["MatFormFieldModule"],
             _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__["MatIconModule"],
             _angular_material_input__WEBPACK_IMPORTED_MODULE_11__["MatInputModule"],
@@ -4061,7 +4260,7 @@ ScrumboardModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         providers: [
             app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_24__["ScrumboardService"],
             app_main_apps_scrumboard_scrumboard_service__WEBPACK_IMPORTED_MODULE_24__["BoardResolve"],
-            app_main_apps_contacts_contacts_service__WEBPACK_IMPORTED_MODULE_37__["ContactsService"],
+            app_main_apps_contacts_contacts_service__WEBPACK_IMPORTED_MODULE_38__["ContactsService"],
             { provide: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__["MatDialogRef"], useValue: {} },
             { provide: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__["MAT_DIALOG_DATA"], useValue: [] },
         ],
@@ -4094,6 +4293,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/autocomplete */ "./node_modules/@angular/material/esm2015/autocomplete.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _board_model__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./board.model */ "./src/app/main/apps/scrumboard/board.model.ts");
+
 
 
 
@@ -4122,20 +4323,63 @@ let ScrumboardService = class ScrumboardService {
         this.fruitCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormControl"]();
         this.fruits = ['Lemon'];
         this.allFruits = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+        this._unsubscribeAll = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.nuevoEditar = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](false);
         this.filteredFruits = this.fruitCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])((fruit) => fruit ? this._filter(fruit) : this.allFruits.slice()));
         //        console.log('/scrumboard/'+this.jmyService.jmyPerfil.perfil.eid+'/');
         this.cnf = {
             rutaDb: '/scrumboard/' + this.jmyService.jmyPerfil.perfil.eid + '/'
         };
+        //        console.log(this.jmyService.jmyPerfil.perfil);
+        this.espacios = [];
         this.idEspacio = this.jmyService.jmyPerfil.perfil.uid;
         // Set the defaults
+        this.idEspacioChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](this.idEspacio);
         this.onBoardsChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
         this.onBoardChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
         this.onEspacioChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
         this.infoEspacioChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardEspaciosInterface"]({
             id: this.jmyService.jmyPerfil.perfil.uid
         }));
+        this.idEspacioChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(idEspacio => {
+            this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espaciosIndex/' + idEspacio).valueChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(rE => {
+                this.infoEspacio = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardEspaciosInterface"](rE || { id: this.jmyService.jmyPerfil.perfil.uid, nombre: ' Mi espacio personal' });
+                this.infoEspacioChanged.next(this.infoEspacio);
+            });
+            // Lista asignados por usuario
+            this.jmyService.dbRealTime.list(this.cnf.rutaDb + 'usuarios/' + this.jmyService.jmyPerfil.perfil.uid).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
+                let qR = [];
+                r.map(c => (c.payload.val())).forEach(r => {
+                    if (!qR.includes(r))
+                        qR.push(r);
+                });
+                console.log(r, qR);
+                this.espacios = [];
+                qR.forEach(e => {
+                    let q = this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espaciosIndex/' + e).valueChanges().subscribe(qRr => {
+                        q.unsubscribe();
+                        //console.log(qRr);
+                        if (qRr != undefined) {
+                            //  console.log( this.espacios,this.cnf.rutaDb+'espaciosIndex/'+e);        
+                            const t = qRr || {};
+                            console.log(t, this.espacios.find(f => { return f.id === t.id; }));
+                            if (t.nombre != '' && t != undefined && this.espacios.find(f => { return f.id === t.id; }) == undefined) {
+                                this.espacios.push(t);
+                                this.onEspacioChanged.next(this.espacios);
+                            }
+                        }
+                    });
+                });
+                console.log(this.espacios);
+            });
+            // Lista asignados por usuario
+            this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espacios/' + idEspacio).valueChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
+                const t = r || {};
+                this.boards = Object.keys(t).map(r => { return new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardBoardsInterface"](t[r]); });
+                console.log(this.cnf.rutaDb + 'espacios/' + idEspacio, r, this.boards, idEspacio);
+                this.onBoardsChanged.next(this.boards);
+            });
+        });
     }
     /**
         * On destroy
@@ -4150,6 +4394,8 @@ let ScrumboardService = class ScrumboardService {
         this.onEspacioChanged.complete();
         //this.infoEspacioChanged.next();
         this.infoEspacioChanged.complete();
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
     }
     /**
      * Resolver
@@ -4209,8 +4455,8 @@ let ScrumboardService = class ScrumboardService {
     }
     getInfoEspacio(idEspacio = this.idEspacio) {
         return new Promise((resolve, reject) => {
-            const q = this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espaciosIndex/' + idEspacio).valueChanges().subscribe(qRr => {
-                console.log(qRr, this.espacios);
+            const q = this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espaciosIndex/' + idEspacio).valueChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(qRr => {
+                //  console.log(qRr, this.espacios);
                 const t = qRr || [];
                 q.unsubscribe();
                 resolve(t);
@@ -4219,24 +4465,8 @@ let ScrumboardService = class ScrumboardService {
     }
     getEspacio() {
         return new Promise((resolve, reject) => {
-            this.jmyService.dbRealTime.list(this.cnf.rutaDb + 'usuarios/' + this.jmyService.jmyPerfil.perfil.uid).snapshotChanges().subscribe(r => {
-                let qR = [];
-                r.map(c => (c.payload.val())).forEach(r => {
-                    if (!qR.includes(r))
-                        qR.push(r);
-                });
-                //                console.log(r,qR);
-                this.espacios = [];
-                qR.forEach(e => {
-                    const q = this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espaciosIndex/' + e).valueChanges().subscribe(qRr => {
-                        //                      console.log(qRr, this.espacios);          
-                        const t = qRr || [];
-                        if (!this.espacios.map(m => { return m['id']; }).includes(qRr['id'])) {
-                            this.espacios.push(t);
-                            this.onEspacioChanged.next(this.espacios);
-                        }
-                    });
-                });
+            this.onEspacioChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
+                console.log(r);
                 resolve(this.espacios);
             });
         });
@@ -4250,17 +4480,7 @@ let ScrumboardService = class ScrumboardService {
     }
     getBoards(idEspacio = this.idEspacio) {
         return new Promise((resolve, reject) => {
-            this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espacios/' + idEspacio).valueChanges().subscribe(r => {
-                const t = r || {};
-                this.boards = Object.keys(t).map(r => { return new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardBoardsInterface"](t[r]); });
-                //                console.log(r,this.boards,idEspacio);
-                this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espaciosIndex/' + idEspacio).valueChanges().subscribe(rE => {
-                    this.infoEspacio = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardEspaciosInterface"](rE || { id: this.jmyService.jmyPerfil.perfil.uid, nombre: ' Mi espacio personal' });
-                    this.infoEspacioChanged.next(this.infoEspacio);
-                    this.onBoardsChanged.next(this.boards);
-                    resolve(this.boards);
-                });
-            });
+            resolve(this.boards);
         });
     }
     guardarBoards(d) {
@@ -4279,18 +4499,19 @@ let ScrumboardService = class ScrumboardService {
     getBoard(boardId, idEspacio = this.idEspacio) {
         return new Promise((resolve, reject) => {
             const ru = this.cnf.rutaDb + 'espacios/' + idEspacio + '/' + boardId;
-            this.jmyService.dbRealTime.object(ru).valueChanges().subscribe(r => {
+            this.jmyService.dbRealTime.object(ru).valueChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
                 //   const t:any = r||{};
                 // this.board =  Object.keys(t).map(r=>{return {...t[r]}});
-                this.board = r;
-                console.log(this.board);
+                const t = r;
+                this.board = new _board_model__WEBPACK_IMPORTED_MODULE_10__["Board"](t || { id: boardId, idEspacio: idEspacio });
+                //                console.log(this.board,r);
                 if (this.board.cards == undefined)
                     this.board.cards = [];
                 this.board.cards = this.board.cards.map(r => { return new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardBoardsCardInterface"](r); });
                 this.onBoardChanged.next(this.board);
                 this.infoEspacio = new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardEspaciosInterface"](r || {});
                 this.infoEspacioChanged.next(this.infoEspacio);
-                console.log(r, this.board, this.infoEspacio);
+                //       console.log(r,this.board,this.infoEspacio);
                 resolve(this.board);
             });
             /*this._httpClient.get('api/scrumboard-boards/' + boardId)
@@ -4321,7 +4542,8 @@ let ScrumboardService = class ScrumboardService {
         if (this.board.cards == undefined)
             this.board.cards = [];
         this.board.cards.push(new app_concomsis_jmy_interfaces_services__WEBPACK_IMPORTED_MODULE_5__["ScrumboardBoardsCardInterface"](newCard));
-        console.log(this.board.cards);
+        console.log(this.board, newCard, listId);
+        //   this.onBoardChanged.next(this.board);
         return this.updateBoard();
     }
     /**
@@ -4380,10 +4602,27 @@ let ScrumboardService = class ScrumboardService {
      */
     updateBoard(idEspacio = this.idEspacio) {
         return new Promise((resolve, reject) => {
-            console.log('Actualizando', this.board);
+            //            console.log('Actualizando',this.board);
+            this.board.cards = this.board.cards.map(m => {
+                return Object.assign({}, m, { due: (typeof m.due == "string") ? m.due : String(m.due['_i']['month'] + '/' + m.due['_i']['date'] + '/' + m.due['_i']['year']) });
+            });
+            this.board.lists = this.board.lists.map(m => {
+                let tI = [];
+                if (m.idCards != undefined)
+                    m.idCards.forEach(iC => {
+                        if (!tI.includes(iC))
+                            tI.push(iC);
+                    });
+                return Object.assign({}, m, { idCards: tI });
+            });
+            console.log(this.cnf.rutaDb + 'espacios/' + idEspacio + '/' + this.board.id, this.board);
+            // this.onBoardChanged.next(this.board);
             this.jmyService.dbRealTime.object(this.cnf.rutaDb + 'espacios/' + idEspacio + '/' + this.board.id).set(this.board).then(r => {
                 this.onBoardChanged.next(this.board);
                 resolve(this.board);
+                /*this.getBoard(this.board.id).then(r=>{
+
+                })*/
             });
             /*this._httpClient.post('api/scrumboard-boards/' + this.board.id, this.board)
                 .subscribe(response => {
@@ -4403,6 +4642,7 @@ let ScrumboardService = class ScrumboardService {
                 return newCard;
             }
         });
+        //        console.log(this.board);
         this.updateBoard();
     }
     /**
@@ -4455,7 +4695,6 @@ let BoardResolve = class BoardResolve {
      * @returns {Promise<any>}
      */
     resolve(route) {
-        console.log('222', route.paramMap.get('espacioId'));
         this._scrumboardService.idEspacio = route.paramMap.get('espacioId') || this._scrumboardService.jmyService.jmyPerfil.perfil.uid;
         return this._scrumboardService.getBoard(route.paramMap.get('boardId'));
     }

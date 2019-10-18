@@ -28,7 +28,11 @@ var routes = [
         loadChildren: './dashboards/project/project.module#ProjectDashboardModule'
     },
     {
-        path: 'dashboards/jmyS',
+        path: 'dashboards/jmydashboard',
+        loadChildren: '../../concomsis/jmy/admin/jmydash/jmydash.module#JmydashModule'
+    },
+    {
+        path: 'dashboards/jmys',
         loadChildren: '../../concomsis/jmy/admin/jmydashs/jmydashs.module#JmydashsModule'
     },
     /* {
@@ -55,6 +59,10 @@ var routes = [
         path: 'academy',
         loadChildren: './academy/academy.module#AcademyModule'
     },
+    {
+        path: 'encuestas',
+        loadChildren: './encuestas/encuesta.module#EncuestaModule'
+    },
     /*{
         path        : 'todo',
         loadChildren: './todo/todo.module#TodoModule'
@@ -70,6 +78,22 @@ var routes = [
     {
         path: 'scrumboard',
         loadChildren: './scrumboard/scrumboard.module#ScrumboardModule'
+    },
+    {
+        path: 'st/almacenes',
+        loadChildren: './stormcatcher/almacen/almacen.module#SCAlmacenModule'
+    },
+    {
+        path: 'st/almacen',
+        loadChildren: './stormcatcher/almaceninventario/almacen.module#SCAlmacenInventarioModule'
+    },
+    {
+        path: 'st/proveedores',
+        loadChildren: './stormcatcher/proveedores/proveedores.module#SCProveedoresModule'
+    },
+    {
+        path: 'st/locaciones',
+        loadChildren: './stormcatcher/locacion/locacion.module#SCLocacionModule'
     }
 ];
 var AppsModule = /** @class */ (function () {

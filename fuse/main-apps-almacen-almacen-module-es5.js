@@ -29,7 +29,18 @@ module.exports = "<div id=\"orders\" class=\"page-layout carded fullwidth inner-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"product\" class=\"page-layout carded fullwidth inner-scroll\">\r\n\r\n    <!-- TOP BACKGROUND -->\r\n    <div class=\"top-bg accent\"></div>\r\n    <!-- / TOP BACKGROUND -->\r\n\r\n    <!-- CENTER -->\r\n    <div class=\"center\">\r\n\r\n        <!-- HEADER -->\r\n        <div class=\"header accent\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n\r\n            <!-- APP TITLE -->\r\n            <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\r\n                <button mat-icon-button class=\"mr-0 mr-sm-16\" [routerLink]=\"'/almacen/productos'\">\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n\r\n                <div class=\"product-image mr-8 mr-sm-16\" [@animate]=\"{value:'*',params:{delay:'50ms',scale:'0.2'}}\">\r\n                    <img *ngIf=\"product.images[0]\" [src]=\"product.images[0].url\">\r\n                    <img *ngIf=\"!product.images[0]\" [src]=\"'assets/images/ecommerce/product-image-placeholder.png'\">\r\n                </div>\r\n\r\n                <div fxLayout=\"column\" fxLayoutAlign=\"start start\"\r\n                     [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\">\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='edit'\">\r\n                        {{product.name}}\r\n                    </div>\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='new'\">\r\n                        Nuevo Producto\r\n                    </div>\r\n                    <div class=\"subtitle secondary-text\">\r\n                        <span>Detalles</span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <!-- / APP TITLE -->\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid\"\r\n                    *ngIf=\"pageType ==='new'\" (click)=\"addProduct()\">\r\n                <span>Agregar</span>\r\n            </button>\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid || productForm.pristine\"\r\n                    *ngIf=\"pageType ==='edit'\" (click)=\"saveProduct()\">\r\n                <span>Guardar</span>\r\n            </button>\r\n        </div>\r\n        <!-- / HEADER -->\r\n\r\n        <!-- CONTENT CARD -->\r\n        <div class=\"content-card\">\r\n\r\n            <!-- CONTENT -->\r\n            <div class=\"content\">\r\n\r\n                <form name=\"productForm\" [formGroup]=\"productForm\" class=\"product w-100-p\" fxLayout=\"column\" fxFlex>\r\n\r\n                    <mat-tab-group>\r\n\r\n                        <mat-tab label=\"Información del Producto\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Nombre</mat-label>\r\n                                    <input matInput placeholder=\"Nombre del Producto\"\r\n                                           name=\"name\"\r\n                                           formControlName=\"name\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Descripción</mat-label>\r\n                                    <textarea matInput placeholder=\"Descripción del Producto\"\r\n                                              name=\"description\"\r\n                                              formControlName=\"description\"\r\n                                              rows=\"5\">\r\n                                    </textarea>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n\r\n                                    <mat-label>Categorias</mat-label>\r\n\r\n                                    <mat-chip-list #categoryList name=\"categories\" formControlName=\"categories\">\r\n\r\n                                        <mat-chip *ngFor=\"let category of product.categories\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeCategory(category)\">\r\n                                            {{category}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"categoryList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addCategory($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n\r\n                                    <mat-label>Etiqueta</mat-label>\r\n\r\n                                    <mat-chip-list #tagList name=\"tags\" formControlName=\"tags\">\r\n\r\n                                        <mat-chip *ngFor=\"let tag of product.tags\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeTag(tag)\">\r\n                                            {{tag}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"tagList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addTag($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Vista previa\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n                                \r\n \r\n                                <app-jmy-archivos></app-jmy-archivos>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Precio\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Precio antes de impuesto</mat-label>\r\n                                    <input matInput placeholder=\"Precio antes de impuesto\"\r\n                                           name=\"priceTaxExcl\"\r\n                                           formControlName=\"priceTaxExcl\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Precio despues de impuesto</mat-label>\r\n                                    <input matInput placeholder=\"Precio despues de impuesto\"\r\n                                           name=\"priceTaxIncl\"\r\n                                           formControlName=\"priceTaxIncl\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Impuesto</mat-label>\r\n                                    <input matInput placeholder=\"Impuesto\"\r\n                                           name=\"taxRate\"\r\n                                           formControlName=\"taxRate\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>&#37;&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Precio comparado</mat-label>\r\n                                    <input matInput placeholder=\"Precio comparado\"\r\n                                           name=\"comparedPrice\"\r\n                                           formControlName=\"comparedPrice\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                    <mat-hint align=\"start\">Precio de comparación\r\n                                    </mat-hint>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Inventario\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Codigo</mat-label>\r\n                                    <input matInput placeholder=\"Codigo\"\r\n                                           name=\"sku\"\r\n                                           formControlName=\"sku\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Cantidad</mat-label>\r\n                                    <input matInput placeholder=\"Cantidad\"\r\n                                           name=\"quantity\"\r\n                                           formControlName=\"quantity\"\r\n                                           type=\"number\">\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Envio\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar fxLayout=\"column\">\r\n\r\n                                <div fxLayout=\"row\" fxLayoutAlign=\"space-between\">\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Anchura</mat-label>\r\n                                        <input matInput placeholder=\"Anchura\"\r\n                                               name=\"Width\"\r\n                                               formControlName=\"width\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Altura</mat-label>\r\n                                        <input matInput placeholder=\"Altura\"\r\n                                               name=\"Height\"\r\n                                               formControlName=\"height\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Profundidad</mat-label>\r\n                                        <input matInput placeholder=\"Profundidad\"\r\n                                               name=\"Depth\"\r\n                                               formControlName=\"depth\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                </div>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Peso</mat-label>\r\n                                    <input matInput placeholder=\"Peso\"\r\n                                           name=\"Weight\"\r\n                                           formControlName=\"weight\">\r\n                                    <span matSuffix>kg</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Envio extra</mat-label>\r\n                                    <input matInput placeholder=\"Envio extra\"\r\n                                           name=\"extraShippingFee\"\r\n                                           formControlName=\"extraShippingFee\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                    </mat-tab-group>\r\n\r\n                </form>\r\n\r\n            </div>\r\n            <!-- / CONTENT -->\r\n\r\n        </div>\r\n        <!-- / CONTENT CARD -->\r\n\r\n    </div>\r\n    <!-- / CENTER -->\r\n\r\n</div>\r\n"
+module.exports = "<div id=\"product\" class=\"page-layout carded fullwidth inner-scroll\">\r\n\r\n    <!-- TOP BACKGROUND -->\r\n    <div class=\"top-bg accent\"></div>\r\n    <!-- / TOP BACKGROUND -->\r\n\r\n    <!-- CENTER -->\r\n    <div class=\"center\">\r\n\r\n        <!-- HEADER -->\r\n        <div class=\"header accent\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n\r\n            <!-- APP TITLE -->\r\n            <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\r\n                <button mat-icon-button class=\"mr-0 mr-sm-16\" [routerLink]=\"'/almacen/productos'\">\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n\r\n                <div class=\"product-image mr-8 mr-sm-16\" [@animate]=\"{value:'*',params:{delay:'50ms',scale:'0.2'}}\">\r\n                    <img *ngIf=\"product.images[0]\" [src]=\"product.images[0].thumb\">\r\n                    <img *ngIf=\"!product.images[0]\" [src]=\"'assets/images/ecommerce/product-image-placeholder.png'\">\r\n                </div>\r\n\r\n                <div fxLayout=\"column\" fxLayoutAlign=\"start start\"\r\n                     [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\">\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='edit'\">\r\n                        {{product.name}}\r\n                    </div>\r\n                    <div class=\"h2\" *ngIf=\"pageType ==='new'\">\r\n                        Nuevo Producto\r\n                    </div>\r\n                    <div class=\"subtitle secondary-text\">\r\n                        <span>Detalles</span>\r\n                    </div>\r\n                </div>\r\n                <div fxLayout=\"column\" fxLayoutAlign=\"start start\"\r\n                     [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\">\r\n                     <mat-spinner *ngIf=\"cargandoArchivos\"></mat-spinner>\r\n                </div>\r\n            </div>\r\n            <!-- / APP TITLE -->\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid\"\r\n                    *ngIf=\"pageType ==='new'\" (click)=\"addProduct()\">\r\n                <span>Agregar</span>\r\n            </button>\r\n\r\n            <button mat-raised-button\r\n                    class=\"save-product-button\"\r\n                    [disabled]=\"productForm.invalid || productForm.pristine\"\r\n                    *ngIf=\"pageType ==='edit'\" (click)=\"saveProduct()\">\r\n                <span>Guardar</span>\r\n            </button>\r\n        </div>\r\n        <!-- / HEADER -->\r\n\r\n        <!-- CONTENT CARD -->\r\n        <div class=\"content-card\">\r\n\r\n            <!-- CONTENT -->\r\n            <div class=\"content\">\r\n\r\n                <form name=\"productForm\" [formGroup]=\"productForm\" class=\"product w-100-p\" fxLayout=\"column\" fxFlex>\r\n\r\n                    <mat-tab-group>\r\n\r\n                        <mat-tab label=\"Información del Producto\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Nombre</mat-label>\r\n                                    <input matInput placeholder=\"Nombre del Producto\"\r\n                                           name=\"name\"\r\n                                           formControlName=\"name\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Descripción</mat-label>\r\n                                    <textarea matInput placeholder=\"Descripción del Producto\"\r\n                                              name=\"description\"\r\n                                              formControlName=\"description\"\r\n                                              rows=\"5\">\r\n                                    </textarea>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n\r\n                                    <mat-label>Categorias</mat-label>\r\n\r\n                                    <mat-chip-list #categoryList name=\"categories\" formControlName=\"categories\">\r\n\r\n                                        <mat-chip *ngFor=\"let category of product.categories\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeCategory(category)\">\r\n                                            {{category}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"categoryList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addCategory($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n\r\n                                    <mat-label>Etiqueta</mat-label>\r\n\r\n                                    <mat-chip-list #tagList name=\"tags\" formControlName=\"tags\">\r\n\r\n                                        <mat-chip *ngFor=\"let tag of product.tags\"\r\n                                                  [removable]=\"true\" (removed)=\"product.removeTag(tag)\">\r\n                                            {{tag}}\r\n                                            <mat-icon matChipRemove>cancel</mat-icon>\r\n                                        </mat-chip>\r\n\r\n                                        <input [matChipInputFor]=\"tagList\"\r\n                                               [matChipInputAddOnBlur]=\"true\"\r\n                                               (matChipInputTokenEnd)=\"product.addTag($event)\"/>\r\n\r\n                                    </mat-chip-list>\r\n\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Vista previa\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n                                \r\n \r\n                                <app-jmy-archivos></app-jmy-archivos>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Precio\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Precio antes de impuesto</mat-label>\r\n                                    <input matInput placeholder=\"Precio antes de impuesto\"\r\n                                           name=\"priceTaxExcl\"\r\n                                           formControlName=\"priceTaxExcl\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Precio despues de impuesto</mat-label>\r\n                                    <input matInput placeholder=\"Precio despues de impuesto\"\r\n                                           name=\"priceTaxIncl\"\r\n                                           formControlName=\"priceTaxIncl\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Impuesto</mat-label>\r\n                                    <input matInput placeholder=\"Impuesto\"\r\n                                           name=\"taxRate\"\r\n                                           formControlName=\"taxRate\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>&#37;&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Precio comparado</mat-label>\r\n                                    <input matInput placeholder=\"Precio comparado\"\r\n                                           name=\"comparedPrice\"\r\n                                           formControlName=\"comparedPrice\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                    <mat-hint align=\"start\">Precio de comparación\r\n                                    </mat-hint>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Inventario\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Codigo</mat-label>\r\n                                    <input matInput placeholder=\"Codigo\"\r\n                                           name=\"sku\"\r\n                                           formControlName=\"sku\">\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Cantidad</mat-label>\r\n                                    <input matInput placeholder=\"Cantidad\"\r\n                                           name=\"quantity\"\r\n                                           formControlName=\"quantity\"\r\n                                           type=\"number\">\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                        <mat-tab label=\"Envio\">\r\n\r\n                            <div class=\"tab-content p-24\" fusePerfectScrollbar fxLayout=\"column\">\r\n\r\n                                <div fxLayout=\"row\" fxLayoutAlign=\"space-between\">\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Anchura</mat-label>\r\n                                        <input matInput placeholder=\"Anchura\"\r\n                                               name=\"Width\"\r\n                                               formControlName=\"width\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Altura</mat-label>\r\n                                        <input matInput placeholder=\"Altura\"\r\n                                               name=\"Height\"\r\n                                               formControlName=\"height\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                    <mat-form-field appearance=\"outline\" floatLabel=\"always\" fxFlex=\"30\">\r\n                                        <mat-label>Profundidad</mat-label>\r\n                                        <input matInput placeholder=\"Profundidad\"\r\n                                               name=\"Depth\"\r\n                                               formControlName=\"depth\">\r\n                                        <span matSuffix>cm</span>\r\n                                    </mat-form-field>\r\n\r\n                                </div>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Peso</mat-label>\r\n                                    <input matInput placeholder=\"Peso\"\r\n                                           name=\"Weight\"\r\n                                           formControlName=\"weight\">\r\n                                    <span matSuffix>kg</span>\r\n                                </mat-form-field>\r\n\r\n                                <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"w-100-p\">\r\n                                    <mat-label>Envio extra</mat-label>\r\n                                    <input matInput placeholder=\"Envio extra\"\r\n                                           name=\"extraShippingFee\"\r\n                                           formControlName=\"extraShippingFee\"\r\n                                           type=\"number\">\r\n                                    <span matPrefix>$&nbsp;</span>\r\n                                </mat-form-field>\r\n\r\n                            </div>\r\n\r\n                        </mat-tab>\r\n\r\n                    </mat-tab-group>\r\n\r\n                </form>\r\n\r\n            </div>\r\n            <!-- / CONTENT -->\r\n\r\n        </div>\r\n        <!-- / CONTENT CARD -->\r\n\r\n    </div>\r\n    <!-- / CENTER -->\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/main/apps/almacen/productos/productos-tienda-dialog.html":
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/main/apps/almacen/productos/productos-tienda-dialog.html ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ol>\r\n    <li>\r\n        <mat-form-field>\r\n        <input matInput [(ngModel)]=\"name\" placeholder=\"What's your name?\">\r\n        </mat-form-field>\r\n    </li>\r\n    <li>\r\n        <button mat-raised-button (click)=\"openDialog()\">Pick one</button>\r\n    </li>\r\n    <li *ngIf=\"animal\">\r\n        You chose: <i>{{animal}}</i>\r\n    </li>\r\n    </ol>"
 
 /***/ }),
 
@@ -40,7 +51,7 @@ module.exports = "<div id=\"product\" class=\"page-layout carded fullwidth inner
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"products\" class=\"page-layout carded fullwidth inner-scroll\">\r\n\r\n    <!-- TOP BACKGROUND -->\r\n    <div class=\"top-bg accent\"></div>\r\n    <!-- / TOP BACKGROUND -->\r\n\r\n    <!-- CENTER -->\r\n    <div class=\"center\">\r\n\r\n        <!-- HEADER -->\r\n        <div class=\"header accent\"\r\n             fxLayout=\"column\" fxLayoutAlign=\"center center\"\r\n             fxLayout.gt-sm=\"row\" fxLayoutAlign.gt-sm=\"space-between center\">\r\n\r\n            <!-- APP TITLE -->\r\n            <div class=\"logo mb-24 mb-md-0\"\r\n                 fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                <mat-icon class=\"logo-icon s-32 mr-16\" [@animate]=\"{value:'*',params:{delay:'50ms',scale:'0.2'}}\">\r\n                    shopping_basket\r\n                </mat-icon>\r\n                <span class=\"logo-text h1\" [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\">\r\n                    Productos\r\n                </span>\r\n            </div>\r\n            <!-- / APP TITLE -->\r\n\r\n            <!-- SEARCH -->\r\n            <div class=\"search-wrapper mx-32 mx-md-0\">\r\n                <div class=\"search\" fxFlex fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                    <mat-icon>search</mat-icon>\r\n                    <input #filter placeholder=\"Buscar producto\">\r\n                </div>\r\n            </div>\r\n            <mat-form-field>\r\n                <mat-label>Tienda</mat-label>\r\n                <select matNativeControl [(ngModel)]=\"selectedCar\" name=\"car\">\r\n                  <option value=\"\" selected></option>\r\n                  <option *ngFor=\"let car of cars\" [value]=\"car.value\">\r\n                    {{car.viewValue}}\r\n                  </option>\r\n                </select>\r\n              </mat-form-field>\r\n            <!-- / SEARCH -->\r\n\r\n            <!-- ADD BUTTON -->\r\n            <button mat-raised-button\r\n                    [routerLink]=\"'/almacen/productos/new'\"\r\n                    class=\"add-product-button fuse-white mt-24 mt-md-0\">\r\n                <span>AGREGAR NUEVO PRODUCTO</span>\r\n            </button>\r\n            <!-- / ADD BUTTON -->\r\n\r\n        </div>\r\n        <!-- / HEADER -->\r\n\r\n        <!-- CONTENT CARD -->\r\n        <div class=\"content-card\">\r\n\r\n            <mat-table class=\"products-table\"\r\n                       #table [dataSource]=\"dataSource\"\r\n                       matSort\r\n                       [@animateStagger]=\"{value:'50'}\"\r\n                       fusePerfectScrollbar>\r\n\r\n                <!-- ID Column -->\r\n                <ng-container matColumnDef=\"id\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\">\r\n                        <p class=\"text-truncate\">{{product.id}}</p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Image Column -->\r\n                <ng-container matColumnDef=\"image\">\r\n                    <mat-header-cell *matHeaderCellDef>Vista</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\">\r\n                        <img class=\"product-image\"\r\n                             *ngIf=\"product.featuredImageId\" [alt]=\"product.name\"\r\n                             [src]=\"product.images[product.featuredImageId].url\"/>\r\n                        <img *ngIf=\"!product.featuredImageId\"\r\n                             [src]=\"'assets/images/ecommerce/product-image-placeholder.png'\">\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Name Column -->\r\n                <ng-container matColumnDef=\"name\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\">\r\n                        <p class=\"text-truncate\">{{product.name}}</p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Category Column -->\r\n                <ng-container matColumnDef=\"category\">\r\n                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Categoria</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-md>\r\n                       <p class=\"category text-truncate\">\r\n                            {{product.categories}}\r\n                        </p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Price Column -->\r\n                <ng-container matColumnDef=\"price\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Precio</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-xs>\r\n                        <p class=\"price text-truncate\">\r\n                            {{product.priceTaxIncl | currency:'USD':'symbol'}}\r\n                        </p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Quantity Column -->\r\n                <ng-container matColumnDef=\"quantity\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Cantidad</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-sm>\r\n\r\n                        <span class=\"quantity-indicator text-truncate\"\r\n                              [ngClass]=\"{'red-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'green-600':product.quantity > 25}\">\r\n                        </span>\r\n                        <span>\r\n                            {{product.quantity}}\r\n                        </span>\r\n\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Active Column -->\r\n                <ng-container matColumnDef=\"active\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Activo</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-xs>\r\n                        <mat-icon *ngIf=\"product.active\" class=\"active-icon green-600 s-16\">check</mat-icon>\r\n                        <mat-icon *ngIf=\"!product.active\" class=\"active-icon red-500 s-16\">close</mat-icon>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                 <!-- Web Column -->\r\n                 <ng-container matColumnDef=\"web\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Web</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-xs>\r\n                        <mat-icon *ngIf=\"product.web\" class=\"web-icon green-600 s-16\">check</mat-icon>\r\n                        <mat-icon *ngIf=\"!product.web\" class=\"web-icon red-500 s-16\">close</mat-icon>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <mat-header-row *matHeaderRowDef=\"displayedColumns; sticky:true\"></mat-header-row>\r\n\r\n                <mat-row *matRowDef=\"let product; columns: displayedColumns;\"\r\n                         class=\"product\"\r\n                         matRipple\r\n                         [routerLink]=\"'/almacen/productos/'+product.id+'/'+product.handle\">\r\n                </mat-row>\r\n\r\n            </mat-table>\r\n\r\n            <mat-paginator #paginator\r\n                           [length]=\"dataSource.filteredData.length\"\r\n                           [pageIndex]=\"0\"\r\n                           [pageSize]=\"10\"\r\n                           [pageSizeOptions]=\"[5, 10, 25, 100]\">\r\n            </mat-paginator>\r\n\r\n        </div>\r\n        <!-- / CONTENT CARD -->\r\n    </div>\r\n    <!-- / CENTER -->\r\n</div>\r\n"
+module.exports = "<div id=\"products\" class=\"page-layout carded fullwidth inner-scroll\">\r\n\r\n    <!-- TOP BACKGROUND -->\r\n    <div class=\"top-bg accent\"></div>\r\n    <!-- / TOP BACKGROUND -->\r\n\r\n    <!-- CENTER -->\r\n    <div class=\"center\">\r\n\r\n        <!-- HEADER -->\r\n        <div class=\"header accent\"\r\n             fxLayout=\"column\" fxLayoutAlign=\"center center\"\r\n             fxLayout.gt-sm=\"row\" fxLayoutAlign.gt-sm=\"space-between center\">\r\n\r\n            <!-- APP TITLE -->\r\n            <div class=\"logo mb-24 mb-md-0\"\r\n                 fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                <mat-icon class=\"logo-icon s-32 mr-16\" [@animate]=\"{value:'*',params:{delay:'50ms',scale:'0.2'}}\">\r\n                    shopping_basket\r\n                </mat-icon>\r\n                <span class=\"logo-text h1\" [@animate]=\"{value:'*',params:{delay:'100ms',x:'-25px'}}\">\r\n                    Productos\r\n                </span>\r\n            </div>\r\n            <!-- / APP TITLE -->\r\n\r\n            <!-- SEARCH -->\r\n            <div class=\"search-wrapper mx-32 mx-md-0\">\r\n                <div class=\"search\" fxFlex fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                    <mat-icon>search</mat-icon>\r\n                    <input #filter placeholder=\"Buscar producto\">\r\n                </div>\r\n            </div>\r\n\r\n\r\n            <mat-form-field>\r\n            <mat-label>Tienda </mat-label>\r\n            <mat-select [(ngModel)]=\"tiendaSeleccionada\" (selectionChange)=\"cambiarTienda($event)\" >\r\n                <mat-option value=\"_NUEVA\">\r\n                    + Agregar una nueva tienda\r\n                </mat-option>\r\n                <mat-option *ngFor=\"let tienda of tiendas\"  [value]=\"tienda.value\">\r\n                    {{tienda.viewValue}}\r\n                </mat-option>\r\n            </mat-select>\r\n        </mat-form-field>\r\n\r\n\r\n            <!-- / SEARCH -->\r\n\r\n            <!-- ADD BUTTON -->\r\n            <button mat-raised-button\r\n                    [routerLink]=\"'/almacen/productos/new'\"\r\n                    class=\"add-product-button fuse-white mt-24 mt-md-0\">\r\n                <span>AGREGAR NUEVO PRODUCTO</span>\r\n            </button>\r\n            <!-- / ADD BUTTON -->\r\n\r\n        </div>\r\n        <!-- / HEADER -->\r\n\r\n        <!-- CONTENT CARD -->\r\n        <div class=\"content-card\">\r\n\r\n            <mat-table class=\"products-table\"\r\n                       #table [dataSource]=\"dataSource\"\r\n                       matSort\r\n                       [@animateStagger]=\"{value:'50'}\"\r\n                       fusePerfectScrollbar>\r\n\r\n                <!-- ID Column -->\r\n                <ng-container matColumnDef=\"id\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\">\r\n                        <p class=\"text-truncate\">{{product.id}}</p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Image Column -->\r\n                <ng-container matColumnDef=\"image\">\r\n                    <mat-header-cell *matHeaderCellDef>Vista</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\">\r\n                        <img class=\"product-image\"\r\n                             *ngIf=\"product.images[0].thumb\" [alt]=\"product.name\"\r\n                             [src]=\"product.images[0].thumb\"/>\r\n                        <img *ngIf=\"!product.images[0].thumb\"\r\n                             [src]=\"'assets/images/ecommerce/product-image-placeholder.png'\">\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Name Column -->\r\n                <ng-container matColumnDef=\"name\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\">\r\n                        <p class=\"text-truncate\">{{product.name}}</p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Category Column -->\r\n                <ng-container matColumnDef=\"category\">\r\n                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Categoria</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-md>\r\n                       <p class=\"category text-truncate\">\r\n                            {{product.categories}}\r\n                        </p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Price Column -->\r\n                <ng-container matColumnDef=\"price\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Precio</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-xs>\r\n                        <p class=\"price text-truncate\">\r\n                            {{product.priceTaxIncl | currency:'USD':'symbol'}}\r\n                        </p>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Quantity Column -->\r\n                <ng-container matColumnDef=\"quantity\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Cantidad</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-sm>\r\n\r\n                        <span class=\"quantity-indicator text-truncate\"\r\n                              [ngClass]=\"{'red-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'green-600':product.quantity > 25}\">\r\n                        </span>\r\n                        <span>\r\n                            {{product.quantity}}\r\n                        </span>\r\n\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <!-- Active Column -->\r\n                <ng-container matColumnDef=\"active\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Activo</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-xs>\r\n                        <mat-icon *ngIf=\"product.active\" class=\"active-icon green-600 s-16\">check</mat-icon>\r\n                        <mat-icon *ngIf=\"!product.active\" class=\"active-icon red-500 s-16\">close</mat-icon>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                 <!-- Web Column -->\r\n                 <ng-container matColumnDef=\"web\">\r\n                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Web</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let product\" fxHide fxShow.gt-xs>\r\n                        <mat-icon *ngIf=\"product.web\" class=\"web-icon green-600 s-16\">check</mat-icon>\r\n                        <mat-icon *ngIf=\"!product.web\" class=\"web-icon red-500 s-16\">close</mat-icon>\r\n                    </mat-cell>\r\n                </ng-container>\r\n\r\n                <mat-header-row *matHeaderRowDef=\"displayedColumns; sticky:true\"></mat-header-row>\r\n\r\n                <mat-row *matRowDef=\"let product; columns: displayedColumns;\"\r\n                         class=\"product\"\r\n                         matRipple\r\n                         [routerLink]=\"'/almacen/productos/'+product.id+'/'+product.handle\">\r\n                </mat-row>\r\n\r\n            </mat-table>\r\n\r\n            <mat-paginator #paginator\r\n                           [length]=\"dataSource.filteredData.length\"\r\n                           [pageIndex]=\"0\"\r\n                           [pageSize]=\"10\"\r\n                           [pageSizeOptions]=\"[5, 10, 25, 100]\">\r\n            </mat-paginator>\r\n\r\n        </div>\r\n        <!-- / CONTENT CARD -->\r\n    </div>\r\n    <!-- / CENTER -->\r\n</div>\r\n"
 
 /***/ }),
 
@@ -70,19 +81,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_sort__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/sort */ "./node_modules/@angular/material/esm5/sort.es5.js");
 /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
 /* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm5/tabs.es5.js");
-/* harmony import */ var _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @swimlane/ngx-charts */ "./node_modules/@swimlane/ngx-charts/release/esm.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
-/* harmony import */ var _fuse_shared_module__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @fuse/shared.module */ "./src/@fuse/shared.module.ts");
-/* harmony import */ var _fuse_components_widget_widget_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @fuse/components/widget/widget.module */ "./src/@fuse/components/widget/widget.module.ts");
-/* harmony import */ var app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! app/main/apps/almacen/productos/productos.component */ "./src/app/main/apps/almacen/productos/productos.component.ts");
-/* harmony import */ var app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! app/main/apps/almacen/productos/productos.service */ "./src/app/main/apps/almacen/productos/productos.service.ts");
-/* harmony import */ var app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/main/apps/almacen/producto/producto.component */ "./src/app/main/apps/almacen/producto/producto.component.ts");
-/* harmony import */ var app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/main/apps/almacen/producto/producto.service */ "./src/app/main/apps/almacen/producto/producto.service.ts");
-/* harmony import */ var app_main_apps_almacen_ordenes_ordenes_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/main/apps/almacen/ordenes/ordenes.component */ "./src/app/main/apps/almacen/ordenes/ordenes.component.ts");
-/* harmony import */ var app_main_apps_almacen_ordenes_ordenes_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/main/apps/almacen/ordenes/ordenes.service */ "./src/app/main/apps/almacen/ordenes/ordenes.service.ts");
-/* harmony import */ var app_main_apps_almacen_orden_orden_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/main/apps/almacen/orden/orden.component */ "./src/app/main/apps/almacen/orden/orden.component.ts");
-/* harmony import */ var app_main_apps_almacen_orden_orden_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! app/main/apps/almacen/orden/orden.service */ "./src/app/main/apps/almacen/orden/orden.service.ts");
-/* harmony import */ var app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! app/concomsis/jmy/jmy.module */ "./src/app/concomsis/jmy/jmy.module.ts");
+/* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/esm5/progress-spinner.es5.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @swimlane/ngx-charts */ "./node_modules/@swimlane/ngx-charts/release/esm.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _fuse_shared_module__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @fuse/shared.module */ "./src/@fuse/shared.module.ts");
+/* harmony import */ var _fuse_components_widget_widget_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @fuse/components/widget/widget.module */ "./src/@fuse/components/widget/widget.module.ts");
+/* harmony import */ var app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/main/apps/almacen/productos/productos.component */ "./src/app/main/apps/almacen/productos/productos.component.ts");
+/* harmony import */ var app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/main/apps/almacen/productos/productos.service */ "./src/app/main/apps/almacen/productos/productos.service.ts");
+/* harmony import */ var app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/main/apps/almacen/producto/producto.component */ "./src/app/main/apps/almacen/producto/producto.component.ts");
+/* harmony import */ var app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/main/apps/almacen/producto/producto.service */ "./src/app/main/apps/almacen/producto/producto.service.ts");
+/* harmony import */ var app_main_apps_almacen_ordenes_ordenes_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/main/apps/almacen/ordenes/ordenes.component */ "./src/app/main/apps/almacen/ordenes/ordenes.component.ts");
+/* harmony import */ var app_main_apps_almacen_ordenes_ordenes_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! app/main/apps/almacen/ordenes/ordenes.service */ "./src/app/main/apps/almacen/ordenes/ordenes.service.ts");
+/* harmony import */ var app_main_apps_almacen_orden_orden_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! app/main/apps/almacen/orden/orden.component */ "./src/app/main/apps/almacen/orden/orden.component.ts");
+/* harmony import */ var app_main_apps_almacen_orden_orden_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! app/main/apps/almacen/orden/orden.service */ "./src/app/main/apps/almacen/orden/orden.service.ts");
+/* harmony import */ var app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! app/concomsis/jmy/jmy.module */ "./src/app/concomsis/jmy/jmy.module.ts");
+
+
 
 
 
@@ -115,37 +130,37 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     {
         path: 'productos',
-        component: app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_20__["AlmacenProductosComponent"],
+        component: app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_22__["AlmacenProductosComponent"],
         resolve: {
-            data: app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_21__["AlmacenProductosService"]
+            data: app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_23__["AlmacenProductosService"]
         }
     },
     {
         path: 'productos/:id',
-        component: app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_22__["AlmacenProductoComponent"],
+        component: app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_24__["AlmacenProductoComponent"],
         resolve: {
-            data: app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_23__["AlmacenProductoService"]
+            data: app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_25__["AlmacenProductoService"]
         }
     },
     {
         path: 'productos/:id/:handle',
-        component: app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_22__["AlmacenProductoComponent"],
+        component: app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_24__["AlmacenProductoComponent"],
         resolve: {
-            data: app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_23__["AlmacenProductoService"]
+            data: app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_25__["AlmacenProductoService"]
         }
     },
     {
         path: 'ordenes',
-        component: app_main_apps_almacen_ordenes_ordenes_component__WEBPACK_IMPORTED_MODULE_24__["AlmacenOrdenesComponent"],
+        component: app_main_apps_almacen_ordenes_ordenes_component__WEBPACK_IMPORTED_MODULE_26__["AlmacenOrdenesComponent"],
         resolve: {
-            data: app_main_apps_almacen_ordenes_ordenes_service__WEBPACK_IMPORTED_MODULE_25__["AlmacenOrdenesService"]
+            data: app_main_apps_almacen_ordenes_ordenes_service__WEBPACK_IMPORTED_MODULE_27__["AlmacenOrdenesService"]
         }
     },
     {
         path: 'ordenes/:id',
-        component: app_main_apps_almacen_orden_orden_component__WEBPACK_IMPORTED_MODULE_26__["AlmacenOrdenComponent"],
+        component: app_main_apps_almacen_orden_orden_component__WEBPACK_IMPORTED_MODULE_28__["AlmacenOrdenComponent"],
         resolve: {
-            data: app_main_apps_almacen_orden_orden_service__WEBPACK_IMPORTED_MODULE_27__["AlmacenOrdenService"]
+            data: app_main_apps_almacen_orden_orden_service__WEBPACK_IMPORTED_MODULE_29__["AlmacenOrdenService"]
         }
     }
 ];
@@ -155,10 +170,11 @@ var AlmacenModule = /** @class */ (function () {
     AlmacenModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_20__["AlmacenProductosComponent"],
-                app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_22__["AlmacenProductoComponent"],
-                app_main_apps_almacen_ordenes_ordenes_component__WEBPACK_IMPORTED_MODULE_24__["AlmacenOrdenesComponent"],
-                app_main_apps_almacen_orden_orden_component__WEBPACK_IMPORTED_MODULE_26__["AlmacenOrdenComponent"]
+                app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_22__["AlmacenProductosComponent"],
+                app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_22__["ProductosTiendaDialog"],
+                app_main_apps_almacen_producto_producto_component__WEBPACK_IMPORTED_MODULE_24__["AlmacenProductoComponent"],
+                app_main_apps_almacen_ordenes_ordenes_component__WEBPACK_IMPORTED_MODULE_26__["AlmacenOrdenesComponent"],
+                app_main_apps_almacen_orden_orden_component__WEBPACK_IMPORTED_MODULE_28__["AlmacenOrdenComponent"]
             ],
             imports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes),
@@ -172,114 +188,33 @@ var AlmacenModule = /** @class */ (function () {
                 _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["MatRippleModule"],
                 _angular_material_select__WEBPACK_IMPORTED_MODULE_11__["MatSelectModule"],
                 _angular_material_sort__WEBPACK_IMPORTED_MODULE_13__["MatSortModule"],
+                _angular_material_dialog__WEBPACK_IMPORTED_MODULE_17__["MatDialogModule"],
                 _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__["MatSnackBarModule"],
                 _angular_material_table__WEBPACK_IMPORTED_MODULE_14__["MatTableModule"],
                 _angular_material_tabs__WEBPACK_IMPORTED_MODULE_15__["MatTabsModule"],
-                app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_28__["JmyModule"],
-                _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_16__["NgxChartsModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_17__["AgmCoreModule"].forRoot({
+                _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_16__["MatProgressSpinnerModule"],
+                app_concomsis_jmy_jmy_module__WEBPACK_IMPORTED_MODULE_30__["JmyModule"],
+                _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_18__["NgxChartsModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_19__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8'
                 }),
-                _fuse_shared_module__WEBPACK_IMPORTED_MODULE_18__["FuseSharedModule"],
-                _fuse_components_widget_widget_module__WEBPACK_IMPORTED_MODULE_19__["FuseWidgetModule"]
+                _fuse_shared_module__WEBPACK_IMPORTED_MODULE_20__["FuseSharedModule"],
+                _fuse_components_widget_widget_module__WEBPACK_IMPORTED_MODULE_21__["FuseWidgetModule"]
             ],
             providers: [
-                app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_21__["AlmacenProductosService"],
-                app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_23__["AlmacenProductoService"],
-                app_main_apps_almacen_ordenes_ordenes_service__WEBPACK_IMPORTED_MODULE_25__["AlmacenOrdenesService"],
-                app_main_apps_almacen_orden_orden_service__WEBPACK_IMPORTED_MODULE_27__["AlmacenOrdenService"]
+                app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_23__["AlmacenProductosService"],
+                app_main_apps_almacen_producto_producto_service__WEBPACK_IMPORTED_MODULE_25__["AlmacenProductoService"],
+                app_main_apps_almacen_ordenes_ordenes_service__WEBPACK_IMPORTED_MODULE_27__["AlmacenOrdenesService"],
+                app_main_apps_almacen_orden_orden_service__WEBPACK_IMPORTED_MODULE_29__["AlmacenOrdenService"]
+            ],
+            entryComponents: [
+                app_main_apps_almacen_productos_productos_component__WEBPACK_IMPORTED_MODULE_22__["ProductosTiendaDialog"]
             ]
         })
     ], AlmacenModule);
     return AlmacenModule;
 }());
 
-
-
-/***/ }),
-
-/***/ "./src/app/main/apps/almacen/orden/orden-statuses.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/main/apps/almacen/orden/orden-statuses.ts ***!
-  \***********************************************************/
-/*! exports provided: orderStatuses */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderStatuses", function() { return orderStatuses; });
-var orderStatuses = [
-    {
-        id: 1,
-        name: 'Awaiting check payment',
-        color: 'blue-500'
-    },
-    {
-        id: 2,
-        name: 'Payment accepted',
-        color: 'green-500'
-    },
-    {
-        id: 3,
-        name: 'Preparing the order',
-        color: 'orange-500'
-    },
-    {
-        id: 4,
-        name: 'Shipped',
-        color: 'purple-500'
-    },
-    {
-        id: 5,
-        name: 'Delivered',
-        color: 'green-800'
-    },
-    {
-        id: 6,
-        name: 'Canceled',
-        color: 'pink-500'
-    },
-    {
-        id: 7,
-        name: 'Refunded',
-        color: 'red-500'
-    },
-    {
-        id: 8,
-        name: 'Payment error',
-        color: 'red-900'
-    },
-    {
-        id: 9,
-        name: 'On pre-order (paid)',
-        color: 'purple-300'
-    },
-    {
-        id: 10,
-        name: 'Awaiting bank wire payment',
-        color: 'blue-500'
-    },
-    {
-        id: 11,
-        name: 'Awaiting PayPal payment',
-        color: 'blue-500'
-    },
-    {
-        id: 12,
-        name: 'Remote payment accepted',
-        color: 'green-500'
-    },
-    {
-        id: 13,
-        name: 'On pre-order (not paid)',
-        color: 'purple-300'
-    },
-    {
-        id: 14,
-        name: 'Awaiting Cash-on-delivery payment',
-        color: 'blue-500'
-    }
-];
 
 
 /***/ }),
@@ -394,46 +329,6 @@ var AlmacenOrdenComponent = /** @class */ (function () {
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
     ], AlmacenOrdenComponent);
     return AlmacenOrdenComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/main/apps/almacen/orden/orden.model.ts":
-/*!********************************************************!*\
-  !*** ./src/app/main/apps/almacen/orden/orden.model.ts ***!
-  \********************************************************/
-/*! exports provided: Order */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Order", function() { return Order; });
-/* harmony import */ var _fuse_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fuse/utils */ "./src/@fuse/utils/index.ts");
-
-var Order = /** @class */ (function () {
-    /**
-     * Constructor
-     *
-     * @param order
-     */
-    function Order(order) {
-        order = order || {};
-        this.id = order.id || _fuse_utils__WEBPACK_IMPORTED_MODULE_0__["FuseUtils"].generateGUID();
-        this.reference = order.reference || _fuse_utils__WEBPACK_IMPORTED_MODULE_0__["FuseUtils"].generateGUID();
-        this.subtotal = order.subtotal || 0;
-        this.tax = order.tax || 0;
-        this.discount = order.discount || 0;
-        this.total = order.total || 0;
-        this.date = order.date || '';
-        this.customer = order.customer || {};
-        this.products = order.products || [];
-        this.status = order.status || [];
-        this.payment = order.payment || {};
-        this.shippingDetails = order.shippingDetails || [];
-    }
-    return Order;
 }());
 
 
@@ -957,16 +852,18 @@ var AlmacenProductoComponent = /** @class */ (function () {
         this._formBuilder = _formBuilder;
         this._location = _location;
         this._matSnackBar = _matSnackBar;
+        this.cargandoArchivos = false;
         // Set the default
         this.product = new app_main_apps_almacen_producto_producto_model__WEBPACK_IMPORTED_MODULE_9__["Product"]();
         // Set the private defaults
         this._unsubscribeAll = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
-        this._ecommerceProductService.jmyService.jmyFn.botonEnEsperaArchivos.subscribe(function (respuesta) {
-            console.log('botonEnEsperaArchivos', respuesta);
+        this._ecommerceProductService.jmyService.jmyFn.botonEnEsperaArchivos.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this._unsubscribeAll)).subscribe(function (respuesta) {
+            //console.log('botonEnEsperaArchivos o loading',respuesta);
+            _this.cargandoArchivos = respuesta;
         });
-        this._ecommerceProductService.jmyService.jmyFn.configuracionArchivos.subscribe(function (respuesta) {
-            _this.configuracionArchivos = respuesta;
-            console.log(respuesta);
+        this._ecommerceProductService.jmyService.jmyFn.configuracionArchivos.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this._unsubscribeAll)).subscribe(function (respuesta) {
+            _this.configuracionArchivos = respuesta || {};
+            // console.log(respuesta);
         });
     }
     // -----------------------------------------------------------------------------------------------------
@@ -985,13 +882,26 @@ var AlmacenProductoComponent = /** @class */ (function () {
                 _this.product = new app_main_apps_almacen_producto_producto_model__WEBPACK_IMPORTED_MODULE_9__["Product"](product);
                 _this.pageType = 'edit';
                 console.log('si existe producto', _this.product, _this.configuracionArchivos);
-                var archivosQuery = Object.assign(_this.configuracionArchivos, {
-                    modulo: 'appsbeta',
+                var archivosQuery = Object.assign(_this.configuracionArchivos || {}, {
+                    modulo: 'almacen',
                     raiz: _this._ecommerceProductService.jmyService.jmyPerfil.perfil.eid + '/productos/' + _this.product.id,
                     ruta: 'fotos/',
                     permiso: '4',
                 });
                 _this._ecommerceProductService.jmyService.jmyFn.configuracionArchivos.next(archivosQuery);
+                _this._ecommerceProductService.jmyService.jmyFn.treeArchivos.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(_this._unsubscribeAll)).subscribe(function (respuesta) {
+                    console.log(respuesta);
+                    var archivos = respuesta || { tree: [], url_iframe: {} };
+                    _this.product.images = archivos.tree.map(function (archivo) {
+                        return {
+                            default: (archivo.slice(0, -4) == 'portada') ? true : false,
+                            id: archivo,
+                            url: archivos.url_iframe['url_src'] + archivo,
+                            thumb: archivos.url_iframe['url_thumb'] + archivo,
+                            type: 'image',
+                        };
+                    });
+                });
             }
             else {
                 _this.pageType = 'new';
@@ -1005,7 +915,9 @@ var AlmacenProductoComponent = /** @class */ (function () {
      */
     AlmacenProductoComponent.prototype.ngOnDestroy = function () {
         // Unsubscribe from all subscriptions
-        this._ecommerceProductService.jmyService.jmyFn.configuracionArchivos.complete();
+        //this._ecommerceProductService.jmyService.jmyFn.configuracionArchivos.complete();
+        //this._ecommerceProductService.jmyService.jmyFn.botonEnEsperaArchivos.complete();
+        //  this._ecommerceProductService.jmyService.jmyFn.treeArchivos.complete();
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     };
@@ -1018,6 +930,7 @@ var AlmacenProductoComponent = /** @class */ (function () {
      * @returns {FormGroup}
      */
     AlmacenProductoComponent.prototype.createProductForm = function () {
+        console.log(this.product);
         return this._formBuilder.group({
             id: [this.product.id],
             name: [this.product.name, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
@@ -1044,10 +957,12 @@ var AlmacenProductoComponent = /** @class */ (function () {
     /**
      * Save product
      */
-    AlmacenProductoComponent.prototype.saveProduct = function () {
+    AlmacenProductoComponent.prototype.saveProduct = function (product) {
         var _this = this;
-        var data = this.productForm.getRawValue();
+        if (product === void 0) { product = null; }
+        var data = (product != undefined) ? product : this.productForm.getRawValue();
         data.handle = _fuse_utils__WEBPACK_IMPORTED_MODULE_8__["FuseUtils"].handleize(data.name);
+        data.images = this.product.images;
         this._ecommerceProductService.saveProduct(data)
             .then(function () {
             // Trigger the subscription with new data
@@ -1093,110 +1008,6 @@ var AlmacenProductoComponent = /** @class */ (function () {
             _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_4__["MatSnackBar"]])
     ], AlmacenProductoComponent);
     return AlmacenProductoComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/main/apps/almacen/producto/producto.model.ts":
-/*!**************************************************************!*\
-  !*** ./src/app/main/apps/almacen/producto/producto.model.ts ***!
-  \**************************************************************/
-/*! exports provided: Product */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Product", function() { return Product; });
-/* harmony import */ var _fuse_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fuse/utils */ "./src/@fuse/utils/index.ts");
-
-var Product = /** @class */ (function () {
-    /**
-     * Constructor
-     *
-     * @param product
-     */
-    function Product(product) {
-        product = product || {};
-        this.id = product.id || _fuse_utils__WEBPACK_IMPORTED_MODULE_0__["FuseUtils"].generateGUID();
-        this.name = product.name || '';
-        this.handle = product.handle || _fuse_utils__WEBPACK_IMPORTED_MODULE_0__["FuseUtils"].handleize(this.name);
-        this.description = product.description || '';
-        this.categories = product.categories || [];
-        this.tags = product.tags || [];
-        this.images = product.images || [];
-        this.priceTaxExcl = product.priceTaxExcl || 0;
-        this.priceTaxIncl = product.priceTaxIncl || 0;
-        this.taxRate = product.taxRate || 0;
-        this.comparedPrice = product.comparedPrice || 0;
-        this.quantity = product.quantity || 0;
-        this.sku = product.sku || 0;
-        this.width = product.width || 0;
-        this.height = product.height || 0;
-        this.depth = product.depth || 0;
-        this.weight = product.weight || 0;
-        this.extraShippingFee = product.extraShippingFee || 0;
-        this.active = product.active || true;
-        this.web = product.web || true;
-    }
-    /**
-     * Add category
-     *
-     * @param {MatChipInputEvent} event
-     */
-    Product.prototype.addCategory = function (event) {
-        var input = event.input;
-        var value = event.value;
-        // Add category
-        if (value) {
-            this.categories.push(value);
-        }
-        // Reset the input value
-        if (input) {
-            input.value = '';
-        }
-    };
-    /**
-     * Remove category
-     *
-     * @param category
-     */
-    Product.prototype.removeCategory = function (category) {
-        var index = this.categories.indexOf(category);
-        if (index >= 0) {
-            this.categories.splice(index, 1);
-        }
-    };
-    /**
-     * Add tag
-     *
-     * @param {MatChipInputEvent} event
-     */
-    Product.prototype.addTag = function (event) {
-        var input = event.input;
-        var value = event.value;
-        // Add tag
-        if (value) {
-            this.tags.push(value);
-        }
-        // Reset the input value
-        if (input) {
-            input.value = '';
-        }
-    };
-    /**
-     * Remove tag
-     *
-     * @param tag
-     */
-    Product.prototype.removeTag = function (tag) {
-        var index = this.tags.indexOf(tag);
-        if (index >= 0) {
-            this.tags.splice(index, 1);
-        }
-    };
-    return Product;
 }());
 
 
@@ -1352,13 +1163,14 @@ module.exports = "/* Theme for the ripple elements.*/\n/* stylelint-disable mate
 /*!********************************************************************!*\
   !*** ./src/app/main/apps/almacen/productos/productos.component.ts ***!
   \********************************************************************/
-/*! exports provided: AlmacenProductosComponent, FilesDataSource */
+/*! exports provided: AlmacenProductosComponent, FilesDataSource, ProductosTiendaDialog */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlmacenProductosComponent", function() { return AlmacenProductosComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilesDataSource", function() { return FilesDataSource; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProductosTiendaDialog", function() { return ProductosTiendaDialog; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm5/paginator.es5.js");
@@ -1371,6 +1183,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/main/apps/almacen/productos/productos.service */ "./src/app/main/apps/almacen/productos/productos.service.ts");
 /* harmony import */ var rxjs_internal_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/internal/operators */ "./node_modules/rxjs/internal/operators/index.js");
 /* harmony import */ var rxjs_internal_operators__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+
 
 
 
@@ -1383,12 +1197,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AlmacenProductosComponent = /** @class */ (function () {
-    function AlmacenProductosComponent(_ecommerceProductsService) {
+    function AlmacenProductosComponent(_ecommerceProductsService, dialog) {
         this._ecommerceProductsService = _ecommerceProductsService;
+        this.dialog = dialog;
         this.displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active', 'web'];
+        this.tiendas = [
+            { value: 'matriz', viewValue: 'Matríz' }
+        ];
         // Set the private defaults
         this._unsubscribeAll = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
     }
+    AlmacenProductosComponent.prototype.cambiarTienda = function (idTienda) {
+        if (idTienda === void 0) { idTienda = { value: this.tiendaSeleccionada || '' }; }
+        console.log(idTienda['value']);
+        if (idTienda['value'] == '_NUEVA')
+            this.openDialog();
+        else
+            this._ecommerceProductsService.onTiendaChanged.next(idTienda['value']);
+    };
+    AlmacenProductosComponent.prototype.openDialog = function () {
+        var _this = this;
+        var dialogRef = this.dialog.open(ProductosTiendaDialog, {
+            width: '250px',
+            data: { name: this.name, animal: this.animal }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+            _this.animal = result;
+        });
+    };
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
@@ -1398,6 +1235,11 @@ var AlmacenProductosComponent = /** @class */ (function () {
     AlmacenProductosComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.dataSource = new FilesDataSource(this._ecommerceProductsService, this.paginator, this.sort);
+        this._ecommerceProductsService.onTiendaChanged.subscribe(function (r) {
+            _this.tiendaSeleccionada = r;
+            console.log('Tienda Actual', r);
+        });
+        //this._ecommerceProductsService.onTiendaChanged.next('sucsal2');
         Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["fromEvent"])(this.filter.nativeElement, 'keyup')
             .pipe(Object(rxjs_internal_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(this._unsubscribeAll), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(150), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["distinctUntilChanged"])())
             .subscribe(function () {
@@ -1427,7 +1269,8 @@ var AlmacenProductosComponent = /** @class */ (function () {
             encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
             styles: [__webpack_require__(/*! ./productos.component.scss */ "./src/app/main/apps/almacen/productos/productos.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_9__["AlmacenProductosService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_main_apps_almacen_productos_productos_service__WEBPACK_IMPORTED_MODULE_9__["AlmacenProductosService"],
+            _angular_material_dialog__WEBPACK_IMPORTED_MODULE_11__["MatDialog"]])
     ], AlmacenProductosComponent);
     return AlmacenProductosComponent;
 }());
@@ -1565,6 +1408,25 @@ var FilesDataSource = /** @class */ (function (_super) {
     return FilesDataSource;
 }(_angular_cdk_collections__WEBPACK_IMPORTED_MODULE_4__["DataSource"]));
 
+var ProductosTiendaDialog = /** @class */ (function () {
+    function ProductosTiendaDialog(dialogRef, data) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+    }
+    ProductosTiendaDialog.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
+    ProductosTiendaDialog = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'productos-tienda',
+            template: __webpack_require__(/*! raw-loader!./productos-tienda-dialog.html */ "./node_modules/raw-loader/index.js!./src/app/main/apps/almacen/productos/productos-tienda-dialog.html"),
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_11__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_11__["MatDialogRef"], Object])
+    ], ProductosTiendaDialog);
+    return ProductosTiendaDialog;
+}());
+
 
 
 /***/ }),
@@ -1602,6 +1464,8 @@ var AlmacenProductosService = /** @class */ (function () {
         this.jmyService = jmyService;
         // Set the defaults
         this.onProductsChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]({});
+        this.tienda = 'matriz';
+        this.onTiendaChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](this.tienda);
     }
     /**
      * Resolver

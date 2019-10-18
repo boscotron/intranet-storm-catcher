@@ -636,6 +636,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fuse_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fuse/animations */ "./src/@fuse/animations/index.ts");
 /* harmony import */ var app_main_pages_profile_profile_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/main/pages/profile/profile.service */ "./src/app/main/pages/profile/profile.service.ts");
 /* harmony import */ var _concomsis_jmy_jmy_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../concomsis/jmy/jmy.service */ "./src/app/concomsis/jmy/jmy.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var moment_locale_es__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! moment/locale/es */ "./node_modules/moment/locale/es.js");
+/* harmony import */ var moment_locale_es__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment_locale_es__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -644,6 +648,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+moment__WEBPACK_IMPORTED_MODULE_8__["locale"]('es', moment_locale_es__WEBPACK_IMPORTED_MODULE_9___default.a);
 var ProfileAboutComponent = /** @class */ (function () {
     /**
      * Constructor
@@ -772,11 +779,11 @@ var PermisosAboutComponent = /** @class */ (function () {
         this.jmyService.jmyPerfil.datosEmpresa().then(function (r) {
             //console.log(r['config']['modulos']);
             var tmp = Object.keys(r['config']['modulos']);
-            _this.listaApps = [];
             _this.permisos = r['config']['modulos_niveles'];
             _this.jmyService.jmyPerfil.permisosPeriles.subscribe(function (rPer) {
                 console.log(tmp, rPer[_this.jmyService.jmyPerfil.perfil.uid], _this.jmyService.jmyPerfil.perfil.uid);
-                if (_this.jmyService.jmyPerfil.perfil.uid)
+                if (_this.jmyService.jmyPerfil.perfil.uid) {
+                    _this.listaApps = [];
                     tmp.forEach(function (e) {
                         //if(tmp[e]>0)
                         _this.listaApps.push({
@@ -785,6 +792,7 @@ var PermisosAboutComponent = /** @class */ (function () {
                             value: rPer[_this.jmyService.jmyPerfil.perfil.uid][e]
                         });
                     });
+                }
             });
         });
     }

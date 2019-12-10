@@ -49,18 +49,19 @@ var map = {
 		"./src/app/main/apps/e-commerce/e-commerce.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
 		"e-commerce-e-commerce-module"
 	],
 	"./encuestas/encuesta.module": [
 		"./src/app/main/apps/encuestas/encuesta.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
+		"default~encuestas-encuesta-module~stormcatcher-almaceninventario-almacen-module~stormcatcher-proveed~f321a54f",
 		"default~encuestas-encuesta-module~stormcatcher-almaceninventario-almacen-module",
 		"encuestas-encuesta-module"
 	],
@@ -68,10 +69,10 @@ var map = {
 		"./src/app/main/apps/almacen/almacen.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
-		"default~main-apps-almacen-almacen-module~main-apps-seminuevos-seminuevos-module~stormcatcher-almacen~803989c0",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
+		"default~main-apps-almacen-almacen-module~main-apps-seminuevos-seminuevos-module~stormcatcher-almacen~f11cedee",
 		"common",
 		"main-apps-almacen-almacen-module"
 	],
@@ -83,39 +84,39 @@ var map = {
 		"./src/app/main/apps/escuela/escuela.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
 		"main-apps-escuela-escuela-module"
 	],
 	"./main/apps/jmypro/jmypro.module": [
 		"./src/app/main/apps/jmypro/jmypro.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
 		"main-apps-jmypro-jmypro-module"
 	],
 	"./main/apps/seminuevos/seminuevos.module": [
 		"./src/app/main/apps/seminuevos/seminuevos.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
-		"default~main-apps-almacen-almacen-module~main-apps-seminuevos-seminuevos-module~stormcatcher-almacen~803989c0",
-		"default~main-apps-seminuevos-seminuevos-module~stormcatcher-almaceninventario-almacen-module",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
+		"default~main-apps-almacen-almacen-module~main-apps-seminuevos-seminuevos-module~stormcatcher-almacen~f11cedee",
+		"default~main-apps-seminuevos-seminuevos-module~stormcatcher-almaceninventario-almacen-module~stormca~b02f7a74",
 		"main-apps-seminuevos-seminuevos-module"
 	],
 	"./main/apps/tpk/tpk.module": [
 		"./src/app/main/apps/tpk/tpk.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
-		"default~main-apps-tpk-tpk-module~scrumboard-scrumboard-module~stormcatcher-almaceninventario-almacen~a52581dd",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
+		"default~main-apps-tpk-tpk-module~scrumboard-scrumboard-module~stormcatcher-almaceninventario-almacen~579bbba7",
 		"default~main-apps-tpk-tpk-module~main-pages-pages-module",
 		"main-apps-tpk-tpk-module"
 	],
@@ -128,14 +129,14 @@ var map = {
 	"./main/pages/pages.module": [
 		"./src/app/main/pages/pages.module.ts",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~main-pages-auth-module~main-pages-pages-module",
 		"default~main-apps-tpk-tpk-module~main-pages-pages-module",
 		"main-pages-pages-module"
 	],
 	"./scrumboard/scrumboard.module": [
 		"./src/app/main/apps/scrumboard/scrumboard.module.ts",
-		"default~main-apps-tpk-tpk-module~scrumboard-scrumboard-module~stormcatcher-almaceninventario-almacen~a52581dd",
+		"default~main-apps-tpk-tpk-module~scrumboard-scrumboard-module~stormcatcher-almaceninventario-almacen~579bbba7",
 		"scrumboard-scrumboard-module"
 	],
 	"./stormcatcher/almacen/almacen.module": [
@@ -146,13 +147,14 @@ var map = {
 		"./src/app/main/apps/stormcatcher/almaceninventario/almacen.module.ts",
 		"default~concomsis-jmy-admin-jmydash-jmydash-module~concomsis-jmy-admin-jmydashs-jmydashs-module~dash~22658ef9",
 		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~46ff9faa",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
 		"default~dashboards-analytics-analytics-module~e-commerce-e-commerce-module~encuestas-encuesta-module~b195a298",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~2a7a967e",
-		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~1298ea66",
-		"default~main-apps-tpk-tpk-module~scrumboard-scrumboard-module~stormcatcher-almaceninventario-almacen~a52581dd",
-		"default~main-apps-almacen-almacen-module~main-apps-seminuevos-seminuevos-module~stormcatcher-almacen~803989c0",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
+		"default~main-apps-tpk-tpk-module~scrumboard-scrumboard-module~stormcatcher-almaceninventario-almacen~579bbba7",
+		"default~main-apps-almacen-almacen-module~main-apps-seminuevos-seminuevos-module~stormcatcher-almacen~f11cedee",
+		"default~encuestas-encuesta-module~stormcatcher-almaceninventario-almacen-module~stormcatcher-proveed~f321a54f",
+		"default~main-apps-seminuevos-seminuevos-module~stormcatcher-almaceninventario-almacen-module~stormca~b02f7a74",
 		"default~encuestas-encuesta-module~stormcatcher-almaceninventario-almacen-module",
-		"default~main-apps-seminuevos-seminuevos-module~stormcatcher-almaceninventario-almacen-module",
 		"default~stormcatcher-almaceninventario-almacen-module~stormcatcher-proveedores-proveedores-module",
 		"common",
 		"stormcatcher-almaceninventario-almacen-module"
@@ -163,6 +165,12 @@ var map = {
 	],
 	"./stormcatcher/proveedores/proveedores.module": [
 		"./src/app/main/apps/stormcatcher/proveedores/proveedores.module.ts",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~b47b4285",
+		"default~e-commerce-e-commerce-module~encuestas-encuesta-module~main-apps-almacen-almacen-module~main~f93714eb",
+		"default~main-apps-tpk-tpk-module~scrumboard-scrumboard-module~stormcatcher-almaceninventario-almacen~579bbba7",
+		"default~main-apps-almacen-almacen-module~main-apps-seminuevos-seminuevos-module~stormcatcher-almacen~f11cedee",
+		"default~encuestas-encuesta-module~stormcatcher-almaceninventario-almacen-module~stormcatcher-proveed~f321a54f",
+		"default~main-apps-seminuevos-seminuevos-module~stormcatcher-almaceninventario-almacen-module~stormca~b02f7a74",
 		"default~stormcatcher-almaceninventario-almacen-module~stormcatcher-proveedores-proveedores-module",
 		"stormcatcher-proveedores-proveedores-module"
 	]
@@ -9136,19 +9144,45 @@ var JmyPerfil = /** @class */ (function () {
                 }
             }).then(function (rp) {
                 // console.log('perfilPublico 👌', rp);
-                _this.listadoPerfilPublico({
-                    displayName: _this.perfil.displayName,
-                    email: _this.perfil.email,
-                    uid: _this.perfil.uid,
-                    photoURL: _this.perfil.photoURL
-                }).then(function (rP) {
-                    res(true);
-                }).catch(function (err) {
-                    rej(err);
-                });
+                /* this.listadoPerfilPublico({
+                     displayName:this.perfil.displayName,
+                     email:this.perfil.email,
+                     uid:this.perfil.uid,
+                     photoURL:this.perfil.photoURL
+                 }).then(rP=>{
+                     res(true);
+                 }).catch(err=>{
+                     rej(err)
+                 })*/
             }).catch(function (rp) {
                 rej(rp);
                 console.log('catch', rp);
+            });
+        });
+    };
+    JmyPerfil.prototype.verPerfilPublico = function (d) {
+        var _this = this;
+        return new Promise(function (res, rej) {
+            var itemRefP = _this.db.object(_this.rdbpL + '/lista/' + _this.uid);
+            itemRefP.set(d).then(function (rp) {
+                console.log('listadoPerfilPublico 👌', d);
+                res;
+            }).catch(function (rp) {
+                console.log('catch', rp);
+                rej;
+            });
+        });
+    };
+    JmyPerfil.prototype.listaPerfilesPublico = function (d) {
+        var _this = this;
+        return new Promise(function (res, rej) {
+            var itemRefP = _this.db.object(_this.rdbpL + '/lista/' + _this.uid);
+            itemRefP.set(d).then(function (rp) {
+                console.log('listadoPerfilPublico 👌', d);
+                res;
+            }).catch(function (rp) {
+                console.log('catch', rp);
+                rej;
             });
         });
     };
@@ -29059,7 +29093,7 @@ var navigation = [
                 icon: 'widgets',
                 children: [{
                         id: 'sc_almacen_productos',
-                        title: 'Productos',
+                        title: 'Artículos',
                         modulo: [{
                                 permiso: 1,
                                 modulo: 'sc_almacen'
@@ -30396,8 +30430,37 @@ var configuraciones = {
                 nombre: 'Intranet Storm Catcher',
                 eid: "a07bd76074c0a795174e674ec04a18cf",
                 key: "1dd8c965ae4f920944c9697e5f78a719",
+                // servidor:"https://us-central1-concomsis.cloudfunctions.net/beta/",            
+                servidor: "http://localhost:5001/concomsis/us-central1/beta/",
+                ecard: [{
+                        nombre: 'Concomsis eCard',
+                        url: 'https://comsis.mx/e/0/',
+                        img: 'https://comsis.mx/att/static/jmy4/angular/fuse/assets/logoIco.png'
+                    }],
+            }
+        },
+        firebase: {
+            databaseURL: "https://encouraging-mix-111109-storm-catcher-concomsis.firebaseio.com/",
+        }
+    },
+    "storm-cacher": {
+        jmyConfig: {
+            usuario: {
+                photoProfile: './assets/images/logos/fuse-stormcatcher.svg'
+            },
+            cliente: {
+                projectId: "a07bd76074c0a795174e674ec04a18cf",
+                logo: "assets/images/logos/fuse-stormcatcher.svg",
+                tema: {
+                    login: 'tradicional',
+                    colorTheme: 'theme-stormcatcher-light',
+                }
+            },
+            app: {
+                nombre: 'Panel Storm Catcher',
+                eid: "a07bd76074c0a795174e674ec04a18cf",
+                key: "1dd8c965ae4f920944c9697e5f78a719",
                 servidor: "https://us-central1-concomsis.cloudfunctions.net/beta/",
-                //servidor:"http://localhost:5000/concomsis/us-central1/beta/",   
                 ecard: [{
                         nombre: 'Concomsis eCard',
                         url: 'https://comsis.mx/e/0/',
@@ -30518,7 +30581,7 @@ var configuraciones = {
                 nombre: 'Jmy 4 Beta',
                 eid: "concomsis-panel",
                 key: "2ccf86e440e9a50cfa6274776fe03dd4",
-                servidor: "https://us-central1-concomsis.cloudfunctions.net/beta/",
+                // servidor:"https://us-central1-concomsis.cloudfunctions.net/beta/",            
                 //servidor:"http://localhost:5001/concomsis/us-central1/beta/",   
                 ecard: [{
                         nombre: 'Concomsis eCard',
@@ -30532,9 +30595,9 @@ var configuraciones = {
         }
     }
 };
-//const licencia="concomsis-panel";
+var licencia = "storm-cacher";
 //const licencia="concomsis-panel-konhaus";
-var licencia = "storm-cacher-sand";
+//const licencia="storm-cacher-sand";
 var environment = new configEnv(configuraciones[licencia].firebase);
 var jmyConfig = new configJmy(configuraciones[licencia]);
 
@@ -30581,21 +30644,24 @@ var hmrBootstrap = function (module, bootstrap) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
-/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var hmr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! hmr */ "./src/hmr.ts");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var hmr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! hmr */ "./src/hmr.ts");
 
 
 
 
 
-if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+
+if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["enableProdMode"])();
 }
-var bootstrap = function () { return Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"]); };
-if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].hmr) {
+var bootstrap = function () { return Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_3__["AppModule"]); };
+if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].hmr) {
     if (false) {}
     else {
         console.error('HMR is not enabled for webpack-dev-server!');

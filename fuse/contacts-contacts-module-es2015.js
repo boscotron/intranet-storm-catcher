@@ -571,8 +571,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_main_apps_contacts_selected_bar_selected_bar_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/main/apps/contacts/selected-bar/selected-bar.component */ "./src/app/main/apps/contacts/selected-bar/selected-bar.component.ts");
 /* harmony import */ var app_main_apps_contacts_sidebars_main_main_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/main/apps/contacts/sidebars/main/main.component */ "./src/app/main/apps/contacts/sidebars/main/main.component.ts");
 /* harmony import */ var app_main_apps_contacts_contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/main/apps/contacts/contact-form/contact-form.component */ "./src/app/main/apps/contacts/contact-form/contact-form.component.ts");
-/* harmony import */ var app_main_apps_contacts_ecard_ecard_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/main/apps/contacts/ecard/ecard.component */ "./src/app/main/apps/contacts/ecard/ecard.component.ts");
-
 
 
 
@@ -616,8 +614,7 @@ ContactsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             app_main_apps_contacts_contact_list_contact_list_component__WEBPACK_IMPORTED_MODULE_21__["ContactsContactListComponent"],
             app_main_apps_contacts_selected_bar_selected_bar_component__WEBPACK_IMPORTED_MODULE_22__["ContactsSelectedBarComponent"],
             app_main_apps_contacts_sidebars_main_main_component__WEBPACK_IMPORTED_MODULE_23__["ContactsMainSidebarComponent"],
-            app_main_apps_contacts_contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_24__["ContactsContactFormDialogComponent"],
-            app_main_apps_contacts_ecard_ecard_component__WEBPACK_IMPORTED_MODULE_25__["ContactsEcardComponent"]
+            app_main_apps_contacts_contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_24__["ContactsContactFormDialogComponent"]
         ],
         imports: [
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes),
@@ -643,8 +640,7 @@ ContactsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             app_main_apps_contacts_contacts_service__WEBPACK_IMPORTED_MODULE_20__["ContactsService"]
         ],
         entryComponents: [
-            app_main_apps_contacts_contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_24__["ContactsContactFormDialogComponent"],
-            app_main_apps_contacts_ecard_ecard_component__WEBPACK_IMPORTED_MODULE_25__["ContactsEcardComponent"]
+            app_main_apps_contacts_contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_24__["ContactsContactFormDialogComponent"]
         ]
     })
 ], ContactsModule);

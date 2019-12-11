@@ -8767,9 +8767,9 @@ let JmyPerfil = class JmyPerfil {
     }
     actualizarPerfil(d) {
         return new Promise((res, rej) => {
-            //  console.log(d,this.perfil);
             this.perfilPrivado(d).then(r => {
-                this.perfil = d;
+                this.perfil = new _interfaces_services__WEBPACK_IMPORTED_MODULE_5__["infoPerfilInterface"](d);
+                console.log(d, this.perfil);
                 this.perfilChange.next(this.perfil);
                 //   console.log(' actualizarPerfil 👌',this.perfil);
                 res(this.perfil);
@@ -8842,7 +8842,7 @@ let JmyPerfil = class JmyPerfil {
     }
     perfilPrivado(d) {
         return new Promise((res, rej) => {
-            //console.log(this.rdbu,d,this.perfil,this.rutaPublica+'lista/'+this.perfil.uid);          
+            console.log(this.rdbu, d, this.perfil, this.rutaPublica + 'lista/' + this.perfil.uid);
             this.perfil = Object.assign({}, this.perfil, d);
             this.db.object(this.rdbu).set(this.perfil).then(r => {
             });
@@ -9030,7 +9030,7 @@ let JmyFn = class JmyFn {
             } };
         //console.log(this.CNF);
         this.listaNotificaciones().then();
-        this.configuracionArchivos.subscribe(conf => {
+        this.configuracionArchivos.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(conf => {
             let p = Object.assign({}, conf, { eid: environments_environment__WEBPACK_IMPORTED_MODULE_3__["jmyConfig"].app.eid, key: environments_environment__WEBPACK_IMPORTED_MODULE_3__["jmyConfig"].app.key, uid: (this.jmyPerfil.perfil != undefined) ? this.jmyPerfil.perfil.uid : '0' });
             this.configuracionArchivosQ = p;
         });
@@ -9054,7 +9054,7 @@ let JmyFn = class JmyFn {
     grupoNotificar(grupo = null, id = null, uid = null, borrar = false) {
         return new Promise((res, rej) => {
             if (grupo != undefined) {
-                const q = this.db.object(this.CNF.ruta.notificacionesGrupo + grupo).valueChanges().subscribe(r => {
+                const q = this.db.object(this.CNF.ruta.notificacionesGrupo + grupo).valueChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
                     q.unsubscribe();
                     let u = r || {};
                     if (u[id] == undefined)
@@ -9080,20 +9080,23 @@ let JmyFn = class JmyFn {
         return new Promise((res, rej) => {
             this.botonEnEsperaArchivos.next(true);
             this.archivosQ = this.http.post(environments_environment__WEBPACK_IMPORTED_MODULE_3__["jmyConfig"].app.servidor + 'archivos', this.configuracionArchivosQ)
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
-                console.log(r);
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(r => {
+                this.archivosQ.unsubscribe();
+                console.log(r, {
+                    tree: r['o']['tree'],
+                    url_iframe: r['o']['url_iframe']
+                });
                 if (r['error'] != '') {
                     if (r['error']['mensaje'] != '') {
                         this.toastr.error(r['error'], 'Aceeso restringido');
                         rej(r['error']);
                     }
                 }
-                if (r['error'] != undefined && r['error'] == '')
-                    this.treeArchivos.next({
-                        tree: r['o']['tree'],
-                        url_iframe: r['o']['url_iframe']
-                    });
-                this.archivosQ.unsubscribe();
+                // if(r['error']==undefined||r['error']=='')
+                this.treeArchivos.next({
+                    tree: r['o']['tree'] || [],
+                    url_iframe: r['o']['url_iframe'] || {}
+                });
                 this.botonEnEsperaArchivos.next(false);
                 if (r != undefined) {
                     if (r['o']['id'] != '') {
@@ -9274,6 +9277,7 @@ let JmyFn = class JmyFn {
         */
     ngOnDestroy() {
         this.treeArchivos.complete();
+        this.botonEnEsperaArchivos.complete();
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
@@ -9589,19 +9593,12 @@ let JmyArchivosComponent = class JmyArchivosComponent {
             this.empresa.next(r);
             console.log(r);
         });
-    }
-    reset() {
-        this.urlTarget = this.urlTargetDef;
-        return this.urlTarget;
-    }
-    ngOnInit() {
-        this.vista = false;
-        /*let otraConfig:ArchivosConfigInterface = {
-          ruta:'',
-          modulo:'',
-          raiz:'',
-          permiso:'',
-        }*/
+        this.treeArchivos = this.jmyService.jmyFn.treeArchivos;
+        this.treeArchivos.subscribe(r => {
+            // console.log(r);
+            if (this.urlTarget != r.url_iframe['url'])
+                this.urlTarget = r.url_iframe['url'] || this.urlTargetDef;
+        });
         this.jmyService.jmyFn.configuracionArchivos.subscribe(cA => {
             this.urlTarget = this.urlTargetDef;
             this.jmyService.jmyFn.botonEnEsperaArchivos.next(true);
@@ -9615,6 +9612,27 @@ let JmyArchivosComponent = class JmyArchivosComponent {
                 this.toastr.error(err['mensaje'], 'Error  :( ');
             });
         });
+    }
+    reset() {
+        this.urlTarget = this.urlTargetDef;
+        return this.urlTarget;
+    }
+    ngOnInit() {
+        this.vista = false;
+        /*let otraConfig:ArchivosConfigInterface = {
+          ruta:'',
+          modulo:'',
+          raiz:'',
+          permiso:'',
+        }*/
+    } /**
+    * On destroy
+    */
+    ngOnDestroy() {
+        // Unsubscribe from all subscriptions
+        // this.treeArchivos.unsubscribe();
+        //this._unsubscribeAll.next();
+        // this._unsubscribeAll.complete();
     }
 };
 JmyArchivosComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -27020,7 +27038,7 @@ let ToolbarComponent = class ToolbarComponent {
         });
         this.dialogRef.afterClosed()
             .subscribe((response) => {
-            console.log(response.value, this.jmyService.jmyPerfil.perfil);
+            console.log(response, this.jmyService.jmyPerfil.perfil);
             if (!response)
                 return;
             else {
@@ -27911,6 +27929,8 @@ let ContactsService = class ContactsService {
         if (this.jmyService.jmyPerfil.perfil.uid != '') {
             this.jmyService.jmyPerfil.actualizarPerfil(d).then(r => {
                 console.log('eCard Actualizado', d, r);
+            }).catch(e => {
+                console.error(e);
             });
         }
         else {
@@ -28538,7 +28558,7 @@ const navigation = [
     },
     {
         id: 'stormcatcher',
-        title: 'Storm Catcher',
+        title: 'Sistema Almacén',
         hidden: true,
         modulo: [{
                 permiso: 1,
@@ -29842,6 +29862,35 @@ const configuraciones = {
             databaseURL: "https://encouraging-mix-111109-admin.firebaseio.com/",
         }
     },
+    "concomsis-san-miguel": {
+        usuario: {
+            photoProfile: './assets/images/logos/ico_700x700-san.png'
+        },
+        jmyConfig: {
+            cliente: {
+                projectId: "concomsis-panel",
+                logo: "assets/images/logos/fuse-san.svg",
+                tema: {
+                    login: 'tradicional',
+                    colorTheme: 'theme-san-mi-light',
+                }
+            },
+            app: {
+                nombre: 'San Miguel',
+                eid: "concomsis-panel",
+                key: "2ccf86e440e9a50cfa6274776fe03dd4",
+                servidor: "https://us-central1-concomsis.cloudfunctions.net/beta/",
+                ecard: [{
+                        nombre: 'Concomsis eCard',
+                        url: 'https://comsis.mx/e/0/',
+                        img: 'https://comsis.mx/att/static/jmy4/angular/fuse/assets/logoIco.png'
+                    }],
+            }
+        },
+        firebase: {
+            databaseURL: "https://encouraging-mix-111109-comsis-mx.firebaseio.com/",
+        }
+    },
     "concomsis-panel-konhaus": {
         usuario: {
             photoProfile: './assets/images/logos/ico_700x700-konhaus.png'
@@ -29878,9 +29927,14 @@ const configuraciones = {
             },
             cliente: {
                 projectId: "a07bd76074c0a795174e674ec04a18cf",
+                logo: "assets/images/logos/fuse-stormcatcher.svg",
+                tema: {
+                    login: 'tradicional',
+                    colorTheme: 'theme-stormcatcher-dark',
+                }
             },
             app: {
-                nombre: 'Intranet Storm Catcher',
+                nombre: 'Panel Storm Catcher (SAND)',
                 eid: "a07bd76074c0a795174e674ec04a18cf",
                 key: "1dd8c965ae4f920944c9697e5f78a719",
                 // servidor:"https://us-central1-concomsis.cloudfunctions.net/beta/",            
@@ -29893,7 +29947,7 @@ const configuraciones = {
             }
         },
         firebase: {
-            databaseURL: "https://encouraging-mix-111109-storm-catcher-concomsis.firebaseio.com/",
+            databaseURL: "https://encouraging-mix-111109-storm-catcher-sand-concomsis.firebaseio.com/",
         }
     },
     "storm-cacher": {
@@ -30035,7 +30089,7 @@ const configuraciones = {
                 eid: "concomsis-panel",
                 key: "2ccf86e440e9a50cfa6274776fe03dd4",
                 // servidor:"https://us-central1-concomsis.cloudfunctions.net/beta/",            
-                //servidor:"http://localhost:5001/concomsis/us-central1/beta/",   
+                servidor: "http://localhost:5001/concomsis/us-central1/beta/",
                 ecard: [{
                         nombre: 'Concomsis eCard',
                         url: 'https://comsis.mx/e/0/',
@@ -30048,9 +30102,10 @@ const configuraciones = {
         }
     }
 };
-const licencia = "storm-cacher";
+//const licencia="concomsis-panel";
+//const licencia="concomsis-san-miguel";
 //const licencia="concomsis-panel-konhaus";
-//const licencia="storm-cacher-sand";
+const licencia = "storm-cacher";
 const environment = new configEnv(configuraciones[licencia].firebase);
 const jmyConfig = new configJmy(configuraciones[licencia]);
 

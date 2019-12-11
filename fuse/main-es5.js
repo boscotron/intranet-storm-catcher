@@ -9026,9 +9026,9 @@ var JmyPerfil = /** @class */ (function () {
     JmyPerfil.prototype.actualizarPerfil = function (d) {
         var _this = this;
         return new Promise(function (res, rej) {
-            //  console.log(d,this.perfil);
             _this.perfilPrivado(d).then(function (r) {
-                _this.perfil = d;
+                _this.perfil = new _interfaces_services__WEBPACK_IMPORTED_MODULE_5__["infoPerfilInterface"](d);
+                console.log(d, _this.perfil);
                 _this.perfilChange.next(_this.perfil);
                 //   console.log(' actualizarPerfil 👌',this.perfil);
                 res(_this.perfil);
@@ -9106,7 +9106,7 @@ var JmyPerfil = /** @class */ (function () {
     JmyPerfil.prototype.perfilPrivado = function (d) {
         var _this = this;
         return new Promise(function (res, rej) {
-            //console.log(this.rdbu,d,this.perfil,this.rutaPublica+'lista/'+this.perfil.uid);          
+            console.log(_this.rdbu, d, _this.perfil, _this.rutaPublica + 'lista/' + _this.perfil.uid);
             _this.perfil = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, _this.perfil, d);
             _this.db.object(_this.rdbu).set(_this.perfil).then(function (r) {
             });
@@ -9301,7 +9301,7 @@ var JmyFn = /** @class */ (function () {
             } };
         //console.log(this.CNF);
         this.listaNotificaciones().then();
-        this.configuracionArchivos.subscribe(function (conf) {
+        this.configuracionArchivos.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(this._unsubscribeAll)).subscribe(function (conf) {
             var p = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, conf, { eid: environments_environment__WEBPACK_IMPORTED_MODULE_3__["jmyConfig"].app.eid, key: environments_environment__WEBPACK_IMPORTED_MODULE_3__["jmyConfig"].app.key, uid: (_this.jmyPerfil.perfil != undefined) ? _this.jmyPerfil.perfil.uid : '0' });
             _this.configuracionArchivosQ = p;
         });
@@ -9331,7 +9331,7 @@ var JmyFn = /** @class */ (function () {
         if (borrar === void 0) { borrar = false; }
         return new Promise(function (res, rej) {
             if (grupo != undefined) {
-                var q_1 = _this.db.object(_this.CNF.ruta.notificacionesGrupo + grupo).valueChanges().subscribe(function (r) {
+                var q_1 = _this.db.object(_this.CNF.ruta.notificacionesGrupo + grupo).valueChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(_this._unsubscribeAll)).subscribe(function (r) {
                     q_1.unsubscribe();
                     var u = r || {};
                     if (u[id] == undefined)
@@ -9359,20 +9359,23 @@ var JmyFn = /** @class */ (function () {
         return new Promise(function (res, rej) {
             _this.botonEnEsperaArchivos.next(true);
             _this.archivosQ = _this.http.post(environments_environment__WEBPACK_IMPORTED_MODULE_3__["jmyConfig"].app.servidor + 'archivos', _this.configuracionArchivosQ)
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(_this._unsubscribeAll)).subscribe(function (r) {
-                console.log(r);
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["takeUntil"])(_this._unsubscribeAll)).subscribe(function (r) {
+                _this.archivosQ.unsubscribe();
+                console.log(r, {
+                    tree: r['o']['tree'],
+                    url_iframe: r['o']['url_iframe']
+                });
                 if (r['error'] != '') {
                     if (r['error']['mensaje'] != '') {
                         _this.toastr.error(r['error'], 'Aceeso restringido');
                         rej(r['error']);
                     }
                 }
-                if (r['error'] != undefined && r['error'] == '')
-                    _this.treeArchivos.next({
-                        tree: r['o']['tree'],
-                        url_iframe: r['o']['url_iframe']
-                    });
-                _this.archivosQ.unsubscribe();
+                // if(r['error']==undefined||r['error']=='')
+                _this.treeArchivos.next({
+                    tree: r['o']['tree'] || [],
+                    url_iframe: r['o']['url_iframe'] || {}
+                });
                 _this.botonEnEsperaArchivos.next(false);
                 if (r != undefined) {
                     if (r['o']['id'] != '') {
@@ -9565,6 +9568,7 @@ var JmyFn = /** @class */ (function () {
         */
     JmyFn.prototype.ngOnDestroy = function () {
         this.treeArchivos.complete();
+        this.botonEnEsperaArchivos.complete();
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     };
@@ -9899,20 +9903,12 @@ var JmyArchivosComponent = /** @class */ (function () {
             _this.empresa.next(r);
             console.log(r);
         });
-    }
-    JmyArchivosComponent.prototype.reset = function () {
-        this.urlTarget = this.urlTargetDef;
-        return this.urlTarget;
-    };
-    JmyArchivosComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.vista = false;
-        /*let otraConfig:ArchivosConfigInterface = {
-          ruta:'',
-          modulo:'',
-          raiz:'',
-          permiso:'',
-        }*/
+        this.treeArchivos = this.jmyService.jmyFn.treeArchivos;
+        this.treeArchivos.subscribe(function (r) {
+            // console.log(r);
+            if (_this.urlTarget != r.url_iframe['url'])
+                _this.urlTarget = r.url_iframe['url'] || _this.urlTargetDef;
+        });
         this.jmyService.jmyFn.configuracionArchivos.subscribe(function (cA) {
             _this.urlTarget = _this.urlTargetDef;
             _this.jmyService.jmyFn.botonEnEsperaArchivos.next(true);
@@ -9926,6 +9922,27 @@ var JmyArchivosComponent = /** @class */ (function () {
                 _this.toastr.error(err['mensaje'], 'Error  :( ');
             });
         });
+    }
+    JmyArchivosComponent.prototype.reset = function () {
+        this.urlTarget = this.urlTargetDef;
+        return this.urlTarget;
+    };
+    JmyArchivosComponent.prototype.ngOnInit = function () {
+        this.vista = false;
+        /*let otraConfig:ArchivosConfigInterface = {
+          ruta:'',
+          modulo:'',
+          raiz:'',
+          permiso:'',
+        }*/
+    }; /**
+    * On destroy
+    */
+    JmyArchivosComponent.prototype.ngOnDestroy = function () {
+        // Unsubscribe from all subscriptions
+        // this.treeArchivos.unsubscribe();
+        //this._unsubscribeAll.next();
+        // this._unsubscribeAll.complete();
     };
     JmyArchivosComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
@@ -27498,7 +27515,7 @@ var ToolbarComponent = /** @class */ (function () {
         });
         this.dialogRef.afterClosed()
             .subscribe(function (response) {
-            console.log(response.value, _this.jmyService.jmyPerfil.perfil);
+            console.log(response, _this.jmyService.jmyPerfil.perfil);
             if (!response)
                 return;
             else {
@@ -28421,6 +28438,8 @@ var ContactsService = /** @class */ (function () {
         if (this.jmyService.jmyPerfil.perfil.uid != '') {
             this.jmyService.jmyPerfil.actualizarPerfil(d).then(function (r) {
                 console.log('eCard Actualizado', d, r);
+            }).catch(function (e) {
+                console.error(e);
             });
         }
         else {
@@ -29062,7 +29081,7 @@ var navigation = [
     },
     {
         id: 'stormcatcher',
-        title: 'Storm Catcher',
+        title: 'Sistema Almacén',
         hidden: true,
         modulo: [{
                 permiso: 1,
@@ -30389,6 +30408,35 @@ var configuraciones = {
             databaseURL: "https://encouraging-mix-111109-admin.firebaseio.com/",
         }
     },
+    "concomsis-san-miguel": {
+        usuario: {
+            photoProfile: './assets/images/logos/ico_700x700-san.png'
+        },
+        jmyConfig: {
+            cliente: {
+                projectId: "concomsis-panel",
+                logo: "assets/images/logos/fuse-san.svg",
+                tema: {
+                    login: 'tradicional',
+                    colorTheme: 'theme-san-mi-light',
+                }
+            },
+            app: {
+                nombre: 'San Miguel',
+                eid: "concomsis-panel",
+                key: "2ccf86e440e9a50cfa6274776fe03dd4",
+                servidor: "https://us-central1-concomsis.cloudfunctions.net/beta/",
+                ecard: [{
+                        nombre: 'Concomsis eCard',
+                        url: 'https://comsis.mx/e/0/',
+                        img: 'https://comsis.mx/att/static/jmy4/angular/fuse/assets/logoIco.png'
+                    }],
+            }
+        },
+        firebase: {
+            databaseURL: "https://encouraging-mix-111109-comsis-mx.firebaseio.com/",
+        }
+    },
     "concomsis-panel-konhaus": {
         usuario: {
             photoProfile: './assets/images/logos/ico_700x700-konhaus.png'
@@ -30425,9 +30473,14 @@ var configuraciones = {
             },
             cliente: {
                 projectId: "a07bd76074c0a795174e674ec04a18cf",
+                logo: "assets/images/logos/fuse-stormcatcher.svg",
+                tema: {
+                    login: 'tradicional',
+                    colorTheme: 'theme-stormcatcher-dark',
+                }
             },
             app: {
-                nombre: 'Intranet Storm Catcher',
+                nombre: 'Panel Storm Catcher (SAND)',
                 eid: "a07bd76074c0a795174e674ec04a18cf",
                 key: "1dd8c965ae4f920944c9697e5f78a719",
                 // servidor:"https://us-central1-concomsis.cloudfunctions.net/beta/",            
@@ -30440,7 +30493,7 @@ var configuraciones = {
             }
         },
         firebase: {
-            databaseURL: "https://encouraging-mix-111109-storm-catcher-concomsis.firebaseio.com/",
+            databaseURL: "https://encouraging-mix-111109-storm-catcher-sand-concomsis.firebaseio.com/",
         }
     },
     "storm-cacher": {
@@ -30582,7 +30635,7 @@ var configuraciones = {
                 eid: "concomsis-panel",
                 key: "2ccf86e440e9a50cfa6274776fe03dd4",
                 // servidor:"https://us-central1-concomsis.cloudfunctions.net/beta/",            
-                //servidor:"http://localhost:5001/concomsis/us-central1/beta/",   
+                servidor: "http://localhost:5001/concomsis/us-central1/beta/",
                 ecard: [{
                         nombre: 'Concomsis eCard',
                         url: 'https://comsis.mx/e/0/',
@@ -30595,9 +30648,10 @@ var configuraciones = {
         }
     }
 };
-var licencia = "storm-cacher";
+//const licencia="concomsis-panel";
+//const licencia="concomsis-san-miguel";
 //const licencia="concomsis-panel-konhaus";
-//const licencia="storm-cacher-sand";
+var licencia = "storm-cacher";
 var environment = new configEnv(configuraciones[licencia].firebase);
 var jmyConfig = new configJmy(configuraciones[licencia]);
 

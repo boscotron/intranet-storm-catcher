@@ -4499,6 +4499,7 @@ __webpack_require__.r(__webpack_exports__);
 var ProveedorDatos = /** @class */ (function () {
     function ProveedorDatos(datos) {
         this.id = datos.id || _fuse_utils__WEBPACK_IMPORTED_MODULE_0__["FuseUtils"].generateGUID();
+        this.titulo = datos.titulo || '';
         this.nombre = datos.nombre || '';
         this.telefonos = datos.telefonos || [];
         this.email = datos.email || [];
